@@ -1,0 +1,13 @@
+name: medicraft
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pytorch
+  - torchvision
+  - pytorch-cuda=12.1
+  - ca-certificates
+  - openssl
+  - black
+  - flake8
+  - certifi

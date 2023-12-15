@@ -11,3 +11,6 @@ dependencies:
   - black
   - flake8
   - certifi
+  - ipykernel
+  - pip:
+    - denoising_diffusion_pytorch 

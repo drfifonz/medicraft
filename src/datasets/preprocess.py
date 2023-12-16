@@ -1,6 +1,9 @@
 from pathlib import Path
 from typing import Optional
 
+from PIL import Image
+from tqdm import tqdm
+
 DATA_ROOT_PATH = Path("data")
 EASY_CASES_PATH = DATA_ROOT_PATH / "easy_cases_with_fluid"
 REFERENCE_EYE_DIR_NAME = "healthy_eye"  # TODO rename to reference_eye
@@ -46,6 +49,20 @@ def get_reference_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
     return healthy_eyes_paths
 
 
+def resize_images_and_save(
+    images_paths: list[Path],
+    output_dir_path: str,
+    size: tuple[int, int],
+) -> None:
+    """Resizes images from given paths and saves them to given directory."""
+    output_dir_path = Path(output_dir_path)
+    output_dir_path.mkdir(parents=True, exist_ok=True)
+
+    for image_path in tqdm(images_paths):
+        image = Image.open(image_path).resize(size)
+        image.save(output_dir_path / image_path.name)
+
+
 if __name__ == "__main__":
     patiens_paths = get_patients_paths(EASY_CASES_PATH)
 
@@ -57,3 +74,8 @@ if __name__ == "__main__":
     lesion_eyes_paths = get_lesion_eyes_paths(EASY_CASES_PATH)
     print(f"Lesion eyes : {len(lesion_eyes_paths)}")
     print(lesion_eyes_paths[0])
+
+    SIZE = (256, 128)
+    OUTPUT_DIR = "data/healthy_eyes_" + str("x".join([str(x) for x in SIZE]))
+    print(f"Resize to {SIZE}", OUTPUT_DIR)
+    resize_images_and_save(healthy_eyes_paths, OUTPUT_DIR, SIZE)

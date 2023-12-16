@@ -1,6 +1,8 @@
 name: medicraft
 channels:
   - conda-forge
+  - pytorch
+  - nvidia
 dependencies:
   - python=3.11
   - pytorch

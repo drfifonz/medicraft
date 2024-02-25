@@ -13,8 +13,8 @@ model.to(device=DEVICE)
 diffusion = GaussianDiffusion(
     model,
     image_size=(512, 256)[::-1],
-    timesteps=1000,  # number of steps
-    # timesteps=2,  # number of steps
+    # timesteps=1000,  # number of steps
+    timesteps=2,  # number of steps
     # loss_type = 'l1'    # L1 or L2
 )
 diffusion.to(device=DEVICE)
@@ -37,5 +37,5 @@ trainer = Trainer(
     num_samples=9,  # number of samples to save
     calculate_fid=False,  # calculate FID during sampling
 )
-trainer.load("healthy_eyes_512x256_s80000/model-40.pt")
+# trainer.load("healthy_eyes_512x256_s80000/model-40.pt")
 trainer.train()

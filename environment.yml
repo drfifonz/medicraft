@@ -17,3 +17,4 @@ dependencies:
   - pip
   - pip:
     - denoising_diffusion_pytorch 
+    - wandb

@@ -1,4 +1,5 @@
 from pathlib import Path
+from shutil import copy2
 from typing import Optional
 
 from PIL import Image
@@ -38,7 +39,7 @@ def get_lesion_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
 
 
 def get_reference_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
-    """Returns list of images' paths to all eyes with lesion without reference eye."""
+    """Returns list of images' paths to all eyes with reference healthy eye"""
     healthy_eyes_paths = []
 
     for patient_dir in get_patients_paths(dataset_dir):
@@ -63,19 +64,36 @@ def resize_images_and_save(
         image.save(output_dir_path / image_path.name)
 
 
+def copy_images_to_dir(images_paths: list[Path], destination_dir: Path) -> None:
+    """Copies images from given paths to given directory."""
+
+    destination_dir.mkdir(parents=True, exist_ok=True)
+    for source_path in tqdm(images_paths):
+        destination_path = destination_dir / source_path.name
+        copy2(source_path, destination_path)
+
+
 if __name__ == "__main__":
     patiens_paths = get_patients_paths(EASY_CASES_PATH)
 
     # print(get_healty_eyes_paths(patiens_paths[0]))
     healthy_eyes_paths = get_reference_eyes_paths(EASY_CASES_PATH)
 
+    # raise ValueError("Testing only")
     print(f"Healthy eyes: {len(healthy_eyes_paths)}")
     print(healthy_eyes_paths[0])
     lesion_eyes_paths = get_lesion_eyes_paths(EASY_CASES_PATH)
     print(f"Lesion eyes : {len(lesion_eyes_paths)}")
     print(lesion_eyes_paths[0])
 
-    SIZE = (256, 128)
-    OUTPUT_DIR = "data/healthy_eyes_" + str("x".join([str(x) for x in SIZE]))
-    print(f"Resize to {SIZE}", OUTPUT_DIR)
-    resize_images_and_save(healthy_eyes_paths, OUTPUT_DIR, SIZE)
+    # destination_dir = DATA_ROOT_PATH / "healthy_eyes"
+    # copy_images_to_dir(healthy_eyes_paths, destination_dir)
+
+    # SIZE = (256, 128)
+    # SIZE = (128, 64)
+    SIZE = (512, 256)
+    print(f"Resize to {SIZE}")
+    HEALTHY_OUTPUT_DIR = "data/input_datasets/healthy_eyes_" + str("x".join([str(x) for x in SIZE]))
+    LESSION_OUTPUT_DIR = "data/input_datasets/with_fluid_eyes" + str("x".join([str(x) for x in SIZE]))
+    # resize_images_and_save(healthy_eyes_paths, HEALTHY_OUTPUT_DIR, SIZE)
+    resize_images_and_save(lesion_eyes_paths, LESSION_OUTPUT_DIR, SIZE)

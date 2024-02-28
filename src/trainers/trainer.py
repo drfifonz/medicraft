@@ -1,18 +1,15 @@
 import json
 import math
 import os
+from pathlib import Path
 from typing import Literal
 
 import torch
 from denoising_diffusion_pytorch import Trainer as DiffusionTrainer
-from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
-    divisible_by,
-    exists,
-    num_to_groups,
-)
+from denoising_diffusion_pytorch.denoising_diffusion_pytorch import divisible_by, exists, num_to_groups
 from denoising_diffusion_pytorch.version import __version__
 from torch import nn
-from torchvision import transforms as utils  # TODO change to other import name
+from torchvision import utils  # TODO change to other import name
 from tqdm.auto import tqdm
 
 from trackers import get_tracker_class
@@ -47,11 +44,29 @@ class Trainer(DiffusionTrainer):
         tracker: str | None = None,
         tracker_kwargs: dict | None = None,
     ):
+        self.tracker = None  # Todo try if is it necessary or remove this line
         if tracker:
+            parameters = {k: v for k, v in locals().items() if k != "self"}
+            [
+                parameters.pop(key)  # TODO pop more keys
+                for key in [
+                    "tracker_kwargs",
+                    "results_folder",
+                    "convert_image_to",
+                    "save_and_sample_every",
+                    "diffusion_model",
+                    "folder",
+                    "tracker",
+                ]
+            ]
+            parameters["dataset_name"] = Path(folder).name
+
             tracker_class = get_tracker_class(tracker.lower())
             self.tracker = tracker_class(
-                project_name=getattr(tracker_kwargs, "project_name", "medicraft-diffusion"),
-                hyperparameters={k: v for k, v in locals().items() if k != "self"},
+                project_name=getattr(tracker_kwargs, "project_name", "medicraft"),
+                tags=getattr(tracker_kwargs, "tags", None),
+                group=getattr(tracker_kwargs, "group", "diffusion"),
+                hyperparameters=parameters,
             )
 
         # raise ValueError("Tracker testing only") # TODO remove this line
@@ -82,21 +97,6 @@ class Trainer(DiffusionTrainer):
 
         print("Trainer initialized")
 
-    @torch.inference_mode()
-    def sample(self, batch_size=16, return_all_timesteps=False):
-        image_size, channels = self.image_size, self.channels
-        sample_fn = self.p_sample_loop if not self.is_ddim_sampling else self.ddim_sample
-        if isinstance(image_size, tuple):
-            return sample_fn(
-                (batch_size, channels, *image_size),
-                return_all_timesteps=return_all_timesteps,
-            )
-
-        return sample_fn(
-            (batch_size, channels, image_size, image_size),
-            return_all_timesteps=return_all_timesteps,
-        )
-
     def save(self, milestone):
         if not self.accelerator.is_local_main_process:
             return
@@ -125,9 +125,7 @@ class Trainer(DiffusionTrainer):
         device = accelerator.device
 
         with tqdm(initial=self.step, total=self.train_num_steps, disable=not accelerator.is_main_process) as pbar:
-
             while self.step < self.train_num_steps:
-
                 total_loss = 0.0
 
                 for _ in range(self.gradient_accumulate_every):
@@ -141,6 +139,8 @@ class Trainer(DiffusionTrainer):
                     self.accelerator.backward(loss)
 
                 pbar.set_description(f"loss: {total_loss:.4f}")
+                if self.tracker:
+                    self.tracker.log({"loss": total_loss})
 
                 accelerator.wait_for_everyone()
                 accelerator.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
@@ -163,6 +163,9 @@ class Trainer(DiffusionTrainer):
                             all_images_list = list(map(lambda n: self.ema.ema_model.sample(batch_size=n), batches))
 
                         all_images = torch.cat(all_images_list, dim=0)
+
+                        if self.tracker:
+                            self.tracker.log_images(all_images)
 
                         utils.save_image(
                             all_images,

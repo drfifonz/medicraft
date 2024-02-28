@@ -2,7 +2,7 @@ import torch
 from denoising_diffusion_pytorch import Unet
 
 from models import GaussianDiffusion
-from trainer import Trainer
+from trainers import Trainer
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -27,14 +27,15 @@ def main():
 
     print(f"Model loaded to {DEVICE} device.")
 
-    data_path = "./data/healthy_eyes_256x128"
+    data_path = "./data/input_datasets/with_fluid_eyes_512x256"
 
     trainer = Trainer(  # noqa : F841
         diffusion,
         data_path,
-        train_batch_size=4,
+        train_batch_size=8,
         train_lr=2e-4,
         save_and_sample_every=2000,
+        # save_and_sample_every=10,
         train_num_steps=200_000,  # total training steps
         gradient_accumulate_every=4,  # gradient accumulation steps
         ema_decay=0.995,  # exponential moving average decay
@@ -44,7 +45,7 @@ def main():
         tracker="wandb",
     )
 
-    # trainer.train()
+    trainer.train()
 
 
 if __name__ == "__main__":

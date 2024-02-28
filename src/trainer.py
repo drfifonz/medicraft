@@ -15,7 +15,7 @@ from torch import nn
 from torchvision import transforms as utils  # TODO change to other import name
 from tqdm.auto import tqdm
 
-from trackers import WandbTracker, get_tracker_class
+from trackers import get_tracker_class
 
 
 class Trainer(DiffusionTrainer):

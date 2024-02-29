@@ -1,4 +1,3 @@
-import json
 import math
 import os
 from pathlib import Path
@@ -187,5 +186,7 @@ class Trainer(DiffusionTrainer):
                             self.save(milestone)
 
                 pbar.update(1)
+                if self.tracker:
+                    self.tracker.update_step()
 
         accelerator.print("training complete")

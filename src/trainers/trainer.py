@@ -53,7 +53,7 @@ class Trainer(DiffusionTrainer):
                     "results_folder",
                     "convert_image_to",
                     "save_and_sample_every",
-                    "diffusion_model",
+                    # "diffusion_model",
                     "folder",
                     "tracker",
                 ]

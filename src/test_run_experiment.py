@@ -19,12 +19,11 @@ def main():
     diffusion = GaussianDiffusion(
         model,
         image_size=(512, 256)[::-1],
-        # timesteps=1000,  # number of steps
-        timesteps=2,  # number of steps
+        timesteps=1000,  # number of steps #
+        # timesteps=2,  # number of steps
         # loss_type = 'l1'    # L1 or L2
     )
     diffusion.to(device=DEVICE)
-
     print(f"Model loaded to {DEVICE} device.")
 
     # data_path = "./data/input_datasets/with_fluid_eyes_512x256"
@@ -45,6 +44,7 @@ def main():
         num_samples=9,  # number of samples to save
         calculate_fid=False,  # calculate FID during sampling
         tracker="wandb",
+        tracker_kwargs={"tags": ["healthy_eyes"]},
     )
     trainer.train()
 

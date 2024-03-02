@@ -2,10 +2,11 @@ import math
 from collections.abc import Sequence
 
 import torch
-import wandb
 from torch import nn
 from torchvision import transforms
 from torchvision.utils import make_grid
+
+import wandb
 
 
 def is_square(num: int) -> bool:
@@ -13,7 +14,7 @@ def is_square(num: int) -> bool:
 
 
 class WandbTracker:
-    def __init__(self, project_name: str, hyperparameters: dict, tags: Sequence, group: str) -> None:
+    def __init__(self, project_name: str, hyperparameters: dict, tags: Sequence, group: str, **kwargs) -> None:
         # wandb.init(project=project_name, name=experiment_name)
         # self.run = wandb.run
         self.step = 0
@@ -24,6 +25,8 @@ class WandbTracker:
             config=hyperparameters,
             group=group,
             tags=tags if tags else None,
+            id=kwargs.get("id", None),
+            resume=kwargs.get("resume", None),  # TODO resume tracking doesnt work
         )
         assert wandb.run is not None
         wandb.define_metric("*", step_metric="global_step")

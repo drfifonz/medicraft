@@ -5,7 +5,11 @@ from typing import Literal
 
 import torch
 from denoising_diffusion_pytorch import Trainer as DiffusionTrainer
-from denoising_diffusion_pytorch.denoising_diffusion_pytorch import divisible_by, exists, num_to_groups
+from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
+    divisible_by,
+    exists,
+    num_to_groups,
+)
 from denoising_diffusion_pytorch.version import __version__
 from torch import nn
 from torchvision import utils  # TODO change to other import name
@@ -65,6 +69,8 @@ class Trainer(DiffusionTrainer):
                 project_name=getattr(tracker_kwargs, "project_name", "medicraft"),
                 tags=getattr(tracker_kwargs, "tags", None),
                 group=getattr(tracker_kwargs, "group", "diffusion"),
+                resume=getattr(tracker_kwargs, "resume", None),
+                id=getattr(tracker_kwargs, "id", None),
                 hyperparameters=parameters,
             )
 
@@ -118,6 +124,26 @@ class Trainer(DiffusionTrainer):
         models_to_remove = list_of_models[:-num_models]
         for model in models_to_remove:
             model.unlink()
+
+    def load(self, milestone_path: str):
+        accelerator = self.accelerator
+        device = accelerator.device
+
+        data = torch.load(milestone_path, map_location=device)
+
+        model = self.accelerator.unwrap_model(self.model)
+        model.load_state_dict(data["model"])
+
+        self.step = data["step"]
+        self.opt.load_state_dict(data["opt"])
+        if self.accelerator.is_main_process:
+            self.ema.load_state_dict(data["ema"])
+
+        if "version" in data:
+            print(f"loading from version {data['version']}")
+
+        if exists(self.accelerator.scaler) and exists(data["scaler"]):
+            self.accelerator.scaler.load_state_dict(data["scaler"])
 
     def train(self):
         accelerator = self.accelerator

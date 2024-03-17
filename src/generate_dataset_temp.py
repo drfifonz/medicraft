@@ -108,6 +108,7 @@ if __name__ == "__main__":
     checkpoint = torch.load(MODEL_PATH)  # TODO unused variable ?
 
     DATASET_PATH = "datasets/with_fluid_eyes_512x256_dataset"
+    Path.mkdir(Path(DATASET_PATH), parents=True, exist_ok=True)
     ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/"
     ONEDRIVE_DESTINATION_DIR = str(Path(ONEDRIVE_DATASETS_DIR) / Path(DATASET_PATH).name)
 

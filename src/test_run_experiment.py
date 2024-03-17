@@ -26,8 +26,8 @@ def main():
     diffusion.to(device=DEVICE)
     print(f"Model loaded to {DEVICE} device.")
 
-    # data_path = "./data/input_datasets/with_fluid_eyes_512x256"
-    data_path = "./data/input_datasets/healthy_eyes_512x256"
+    data_path = "./data/input_datasets/with_fluid_eyes_512x256"
+    # data_path = "./data/input_datasets/healthy_eyes_512x256"
 
     trainer = Trainer(  # noqa : F841
         diffusion,
@@ -36,17 +36,17 @@ def main():
         train_lr=2e-4,
         save_and_sample_every=2000,
         # save_and_sample_every=10,
-        results_folder="./.results/continue",
-        train_num_steps=150_000,  # total training steps
+        results_folder="./.results/lesion_eyes",
+        train_num_steps=300_000,  # total training steps
         gradient_accumulate_every=4,  # gradient accumulation steps
         ema_decay=0.995,  # exponential moving average decay
         amp=True,  # turn on mixed precision
         num_samples=9,  # number of samples to save
         calculate_fid=False,  # calculate FID during sampling
         tracker="wandb",
-        tracker_kwargs={"tags": ["healthy_eyes"], "resume": True, "id": "crisp-totem-2"},
+        tracker_kwargs={"tags": ["lesion_eyes"], "resume": True, "id": "sleek-glitter-5"},
     )
-    trainer.load(".results/crisp-totem-2/model-50.pt")
+    trainer.load(".results/sleek-glitter-5/model-75.pt")
     trainer.train()
 
 

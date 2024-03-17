@@ -54,8 +54,11 @@ def resize_images_and_save(
     images_paths: list[Path],
     output_dir_path: str,
     size: tuple[int, int],
+    max_images: int | None = None,
 ) -> None:
     """Resizes images from given paths and saves them to given directory."""
+    images_paths = images_paths[:max_images] if max_images else images_paths
+
     output_dir_path = Path(output_dir_path)
     output_dir_path.mkdir(parents=True, exist_ok=True)
 
@@ -93,7 +96,7 @@ if __name__ == "__main__":
     # SIZE = (128, 64)
     SIZE = (512, 256)
     print(f"Resize to {SIZE}")
-    HEALTHY_OUTPUT_DIR = "data/input_datasets/healthy_eyes_" + str("x".join([str(x) for x in SIZE]))
-    LESSION_OUTPUT_DIR = "data/input_datasets/with_fluid_eyes_" + str("x".join([str(x) for x in SIZE]))
-    resize_images_and_save(healthy_eyes_paths, HEALTHY_OUTPUT_DIR, SIZE)
-    # resize_images_and_save(lesion_eyes_paths, LESSION_OUTPUT_DIR, SIZE)
+    HEALTHY_OUTPUT_DIR = "datasets/genuine_eyes_ballanced/healthy_eyes_" + str("x".join([str(x) for x in SIZE]))
+    WITH_FLUID_OUTPUT_DIR = "datasets/genuine_eyes_ballanced/with_fluid_eyes_" + str("x".join([str(x) for x in SIZE]))
+    resize_images_and_save(healthy_eyes_paths, HEALTHY_OUTPUT_DIR, SIZE, max_images=250)
+    resize_images_and_save(lesion_eyes_paths, WITH_FLUID_OUTPUT_DIR, SIZE, max_images=250)

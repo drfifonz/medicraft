@@ -1,6 +1,7 @@
-__all__ = ["WandbTracker", "get_tracker_class"]
+__all__ = ["WandbTracker", "get_tracker_class", "ImagePredictionLogger"]
 
 
+from .callbacks import ImagePredictionLogger
 from .wandb import WandbTracker
 
 

@@ -1,5 +1,5 @@
 import lightning as pl
-from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint, ProgressBar
+from lightning.pytorch.callbacks import EarlyStopping, ProgressBar, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
 
 import wandb
@@ -25,7 +25,7 @@ def main():
     wandb_logger = WandbLogger(project="wandb-lightning-test", job_type="train")
     early_stop_callback = EarlyStopping(monitor="val_loss")
     # checkpoint_callback = ModelCheckpoint()
-    progressbar_callback = ProgressBar()
+    progressbar_callback = TQDMProgressBar()
     trainer = pl.Trainer(
         max_epochs=50,
         # progress_bar_refresh_rate=20,
@@ -39,7 +39,7 @@ def main():
     )
 
     trainer.fit(model, dm)
-    trainer.test()
+    trainer.test(model, dm)
 
     wandb.finish()
 

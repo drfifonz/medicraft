@@ -1,15 +1,21 @@
 import lightning as pl
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 from torchmetrics import Accuracy, F1Score
 
 
 class ResNetClassifier(pl.LightningModule):
-    def __init__(self, num_classes: int, loss_fn=None, optimizer=None, learning_rate: float = 1e-4):
+    def __init__(
+        self,
+        num_classes: int,
+        loss_fn=None,
+        optimizer=None,
+        pretrained: bool = True,
+        learning_rate: float = 1e-4,
+    ):
         super().__init__()
-        self.model = models.resnet34(pretrained=True)
+        self.model = models.resnet34(pretrained=pretrained)
         self.model.fc = torch.nn.Linear(in_features=512, out_features=num_classes)
 
         self.save_hyperparameters()
@@ -27,7 +33,7 @@ class ResNetClassifier(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         logits = self(x)
-        loss = F.nll_loss(logits, y)
+        loss = self.loss_fn(logits, y)
 
         # training metrics
         preds = torch.argmax(logits, dim=1)
@@ -41,21 +47,21 @@ class ResNetClassifier(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         logits = self(x)
-        loss = F.nll_loss(logits, y)
+        loss = self.loss_fn(logits, y)
 
         # validation metricKs
         preds = torch.argmax(logits, dim=1)
         acc = self.accuracy(preds, y)
-        self.log("val_loss", loss, prog_bar=True)
-        self.log("val_acc", acc, prog_bar=True)
-        self.log("val_f1", self.f1score(preds, y), prog_bar=True)
+        self.log("val_loss", losson_epoch=True, prog_bar=True)
+        self.log("val_acc", acc, on_epoch=True, prog_bar=True)
+        self.log("val_f1", self.f1score(preds, y), on_epoch=True, prog_bar=True)
 
         return loss
 
     def test_step(self, batch, batch_idx):
         x, y = batch
         logits = self(x)
-        loss = F.nll_loss(logits, y)
+        loss = self.loss_fn(logits, y)
 
         # validation metrics
         preds = torch.argmax(logits, dim=1)

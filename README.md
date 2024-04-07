@@ -7,4 +7,4 @@ The medical imaging analysis using machine learning encounters challenges such a
 
 
 ---
- ### The conference poster provides information about the project. You can find it [here](poster_medicraft_patyk.pdf).
+ ### The conference poster provides information about the project. You can find it [here](conference_poster.pdf).

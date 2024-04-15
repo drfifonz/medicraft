@@ -6,12 +6,15 @@ from typing import Literal
 import torch
 from denoising_diffusion_pytorch import Trainer as DiffusionTrainer
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
+    cpu_count,
+    cycle,
     divisible_by,
     exists,
     num_to_groups,
 )
 from denoising_diffusion_pytorch.version import __version__
 from torch import nn
+from torch.utils.data import DataLoader
 from torchvision import utils  # TODO change to other import name
 from tqdm.auto import tqdm
 
@@ -100,6 +103,18 @@ class Trainer(DiffusionTrainer):
             save_best_and_latest_only=save_best_and_latest_only,
         )
 
+        self.ds = Dataset(
+            folder, self.image_size, augment_horizontal_flip=augment_horizontal_flip, convert_image_to=convert_image_to
+        )
+
+        assert (
+            len(self.ds) >= 100
+        ), "you should have at least 100 images in your folder. at least 10k images recommended"
+
+        dl = DataLoader(self.ds, batch_size=train_batch_size, shuffle=True, pin_memory=True, num_workers=cpu_count())
+
+        dl = self.accelerator.prepare(dl)
+        self.dl = cycle(dl)
         print("Trainer initialized")
 
     def save(self, milestone):

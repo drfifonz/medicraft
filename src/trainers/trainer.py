@@ -5,6 +5,7 @@ from typing import Literal
 
 import torch
 from denoising_diffusion_pytorch import Trainer as DiffusionTrainer
+from denoising_diffusion_pytorch.denoising_diffusion_pytorch import Dataset as _Dataset
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
     cpu_count,
     cycle,
@@ -14,19 +15,21 @@ from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
 )
 from denoising_diffusion_pytorch.version import __version__
 from torch import nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torchvision import utils  # TODO change to other import name
 from tqdm.auto import tqdm
 
 from trackers import get_tracker_class
+from trackers.wandb import WandbTracker
 
 
 class Trainer(DiffusionTrainer):
     def __init__(
         self,
         diffusion_model: nn.Module,
-        folder: str,
+        folder: str = None,
         *,
+        dataset: Dataset = None,
         train_batch_size: int = 16,
         gradient_accumulate_every: int = 1,
         augment_horizontal_flip: int = True,
@@ -50,7 +53,7 @@ class Trainer(DiffusionTrainer):
         tracker: str | None = None,
         tracker_kwargs: dict | None = None,
     ):
-        self.tracker = None  # Todo try if is it necessary or remove this line
+        self.tracker = None  # TODO try if is it necessary or remove this line
         if tracker:
             parameters = {k: v for k, v in locals().items() if k != "self"}
             [
@@ -65,19 +68,25 @@ class Trainer(DiffusionTrainer):
                     "tracker",
                 ]
             ]
-            parameters["dataset_name"] = Path(folder).name
+            parameters["dataset_name"] = Path(folder).name if folder else dataset.diagnosis
 
-            tracker_class = get_tracker_class(tracker.lower())
-            self.tracker = tracker_class(
-                project_name=getattr(tracker_kwargs, "project_name", "medicraft"),
-                tags=getattr(tracker_kwargs, "tags", None),
-                group=getattr(tracker_kwargs, "group", "diffusion"),
-                resume=getattr(tracker_kwargs, "resume", None),
-                id=getattr(tracker_kwargs, "id", None),
+            print(tracker_kwargs)
+            # group = tracker_kwargs.get("group", "diffusion")
+            # raise
+            # tracker_class = get_tracker_class(tracker.lower()) #TODO fix tracker selection
+            self.tracker = WandbTracker(
+                project_name=tracker_kwargs.get("project_name", "medicraft"),
                 hyperparameters=parameters,
+                tags=tracker_kwargs.get("tags", None),
+                # tags=getattr(tracker_kwargs, "tags", None),
+                group=tracker_kwargs.get("group", "diffusion"),
+                resume=tracker_kwargs.get("resume", None),
+                id=tracker_kwargs.get("id", None),
+                mode=tracker_kwargs.get("mode", "online"),
             )
 
         # raise ValueError("Tracker testing only") # TODO remove this line
+
         super().__init__(
             diffusion_model=diffusion_model,
             folder=folder,
@@ -102,11 +111,16 @@ class Trainer(DiffusionTrainer):
             num_fid_samples=num_fid_samples,
             save_best_and_latest_only=save_best_and_latest_only,
         )
-
-        self.ds = Dataset(
-            folder, self.image_size, augment_horizontal_flip=augment_horizontal_flip, convert_image_to=convert_image_to
-        )
-
+        if dataset is None:
+            self.ds = _Dataset(
+                folder,
+                self.image_size,
+                augment_horizontal_flip=augment_horizontal_flip,
+                convert_image_to=convert_image_to,
+            )
+        else:
+            self.ds = dataset
+        print("Dataset initialized")
         assert (
             len(self.ds) >= 100
         ), "you should have at least 100 images in your folder. at least 10k images recommended"

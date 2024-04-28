@@ -1,5 +1,5 @@
 import math
-from collections.abc import Sequence
+from collections.abc import Sequence  # todo why not use list or iterable
 
 import torch
 from torch import nn
@@ -14,12 +14,13 @@ def is_square(num: int) -> bool:
 
 
 class WandbTracker:
-    def __init__(self, project_name: str, hyperparameters: dict, tags: Sequence, group: str, **kwargs) -> None:
+    def __init__(self, project_name: str, hyperparameters: dict, tags: list, group: str, *args, **kwargs) -> None:
         # wandb.init(project=project_name, name=experiment_name)
         # self.run = wandb.run
         self.step = 0
         print("WandbTracker initialized")
         print(f"Project name: {project_name}")
+        print(kwargs, tags, group)
         wandb.init(
             project=project_name,
             config=hyperparameters,
@@ -27,6 +28,7 @@ class WandbTracker:
             tags=tags if tags else None,
             id=kwargs.get("id", None),
             resume=kwargs.get("resume", None),  # TODO resume tracking doesnt work
+            mode=kwargs.get("mode", "online"),
         )
         assert wandb.run is not None
         wandb.define_metric("*", step_metric="global_step")

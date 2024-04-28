@@ -40,10 +40,10 @@ def main():
         diffusion,
         str(cfg.DATASET_FILE_PATH.parent / "images"),
         dataset=dataset,
-        train_batch_size=1,
+        train_batch_size=4,
         train_lr=2e-4,
-        # save_and_sample_every=2000,
-        save_and_sample_every=10,
+        save_and_sample_every=5000,
+        # save_and_sample_every=10,
         results_folder="./.results/reference",
         train_num_steps=150_000,  # total training steps
         gradient_accumulate_every=4,  # gradient accumulation steps
@@ -54,7 +54,7 @@ def main():
         tracker="wandb",
         tracker_kwargs={
             "tags": ["reference_eyes"],
-            "mode": "offline",
+            "mode": "online",
         },
     )
     # trainer.load(".results/sleek-glitter-5/model-75.pt")

@@ -16,7 +16,7 @@ class OpthalAnonymizedDataset(Dataset):
         diagnosis: Literal["precancerous", "fluid", "benign", "reference"],
         csv_dataset_file: str | Path,
         image_size: tuple[int, int] = (256, 512),
-        transform: nn.Module = None,  # TODO use it
+        transform: nn.Module = None,
         extension: list[str] = [".png", ".jpg", ".jpeg"],  # TODO use it
         convert_image_to=None,
     ):
@@ -33,17 +33,17 @@ class OpthalAnonymizedDataset(Dataset):
 
         maybe_convert_fn = (
             partial(convert_image_to_fn, convert_image_to) if exists(convert_image_to) else nn.Identity()
-        )  # TODO simplify
+        )  # TODO simplify or rename
 
         self.transform = (
             T.Compose(
                 [
-                    T.Grayscale(num_output_channels=1),
                     T.Lambda(maybe_convert_fn),
                     T.CenterCrop(image_size),
                     T.Resize(image_size),
                     # T.RandomHorizontalFlip(),
-                    # T.normalize(mean=[0.5], std=[0.5])
+                    # T.normalize(mean=[0.5,], std=[0.5,])
+                    T.Grayscale(num_output_channels=1),
                     T.ToTensor(),
                 ]
             )
@@ -65,7 +65,6 @@ class OpthalAnonymizedDataset(Dataset):
     def __getitem__(self, idx: int):
         image_path = self.diagnosis_df.iloc[idx]["image_path"]
         image = Image.open(image_path)
-        # raise
         return self.transform(image)
 
     def __len__(self):
@@ -75,8 +74,10 @@ class OpthalAnonymizedDataset(Dataset):
 if __name__ == "__main__":
     DATASET_FILE_PATH = Path("datasets/ophthal_anonym-2024-04-22/dataset.csv")
 
-    dataset = OpthalAnonymizedDataset(root=Path("data"), csv_dataset_file=DATASET_FILE_PATH)
-    print(dataset.diagnosis)
+    dataset = OpthalAnonymizedDataset(csv_dataset_file=DATASET_FILE_PATH)
+
+    im_tensor = next(iter(dataset))
+
     # print(dataset.__get_df_by_diagnosis("reference"))
     # print(dataset.__get_df_by_diagnosis("precancerous"))
     # print(dataset.__get_df_by_diagnosis("fluid"))

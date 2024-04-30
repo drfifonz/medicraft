@@ -13,6 +13,7 @@ def main():
     dataset = OpthalAnonymizedDataset(
         diagnosis="reference",
         csv_dataset_file=cfg.DATASET_FILE_PATH,
+        convert_image_to="L",
     )
 
     model = Unet(
@@ -26,8 +27,8 @@ def main():
     diffusion = GaussianDiffusion(
         model,
         image_size=(512, 256)[::-1],
-        # timesteps=1000,  # number of steps #
-        timesteps=2,  # number of steps
+        timesteps=1000,  # number of steps #
+        # timesteps=2,  # number of steps
         # loss_type = 'l1'    # L1 or L2
     )
     diffusion.to(device=DEVICE)
@@ -42,10 +43,10 @@ def main():
         dataset=dataset,
         train_batch_size=4,
         train_lr=2e-4,
-        save_and_sample_every=5000,
+        save_and_sample_every=2000,
         # save_and_sample_every=10,
         results_folder="./.results/reference",
-        train_num_steps=150_000,  # total training steps
+        train_num_steps=100_000,  # total training steps
         gradient_accumulate_every=4,  # gradient accumulation steps
         ema_decay=0.995,  # exponential moving average decay
         amp=True,  # turn on mixed precision

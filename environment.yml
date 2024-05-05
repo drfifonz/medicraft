@@ -14,6 +14,15 @@ dependencies:
   - flake8
   - certifi
   - ipykernel
+  - tqdm
+  - ipywidgets
+  - plotly
+  - lightning
+  - pandas
+  - h5py
+  - matplotlib
+  - scikit-learn
+  - umap-learn
   - pip
   - pip:
     - denoising_diffusion_pytorch 

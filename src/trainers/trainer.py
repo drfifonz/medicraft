@@ -34,7 +34,8 @@ class Trainer(DiffusionTrainer):
         gradient_accumulate_every: int = 1,
         augment_horizontal_flip: int = True,
         train_lr: float = 1e-4,
-        train_num_steps: int = 100000,
+        train_num_steps: int = 100_000,
+        break_every_steps: int | None = None,
         ema_update_every: int = 10,
         ema_decay: float = 0.995,
         adam_betas: tuple[float, float] = (0.9, 0.99),
@@ -132,7 +133,7 @@ class Trainer(DiffusionTrainer):
         self.dl = cycle(dl)
         print("Trainer initialized")
 
-    def save(self, milestone):
+    def save(self, milestone: str, keep_last_models: int | None = 10):
         if not self.accelerator.is_local_main_process:
             return
 
@@ -144,9 +145,9 @@ class Trainer(DiffusionTrainer):
             "scaler": self.accelerator.scaler.state_dict() if exists(self.accelerator.scaler) else None,
             "version": __version__,
         }
-
-        torch.save(data, str(self.results_folder / f"model-{milestone}.pt"))
-        self.keep_last_models(10)
+        model_path = str(self.results_folder / f"model-{milestone}.pt")
+        torch.save(data, model_path)
+        self.keep_last_models(keep_last_models)
 
     def keep_last_models(self, num_models: int = 10) -> None:
         # keep only last num_models models
@@ -240,6 +241,8 @@ class Trainer(DiffusionTrainer):
                             self.save("latest")
                         else:
                             self.save(milestone)
+                        if self.break_every_steps and self.step % self.break_every_steps == 0:
+                            self.save(f"{milestone}-val")
 
                 pbar.update(1)
                 if self.tracker:

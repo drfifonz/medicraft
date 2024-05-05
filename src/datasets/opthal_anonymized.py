@@ -5,26 +5,53 @@ from typing import Literal
 import pandas as pd
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import convert_image_to_fn, exists
 from PIL import Image
+from sklearn.model_selection import train_test_split
 from torch import nn
 from torch.utils.data import Dataset
 from torchvision import transforms as T
+
+
+def get_csv_dataset(
+    filepath: str | Path,
+    val_size: float | None = 0.1,
+    seed: int = 42,
+) -> dict[str, pd.DataFrame]:
+    """
+    Load dataset from csv file and split it into train and validation sets from previosly splitted train/test dataset.
+    """
+
+    filepath = Path(filepath) if isinstance(filepath, str) else filepath
+
+    df = pd.read_csv(filepath)
+    df[df["image_type"] == "OCT"]
+
+    result = {}
+    if val_size is not None:
+        train_df, val_df = train_test_split(df, test_size=val_size, random_state=seed)
+        result["val"] = val_df
+    else:
+        train_df = df[df["split"] == "train"]
+
+    result["train"] = train_df
+    result["test"] = df[df["split"] == "test"]
+
+    return result
 
 
 class OpthalAnonymizedDataset(Dataset):
     def __init__(
         self,
         diagnosis: Literal["precancerous", "fluid", "benign", "reference"],
-        csv_dataset_file: str | Path,
+        df: pd.DataFrame,
+        images_dir: str | Path,
         image_size: tuple[int, int] = (256, 512),
         transform: nn.Module = None,
         extension: list[str] = [".png", ".jpg", ".jpeg"],  # TODO use it
         convert_image_to=None,
+        seed: int = None,
     ):
-        self.csv_dataset_file = Path(csv_dataset_file) if isinstance(csv_dataset_file, str) else csv_dataset_file
-        self.images_dir = self.csv_dataset_file.parent / "images"
-
-        df = pd.read_csv(csv_dataset_file)
-        self.df = df[df["image_type"] == "OCT"]
+        self.df = df
+        self.images_dir = Path(images_dir) if isinstance(images_dir, str) else images_dir
         self.df["image_path"] = self.df["filename"].apply(lambda x: self.images_dir / x)
 
         self.diagnosis = diagnosis
@@ -72,11 +99,17 @@ class OpthalAnonymizedDataset(Dataset):
 
 
 if __name__ == "__main__":
-    DATASET_FILE_PATH = Path("datasets/ophthal_anonym-2024-04-22/dataset.csv")
+    DATASET_FILE_PATH = Path("data/datasets/ophthal_anonym-2024-04-22/new_df.csv")
+    IMAGE_FILE_PATH = Path("data/datasets/ophthal_anonym-2024-04-22/images")
+    df_dataset = get_csv_dataset(DATASET_FILE_PATH, val_size=0.1 / 0.9)
 
-    dataset = OpthalAnonymizedDataset(csv_dataset_file=DATASET_FILE_PATH)
-
-    im_tensor = next(iter(dataset))
+    train_dataset = OpthalAnonymizedDataset("reference", df_dataset["train"], IMAGE_FILE_PATH)
+    test_dataset = OpthalAnonymizedDataset("reference", df_dataset["test"], IMAGE_FILE_PATH)
+    val_dataset = OpthalAnonymizedDataset("reference", df_dataset["val"], IMAGE_FILE_PATH)
+    # im_tensor = next(iter())
+    print(len(train_dataset))
+    print(len(test_dataset))
+    print(len(val_dataset))
 
     # print(dataset.__get_df_by_diagnosis("reference"))
     # print(dataset.__get_df_by_diagnosis("precancerous"))

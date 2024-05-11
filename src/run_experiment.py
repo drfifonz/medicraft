@@ -5,13 +5,15 @@ import config as cfg
 from datasets import OpthalAnonymizedDataset
 from models import GaussianDiffusion
 from trainers import Trainer
+from utils import copy_results_directory
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def main():
+    DIAGNOSIS = "precancerous"  # ["precancerous", "fluid", "benign", "reference"]
     dataset = OpthalAnonymizedDataset(
-        diagnosis="reference",
+        diagnosis=DIAGNOSIS,
         csv_dataset_file=cfg.DATASET_FILE_PATH,
         convert_image_to="L",
     )
@@ -45,8 +47,8 @@ def main():
         train_lr=2e-4,
         save_and_sample_every=2000,
         # save_and_sample_every=10,
-        results_folder="./.results/reference",
-        train_num_steps=100_000,  # total training steps
+        results_folder=f"./.results/{DIAGNOSIS}",
+        train_num_steps=250_000,  # total training steps
         gradient_accumulate_every=4,  # gradient accumulation steps
         ema_decay=0.995,  # exponential moving average decay
         amp=True,  # turn on mixed precision
@@ -54,12 +56,13 @@ def main():
         calculate_fid=False,  # calculate FID during sampling
         tracker="wandb",
         tracker_kwargs={
-            "tags": ["reference_eyes"],
+            "tags": [DIAGNOSIS, "opthal_anonymized"],
             "mode": "online",
         },
     )
-    # trainer.load(".results/sleek-glitter-5/model-75.pt")
+    trainer.load(".results/reference/model-100.pt")
     trainer.train()
+    copy_results_directory(f"./.results/{DIAGNOSIS}", "/home/wmi/OneDrive/General/results/05.2024/.results")
 
 
 if __name__ == "__main__":

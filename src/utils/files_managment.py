@@ -36,4 +36,4 @@ def copy_results_directory(src_dir: str, dest_dir: str, absolute_paths: tuple[bo
 
 
 if __name__ == "__main__":
-    copy_results_directory("src/utils", "/home/wmi/OneDrive/General/results/datasets/test1")
+    copy_results_directory(".results/benign", "/home/wmi/OneDrive/General/results/05.2024/results/benign")

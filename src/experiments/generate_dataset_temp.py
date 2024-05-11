@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 import torch
@@ -8,6 +9,7 @@ from PIL import Image
 from torchvision import utils
 from tqdm import tqdm
 
+import wandb
 from models import GaussianDiffusion
 from utils import copy_results_directory
 
@@ -38,6 +40,8 @@ def generate_samples(
     start_sample_idx: int = 0,
 ):
     # noise = torch.randn([16, 1, 256, 512], device=DEVICE)
+    if not Path(results_dir).exists():
+        Path(results_dir).mkdir(parents=True)
 
     ema = EMA(
         diffusion_model,
@@ -102,22 +106,40 @@ def save_image(image: Image, path) -> None:
 
 
 if __name__ == "__main__":
-    MODEL_PATH = ".results/honest-frost-6/model-150.pt"
 
-    diffusion.load_state_dict(torch.load(MODEL_PATH)["model"])
-    checkpoint = torch.load(MODEL_PATH)  # TODO unused variable ?
+    DATASET_PATH = "datasets/05.2024/0001"
 
-    DATASET_PATH = "datasets/with_fluid_eyes_512x256_dataset"
-    Path.mkdir(Path(DATASET_PATH), parents=True, exist_ok=True)
-    ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/"
+    ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/ophtal_anonym/"
     ONEDRIVE_DESTINATION_DIR = str(Path(ONEDRIVE_DATASETS_DIR) / Path(DATASET_PATH).name)
 
-    generate_samples(
-        diffusion,
-        DATASET_PATH,
-        num_samples=2000,
-        batch_size=10,
-        # start_sample_idx=2010,
-    )
+    Path.mkdir(Path(DATASET_PATH), parents=True, exist_ok=True)
+    Path.mkdir(Path(ONEDRIVE_DESTINATION_DIR), parents=True, exist_ok=True)
 
-    copy_results_directory(DATASET_PATH, ONEDRIVE_DESTINATION_DIR)
+    print(ONEDRIVE_DATASETS_DIR)
+    # raise
+    models = {
+        "reference": ".results/reference/model-100.pt",
+        "benign": ".results/benign/model-125.pt",
+        "fluid": ".results/fluid/model-125.pt",
+        "precancerous": ".results/precancerous/model-125.pt",
+    }
+
+    wandb.init(project="opthal_anonymized_datasets", tags=["opthal_anonymized", "generate_dataset"])
+
+    for model_name, model_path in models.items():
+
+        diffusion.load_state_dict(torch.load(model_path)["model"])
+        checkpoint = torch.load(model_path)  # TODO unused variable ?
+        dataset_path = Path(DATASET_PATH) / model_name
+        logging.info(f"Model {model_name} loaded from {model_path}.")
+        logging.info(f"Generating samples for {model_name}.")
+        generate_samples(
+            diffusion,
+            dataset_path,
+            num_samples=1000,
+            batch_size=10,
+            # start_sample_idx=2010,
+        )
+        logging.info(f"Samples for {model_name} generated.")
+        copy_results_directory(DATASET_PATH, ONEDRIVE_DESTINATION_DIR / model_name)
+        logging.info(f"Samples for {model_name} copied.")

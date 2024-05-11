@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import torch
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import num_to_groups
 from ema_pytorch import EMA
@@ -20,6 +22,8 @@ def generate_samples(
     start_sample_idx: int = 0,
 ):
     # noise = torch.randn([16, 1, 256, 512], device=DEVICE)
+    if not Path(results_dir).exists():
+        Path(results_dir).mkdir(parents=True)
 
     ema = EMA(
         diffusion_model,

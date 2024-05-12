@@ -27,3 +27,5 @@ dependencies:
   - pip:
     - denoising_diffusion_pytorch 
     - wandb
+    - PyYAML
+    - pydantic

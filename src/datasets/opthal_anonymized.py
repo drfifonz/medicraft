@@ -23,7 +23,7 @@ def get_csv_dataset(
     filepath = Path(filepath) if isinstance(filepath, str) else filepath
 
     df = pd.read_csv(filepath)
-    df[df["image_type"] == "OCT"]
+    df = df[df["image_type"] == "OCT"]
 
     result = {}
     if val_size is not None:

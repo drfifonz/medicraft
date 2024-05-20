@@ -133,13 +133,14 @@ if __name__ == "__main__":
         dataset_path = Path(DATASET_PATH) / model_name
         logging.info(f"Model {model_name} loaded from {model_path}.")
         logging.info(f"Generating samples for {model_name}.")
-        generate_samples(
-            diffusion,
-            dataset_path,
-            num_samples=1000,
-            batch_size=10,
-            # start_sample_idx=2010,
-        )
+        if model_name != "reference":
+            generate_samples(
+                diffusion,
+                dataset_path,
+                num_samples=1000,
+                batch_size=10,
+                # start_sample_idx=2010,
+            )
         logging.info(f"Samples for {model_name} generated.")
-        copy_results_directory(DATASET_PATH, ONEDRIVE_DESTINATION_DIR / model_name)
+        copy_results_directory(DATASET_PATH, ONEDRIVE_DESTINATION_DIR)
         logging.info(f"Samples for {model_name} copied.")

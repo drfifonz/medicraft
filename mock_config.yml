@@ -1,5 +1,16 @@
 general:
-  total_steps: 200_000
+  total_steps: 50
+  # total_steps: 200_000
+  image_size: [256,512]
+  models:
+    unet:
+      dim: 64
+      dim_mults: [1, 2, 4, 8]
+      channels: 1
+
+    diffusion:
+      timesteps: 1000
+
 
 
 data:
@@ -10,10 +21,16 @@ data:
 training:
   train_loop:
     - name: train_generator
-      output_checkpoint_name: 'base_reference_eye_generator'
+      # output_checkpoint_name: 'base_reference_eye_generator'
+      lr: 1e-4
       # move_results_to: '~OneDrive/.......'
     - name: foo
       foo: foo
+    - name: generate_samples
+      repeat: false
+      model_path: "123"
+      samples_dir: "samples"
 
 output:
   results_dir : .results
+  # move_results_to: '~OneDrive/.......'

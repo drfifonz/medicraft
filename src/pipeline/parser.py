@@ -2,14 +2,18 @@ import logging
 import sys
 
 import yaml
-from blocks import ConfigBlocks
 from pydantic import BaseModel, ValidationError
+
+from pipeline.blocks import ConfigBlocks
 
 
 def j_print(data, *args, **kwargs):
     import json
 
-    print(json.dumps(data, indent=4), *args, **kwargs)
+    try:
+        print(json.dumps(data, indent=4), *args, **kwargs)
+    except Exception as e:
+        print(data, *args, **kwargs)
 
 
 def read_config_file(config_file: str) -> dict:
@@ -97,7 +101,12 @@ def get_training_configs(config: dict) -> dict:
         logging.error("Training config not found")
         sys.exit("Parsing config failed")
 
-    training_config = {"total_steps": general_config.get("total_steps"), **training_config}
+    training_config = {
+        "total_steps": general_config.get("total_steps"),
+        "image_size": general_config.get("image_size"),
+        "models": general_config.get("models"),
+        **training_config,
+    }
 
     return training_config
 

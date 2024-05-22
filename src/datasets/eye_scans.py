@@ -7,14 +7,16 @@ from torchvision import datasets
 class EyeScans(pl.LightningDataModule):
     def __init__(
         self,
-        data_dir: str,
         batch_size: int,
-        ratio: list[float] = [0.8, 0.1, 0.1],
+        real_word_data: bool,
+        ratio: list[float] = [0.8, 0.1],
         seed: int = 42,
+        train_data_dir: str | None = None,
+        val_data_dir: str | None = None,
         test_dataset_dir: str | None = None,
         num_workers: int = 4,
     ) -> None:
-        """
+        """#TODO update
         Initializes an instance of the EyeScans dataset.
 
         :param data_dir: The directory path where the dataset is located.
@@ -26,14 +28,23 @@ class EyeScans(pl.LightningDataModule):
         """
 
         super().__init__()
-        self.data_dir = data_dir
+
+        self.train_dataset = None
+        self.val_dataset = None
+        self.test_dataset = None
+        self.real_word_data = real_word_data
+
+        self.train_data_dir = train_data_dir
+        self.val_data_dir = val_data_dir
         self.test_dataset_dir = test_dataset_dir
+
         self.batch_size = batch_size
         self.ratio = ratio
         self.seed = seed
 
         self.transforms = transforms.Compose(
             [
+                transforms.CenterCrop((256, 512)),
                 transforms.Resize((256, 512)),
                 transforms.ToTensor(),
                 transforms.Normalize((0.5,), (0.5,)),
@@ -44,28 +55,53 @@ class EyeScans(pl.LightningDataModule):
     def setup(self, stage: str = None):
         torch.manual_seed(self.seed)
 
-        dataset = datasets.ImageFolder(
-            root=self.data_dir,
-            transform=self.transforms,
-        )
-
-        train_size = int(self.ratio[0] * len(dataset))
-        val_size = int(self.ratio[1] * len(dataset))
-        if self.test_dataset_dir:
-            self.train_dataset, self.val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
-            self.test_dataset = datasets.ImageFolder(root=self.test_dataset_dir, transform=self.transforms)
+        if self.real_word_data:
+            datasets = self._prepare_real_world_datasets()
         else:
-            test_size = len(dataset) - train_size - val_size
+            if self.val_data_dir is not None:
+                raise ValueError("Validation data directory can't be defined for synthetic data")
+            datasets = self.__prepare_synthetic_datasets()
 
-            self.train_dataset, self.val_dataset, self.test_dataset = torch.utils.data.random_split(
-                dataset, [train_size, val_size, test_size]
-            )
+        self.train_dataset = datasets["train"]
+        self.val_dataset = datasets["val"]
+        self.test_dataset = datasets["test"]
 
         if stage == "fit" or stage is None:
             self.train_dataset = torch.utils.data.Subset(self.train_dataset, range(len(self.train_dataset)))
             self.val_dataset = torch.utils.data.Subset(self.val_dataset, range(len(self.val_dataset)))
         if stage == "test" or stage is None:
             self.test_dataset = torch.utils.data.Subset(self.test_dataset, range(len(self.test_dataset)))
+
+    def __prepare_synthetic_datasets(self) -> dict[torch.utils.data.Dataset]:
+        """
+        prepare the synthetic dataset with real world data test set
+        """
+        dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
+        train_size = int(self.ratio[0] * len(dataset))
+        val_size = int(self.ratio[1] * len(dataset))
+
+        train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
+        test_dataset = datasets.ImageFolder(root=self.test_dataset_dir, transform=self.transforms)
+
+        return {
+            "train": train_dataset,
+            "val": val_dataset,
+            "test": test_dataset,
+        }
+
+    def _prepare_real_world_datasets(self) -> dict[torch.utils.data.Dataset]:
+        """
+        prepare the real world dataset with synthetic data test set
+        """
+        train_dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
+        val_dataset = datasets.ImageFolder(root=self.val_data_dir, transform=self.transforms)
+        test_dataset = datasets.ImageFolder(root=self.test_dataset_dir, transform=self.transforms)
+
+        return {
+            "train": train_dataset,
+            "val": val_dataset,
+            "test": test_dataset,
+        }
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(

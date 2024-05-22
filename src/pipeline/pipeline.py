@@ -2,15 +2,18 @@ import logging
 from enum import Enum
 from pathlib import Path
 
-import pandas as pd
+# import pandas as pd
 import torch
 import torch.nn as nn
 from denoising_diffusion_pytorch import Unet
+
+import pipeline.blocks as pipeline_blocks
 
 # from config import DEVICE
 # from datasets import OpthalAnonymizedDataset
 # from datasets.opthal_anonymized import get_csv_dataset
 from models import GaussianDiffusion
+from pipeline.parser import parse_config, read_config_file
 from trainers import Trainer
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -21,13 +24,10 @@ class PipelineBlocks(Enum):
     Enum for the pipeline blocks
     """
 
-    LOAD_DATA = "load_data"
-    TRAIN_MODEL = "train_model"
-    VALIDATE_MODEL = "validate_model"
-    GENERATE_DATASET = "generate_dataset"
-    CALCULATE_DATASET_METRICS = "calculate_dataset_metrics"
-    GET_DATASET_EMBEDDINGS = "get_dataset_embeddings"
-    LOAD_DATASET_EMBEDDINGS = "load_dataset_embeddings"
+    general = "general"
+    data = "data"
+    training = "training"
+    output = "output"
 
 
 class Pipeline:
@@ -35,41 +35,38 @@ class Pipeline:
     A class to represent a pipeline
     """
 
-    def __init__(self, csv_data_file: str):
-        """
-        Initialize the pipeline
-        """
-        self.dataset: dict[str, pd.DataFrame]
-        self.csv_data_file = csv_data_file if isinstance(csv_data_file, Path) else Path(csv_data_file)
+    config: dict
 
-        self.pipeline = []
+    def __init__(self):
+        self.runned_steps = 0
 
-    def load_data(self, val_size: float | None = 0.1 / 0.9, seed: int = 42):
-        """
-        Load data from the data source
-        """
-        # self.dataset = get_csv_dataset(
-        #     filepath=self.csv_data_file,
-        #     val_size=val_size,
-        #     seed=seed,
-        # )
+    def load_data(self, config):
+        print(f"{config=}")
+        pass
 
-    def traing_generator(self, break_every_steps: int | None = None) -> None:
+    def train_generator(
+        self, config: pipeline_blocks.TrainGeneratorDTO, models_config: dict, image_size: list[int]
+    ) -> None:
         """
-        Train the model
+        Train the generator model
         """
-        diffusion = self.__get_diffusion_model()
+        unet_config = models_config.unet
+        diffusion_config = models_config.diffusion
+
+        diffusion = self.__get_diffusion_model(image_size, diffusion_config, unet_config)
+
+        raise ValueError("Not implemented")
         trainer = Trainer(  # noqa : F841
             diffusion,
             str(self.csv_data_file.parent / "images"),
             dataset=self.dataset,
-            train_batch_size=4,
-            train_lr=2e-4,
+            train_batch_size=config.batch_size,
+            train_lr=config.lr,
             save_and_sample_every=2000,
             # save_and_sample_every=10,
             results_folder="./.results/reference",
             train_num_steps=100_000,  # total training steps
-            break_every_steps=break_every_steps,  # TODO add that
+            break_every_steps=3000,  # TODO add that
             gradient_accumulate_every=4,  # gradient accumulation steps
             ema_decay=0.995,  # exponential moving average decay
             amp=True,  # turn on mixed precision
@@ -83,13 +80,50 @@ class Pipeline:
         )
         trainer.train()
 
-    def generate_dataset(self):
+    def train(self, config) -> None:
+        """
+        Train the pipeline with specified configuration
+        """
+        train_loop_blocks: list = config.train_loop
+
+        only_once_blocks = [block for block in train_loop_blocks if block.repeat == False]
+
+        total_steps = config.total_steps
+
+        models_config = config.models
+        image_size = config.image_size
+
+        while total_steps > self.runned_steps:
+            print(f"Step {self.runned_steps}")
+            for block in train_loop_blocks:
+                if block not in only_once_blocks and not block.repeat:
+                    continue
+                if block.name.lower() == pipeline_blocks.TRAIN_GENERATOR:
+                    self.train_generator(block, models_config, image_size)
+                elif block.name.lower() == pipeline_blocks.GENERATE_SAMPLES:
+                    self.generate_samples(block)
+                elif block.name.lower() == pipeline_blocks.VALIDATE:
+                    self.validate(block)
+                elif block.name.lower() == pipeline_blocks.FOO:
+                    print("foo")
+                    self.foo(block)
+                if not block.repeat:
+                    only_once_blocks.remove(block)
+
+    def foo(self, config: pipeline_blocks.FooDTO):
+        """
+        Foo
+        """
+        print(f"{config.foo=}")
+        self.runned_steps += 10
+
+    def generate_samples(self, config: pipeline_blocks.GenerateSamplesDTO):
         """
         Generate dataset
         """
-        pass
+        print("Generating samples")
 
-    def validate_model(self):
+    def validate(self, config: pipeline_blocks.ValidateDTO):
         """
         Validate the model
         """
@@ -113,57 +147,50 @@ class Pipeline:
         """
         pass
 
-    def train(self, val_every_steps: int, total_steps: 100_000):
-        """
-        Train the pipeline
-        """
-        steps = 0
-        while steps <= total_steps:
-            self.traing_generator(break_every_steps=val_every_steps)
-            self.generate_dataset()
-            self.validate_model()
-
-            steps += val_every_steps
-
-        self.traing_generator()
-
     def run(self):
         """
         Run the pipeline
         """
+        if self.config is None:
+            raise ValueError("Configuration not loaded")
 
-        # training
+        # load data
 
-    def __get_unet_model(self) -> nn.Module:
+        self.load_data(self.config.get(PipelineBlocks.data.name))
+
+        self.train(self.config.get(PipelineBlocks.training.name))
+
+    def load_config(self, config_file: str | Path = "config.yml") -> None:
         """
-        Create a UNet model
+        Load the configuration
+        """
+        config = read_config_file(config_file)
+        self.config = parse_config(config)
+        logging.info("Configuration parsed successfully.")
+
+    def __get_unet_model(self, dim: int, dim_mults: list[int], channels: int) -> nn.Module:
+        """
+        Create a Unet model
         """
         model = Unet(
-            dim=64,
-            dim_mults=(1, 2, 4, 8),
-            channels=1,
+            dim=dim,
+            dim_mults=dim_mults,
+            channels=channels,
         )
         model.to(device=DEVICE)
         return model
 
-    def __get_diffusion_model(self) -> nn.Module:
+    def __get_diffusion_model(self, image_size: list[int], diffusion_config: dict, unet_config: dict) -> nn.Module:
         """
         Create a Gaussian diffusion model
         """
-        model = self.__get_unet_model()
+        model = self.__get_unet_model(**unet_config)
         diffusion = GaussianDiffusion(
             model,
-            image_size=(512, 256)[::-1],
-            timesteps=1000,  # number of steps #
-            # timesteps=2,  # number of steps
+            image_size=image_size,
+            **diffusion_config
             # loss_type = 'l1'    # L1 or L2
         )
         diffusion.to(device=DEVICE)
         logging.info(f"Model loaded to {DEVICE} device.")
         return diffusion
-
-
-if __name__ == "__main__":
-    pipeline = Pipeline()
-
-    pipeline.run()

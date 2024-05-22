@@ -88,6 +88,8 @@ class Trainer(DiffusionTrainer):
 
         # raise ValueError("Tracker testing only") # TODO remove this line
 
+        self.break_every_steps = None
+
         Path(results_folder).mkdir(parents=True, exist_ok=True)
         super().__init__(
             diffusion_model=diffusion_model,

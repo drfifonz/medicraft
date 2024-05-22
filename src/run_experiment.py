@@ -47,7 +47,7 @@ def main():
     diffusion = GaussianDiffusion(
         model,
         image_size=IMAGE_SIZE,
-        timesteps=500,  # number of steps #
+        timesteps=1000,  # number of steps #
         # timesteps=2,  # number of steps
         # loss_type = 'l1'    # L1 or L2
     )
@@ -57,7 +57,7 @@ def main():
     # data_path = "./data/input_datasets/with_fluid_eyes_512x256"
     # data_path = "./data/input_datasets/healthy_eyes_512x256"
 
-    experiment_id = "0002"
+    experiment_id = "0003"
     trainer = Trainer(  # noqa : F841
         diffusion,
         str(cfg.DATASET_FILE_PATH.parent / "images"),
@@ -75,11 +75,11 @@ def main():
         calculate_fid=False,  # calculate FID during sampling
         tracker="wandb",
         tracker_kwargs={
-            "tags": [DIAGNOSIS, "opthal_anonymized", "timesteps_500"],
+            "tags": [DIAGNOSIS, "opthal_anonymized"],
             "mode": "online",
         },
     )
-    # trainer.load(".results/benign/model-135.pt")
+    # trainer.load(".results/0002/reference/model-30.pt")
     trainer.train()
     copy_results_directory(
         f"./.results/{experiment_id}/{DIAGNOSIS}",

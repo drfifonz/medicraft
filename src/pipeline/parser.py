@@ -74,9 +74,10 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
                     f"Error type: \033[1m{e['type']}\033[0m \tfor \033[1m{e['loc']}\033[0m\t| Error message: {e['msg']}"
                 )
             sys.exit("Parsing config failed")
-        j_print(block_instance.model_dump())
-        print("OK", block.name)
-        print("\n\n")
+        if block.name == ConfigBlocks.training.name:
+            j_print(block_instance.model_dump())
+            print("OK", block.name)
+            # print("\n\n")
 
     return results
 
@@ -104,7 +105,9 @@ def get_training_configs(config: dict) -> dict:
     training_config = {
         "total_steps": general_config.get("total_steps"),
         "image_size": general_config.get("image_size"),
+        "experiment_id": general_config.get("experiment_id"),
         "models": general_config.get("models"),
+        "results_dir": output_config.get("results_dir"),
         **training_config,
     }
 

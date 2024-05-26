@@ -14,23 +14,33 @@ general:
 
 
 data:
-  val_size: 0.1 / 0.9
-  csv_file_path: data/train.csv
+  validation_split: 0.1 / 0.9
+  csv_file_path: data/datasets/ophthal_anonym/dataset-splitted.csv
   split_seed: 43
 
 training:
   train_loop:
-    - name: train_generator
-      # output_checkpoint_name: 'base_reference_eye_generator'
-      lr: 1e-4
-      # move_results_to: '~OneDrive/.......'
     - name: foo
       foo: foo
+    - name: foo
+      foo: foo
+
+    - name: train_generator
+      diagnosis: reference
+      # start_from_checkpoint: 'base_reference_eye_generator'
+      lr: 1e-4
+      num_steps: 10
+      batch_size: 32
+      save_and_sample_every: 2000
+
+    - name: foo
+      foo: foo
+
     - name: generate_samples
       repeat: false
       model_path: "123"
       samples_dir: "samples"
 
 output:
-  results_dir : .results
-  # move_results_to: '~OneDrive/.......'
+  results_dir : .results1111/dupa.111
+  # copy_results_to: '~OneDrive/.......'

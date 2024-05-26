@@ -23,11 +23,18 @@ class LoopObjectDTO(BaseModel):
 
 
 class TrainGeneratorDTO(LoopObjectDTO):
-    batch_size: int = 8
-    lr: float = 1e-3
-    save_and_sample_every: int = 2000
-    num_steps: int = 10_000
-    results_dir: str = "test-dir"
+    batch_size: int
+    lr: float
+    save_and_sample_every: int
+    num_steps: int
+    results_dir: str
+    gradient_accumulate_every: int = 4
+
+    experiment_id: Optional[str] = None
+    copy_results_to: Optional[str] = None
+    start_from_checkpoint: Optional[str] = None  # TODO implement
+    dataset_split_type: Literal["train", "val", "test"] = "train"
+    diagnosis: Literal["precancerous", "fluid", "benign", "reference"]
 
     @field_validator("name")
     def name_validator(cls, v):
@@ -77,14 +84,17 @@ class TrainingDTO(BaseModel):
     total_steps: int
     image_size: list[int]
     models: ModelsDTO
+    results_dir: str
+    copy_results_to: Optional[str] = None
     train_loop: list[Union[TrainGeneratorDTO, GenerateSamplesDTO, ValidateDTO, FooDTO]]
 
     @field_validator("train_loop", mode="before")
     @classmethod
-    def train_loop_validator(cls, v):
+    def train_loop_validator(cls, v, values):
         res = []
         for loop_obj in v:
-            print(loop_obj)
+            loop_obj["results_dir"] = values.data.get("results_dir", ".results")
+            loop_obj["copy_results_to"] = values.data.get("copy_results_to", None)
             if loop_obj["name"] == TRAIN_GENERATOR:
                 res.append(TrainGeneratorDTO(**loop_obj))
             if loop_obj["name"] == GENERATE_SAMPLES:

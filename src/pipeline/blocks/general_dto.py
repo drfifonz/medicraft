@@ -1,4 +1,6 @@
-from pydantic import BaseModel, field_validator
+from typing import Optional
+
+from pydantic import BaseModel
 
 from pipeline.blocks.models_dto import ModelsDTO
 
@@ -6,5 +8,6 @@ from pipeline.blocks.models_dto import ModelsDTO
 class GeneralDTO(BaseModel):
     total_steps: int
     image_size: list[int]
+    experiment_id: Optional[str] = None
 
     models: ModelsDTO

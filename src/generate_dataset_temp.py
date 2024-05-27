@@ -106,7 +106,6 @@ def save_image(image: Image, path) -> None:
 
 
 if __name__ == "__main__":
-
     DATASET_PATH = "datasets/05.2024/0001"
 
     ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/ophtal_anonym/"
@@ -116,7 +115,6 @@ if __name__ == "__main__":
     Path.mkdir(Path(ONEDRIVE_DESTINATION_DIR), parents=True, exist_ok=True)
 
     print(ONEDRIVE_DATASETS_DIR)
-    # raise
     models = {
         "reference": ".results/reference/model-100.pt",
         "benign": ".results/benign/model-125.pt",
@@ -127,7 +125,6 @@ if __name__ == "__main__":
     wandb.init(project="opthal_anonymized_datasets", tags=["opthal_anonymized", "generate_dataset"])
 
     for model_name, model_path in models.items():
-
         diffusion.load_state_dict(torch.load(model_path)["model"])
         checkpoint = torch.load(model_path)  # TODO unused variable ?
         dataset_path = Path(DATASET_PATH) / model_name

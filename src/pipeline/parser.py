@@ -12,7 +12,7 @@ def j_print(data, *args, **kwargs):
 
     try:
         print(json.dumps(data, indent=4), *args, **kwargs)
-    except Exception as e:
+    except Exception:
         print(data, *args, **kwargs)
 
 
@@ -108,6 +108,7 @@ def get_training_configs(config: dict) -> dict:
         "experiment_id": general_config.get("experiment_id"),
         "models": general_config.get("models"),
         "results_dir": output_config.get("results_dir"),
+        "copy_results_to": output_config.get("copy_results_to"),
         **training_config,
     }
 

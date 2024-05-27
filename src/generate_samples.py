@@ -6,9 +6,8 @@ from ema_pytorch import EMA
 from torchvision import utils
 from tqdm import tqdm
 
+from config import DEVICE
 from models import GaussianDiffusion
-
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def generate_samples(
@@ -38,7 +37,7 @@ def generate_samples(
             batch_size,
         )
         # print(batches)
-        pbar = tqdm(total=num_samples)
+        t = tqdm(total=num_samples)
         for idx, batch_size in enumerate(batches):
             # batch = batches[idx]
             images: list[torch.Tensor] = ema.ema_model.sample(batch_size=batch_size)
@@ -50,5 +49,5 @@ def generate_samples(
                 progress = i + idx * batch_size
                 utils.save_image(images[i], f"{results_dir}/image_{(start_sample_idx + progress):>06}.png")
                 # save_image(pil_image, f"{results_dir}/image_{progress}.png")
-                pbar.update(progress)
-    pbar.close()
+                t.update(progress)
+    t.close()

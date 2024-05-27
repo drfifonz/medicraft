@@ -149,6 +149,7 @@ class Trainer(DiffusionTrainer):
         }
         model_path = str(self.results_folder / f"model-{milestone}.pt")
         torch.save(data, model_path)
+        torch.save(data, str(self.results_folder / "latest.pt"))
         self.keep_last_models(keep_last_models)
 
     def keep_last_models(self, num_models: int = 10) -> None:
@@ -156,6 +157,8 @@ class Trainer(DiffusionTrainer):
         list_of_models = sorted(self.results_folder.glob("*.pt"), key=os.path.getmtime)
         models_to_remove = list_of_models[:-num_models]
         for model in models_to_remove:
+            if model.stem == "latest":
+                continue
             model.unlink()
 
     def load(self, milestone_path: str):

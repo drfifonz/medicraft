@@ -12,7 +12,9 @@ from denoising_diffusion_pytorch import Unet
 from torchvision import transforms as T
 
 import pipeline.blocks as pipeline_blocks
+import wandb
 from datasets import OpthalAnonymizedDataset, get_csv_dataset
+from generate_samples import generate_samples as generate
 
 # from config import DEVICE
 # from datasets import OpthalAnonymizedDataset
@@ -129,7 +131,7 @@ class Pipeline:
         """
         train_loop_blocks: list = config.train_loop
 
-        only_once_blocks = [block for block in train_loop_blocks if block.repeat == False]
+        only_once_blocks = [block for block in train_loop_blocks if not block.repeat]
 
         total_steps = config.total_steps
 
@@ -144,7 +146,7 @@ class Pipeline:
                 if block.name.lower() == pipeline_blocks.TRAIN_GENERATOR:
                     self.train_generator(block, models_config, image_size)
                 elif block.name.lower() == pipeline_blocks.GENERATE_SAMPLES:
-                    self.generate_samples(block)
+                    self.generate_samples(block, models_config, image_size)
                 elif block.name.lower() == pipeline_blocks.VALIDATE:
                     self.validate(block)
                 elif block.name.lower() == pipeline_blocks.FOO:
@@ -160,11 +162,47 @@ class Pipeline:
         print(f"{config.foo=}")
         self.runned_steps += 10
 
-    def generate_samples(self, config: pipeline_blocks.GenerateSamplesDTO):
+    def generate_samples(self, config: pipeline_blocks.GenerateSamplesDTO, models_config: dict, image_size: list[int]):
         """
         Generate dataset
         """
+        print(f"{config=}")
         print("Generating samples")
+
+        unet_config = models_config.unet
+        diffusion_config = models_config.diffusion
+
+        diffusion = self.__get_diffusion_model(image_size, diffusion_config, unet_config)
+        print("Diffusion loaded")
+
+        raise NotImplementedError("Generating samples")
+        if config.wandb:
+            wandb.init(
+                project="opthal_anonymized_datasets",
+                tags=["opthal_anonymized", "generate_dataset"],
+                mode="offline",
+            )
+
+        diffusion.load_state_dict(torch.load(config.checkpoint_path)["model"])
+        # checkpoint = torch.load(config.checkpoint_path)
+        logging.info(f"Model loaded from {config.checkpoint_path}.")
+
+        generate(
+            diffusion_model=diffusion,
+            results_dir=config.generete_samples_dir,
+            num_samples=config.num_samples,
+            batch_size=config.batch_size,
+        )
+
+        if config.copy_results_to:
+            logging.info("Copying results...")
+            copy_results_directory(
+                config.generete_samples_dir,
+                str(Path(config.copy_results_to) / config.relative_dataset_results_dir / config.base_on),
+            )
+            logging.info("Results copied successfully.")
+
+        raise NotImplementedError("Generating samples")
 
     def validate(self, config: pipeline_blocks.ValidateDTO):
         """

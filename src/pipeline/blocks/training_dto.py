@@ -1,6 +1,7 @@
+from pathlib import Path
 from typing import Any, Generator, Literal, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Field, computed_field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, computed_field, field_validator, model_validator
 
 from pipeline.blocks.models_dto import ModelsDTO
 
@@ -44,10 +45,25 @@ class TrainGeneratorDTO(LoopObjectDTO):
 
 
 class GenerateSamplesDTO(LoopObjectDTO):
-    num_samples: int = 100
-    batch_size: int = 8
-    model_path: str
-    samples_dir: str
+    num_samples: int
+    batch_size: int
+    wandb: bool = True
+
+    model_version: str
+    base_on: str
+    results_dir: str
+    copy_results_to: Optional[str] = None
+    relative_dataset_results_dir: str = "dataset"
+
+    @computed_field
+    @property
+    def checkpoint_path(self) -> str:
+        return str(Path(self.results_dir) / self.base_on / f"{self.model_version}.pt")
+
+    @computed_field
+    @property
+    def generete_samples_dir(self) -> str:
+        return str(Path(self.results_dir) / self.relative_dataset_results_dir / self.base_on)
 
     @field_validator("name")
     def name_validator(cls, v):

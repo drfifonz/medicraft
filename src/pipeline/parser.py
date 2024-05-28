@@ -7,7 +7,7 @@ from pydantic import BaseModel, ValidationError
 from pipeline.blocks import ConfigBlocks
 
 
-def j_print(data, *args, **kwargs):
+def j_print(data, *args, **kwargs):  # TODO remove
     import json
 
     try:
@@ -47,8 +47,8 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
     for block in ConfigBlocks:
         block_config = config.get(block.name.lower())
 
-        if block.name.lower() == ConfigBlocks.training.name.lower():
-            block_config = {**block_config, **get_training_configs(config)}
+        if block.name.lower() == ConfigBlocks.experiment.name.lower():
+            block_config = {**block_config, **get_experiment_configs(config)}
 
         # get general configs
         if block.name.lower() not in unique_essential_blocks:
@@ -59,8 +59,6 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
 
             general_block_config = general_config.get(block.name.lower())
 
-            # print(block_config)
-            # print(general_block_config)
             block_config = {**general_block_config, **block_config} if general_block_config else block_config
 
         try:
@@ -74,21 +72,20 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
                     f"Error type: \033[1m{e['type']}\033[0m \tfor \033[1m{e['loc']}\033[0m\t| Error message: {e['msg']}"
                 )
             sys.exit("Parsing config failed")
-        if block.name == ConfigBlocks.training.name:
+        if block.name == ConfigBlocks.experiment.name:
             j_print(block_instance.model_dump())
             print("OK", block.name)
-            # print("\n\n")
 
     return results
 
 
-def get_training_configs(config: dict) -> dict:
+def get_experiment_configs(config: dict) -> dict:
     """
     Get tranining configuration defined in another blocks
     """
     output_config = config.get(ConfigBlocks.output.name.lower())
     general_config = config.get(ConfigBlocks.general.name.lower())
-    training_config = config.get(ConfigBlocks.training.name.lower())
+    experiment_config = config.get(ConfigBlocks.experiment.name.lower())
 
     if output_config is None:
         logging.error("Output config not found")
@@ -98,21 +95,21 @@ def get_training_configs(config: dict) -> dict:
         logging.error("General config not found")
         sys.exit("Parsing config failed")
 
-    if training_config is None:
-        logging.error("Training config not found")
+    if experiment_config is None:
+        logging.error("Experiment config not found")
         sys.exit("Parsing config failed")
 
-    training_config = {
+    experiment_config = {
         "total_steps": general_config.get("total_steps"),
         "image_size": general_config.get("image_size"),
         "experiment_id": general_config.get("experiment_id"),
         "models": general_config.get("models"),
         "results_dir": output_config.get("results_dir"),
         "copy_results_to": output_config.get("copy_results_to"),
-        **training_config,
+        **experiment_config,
     }
 
-    return training_config
+    return experiment_config
 
 
 if __name__ == "__main__":

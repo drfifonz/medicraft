@@ -96,17 +96,17 @@ class ValidateDTO(LoopObjectDTO):
         return v.title()
 
 
-class TrainingDTO(BaseModel):
+class ExperimentDTO(BaseModel):
     total_steps: int
     image_size: list[int]
     models: ModelsDTO
     results_dir: str
     copy_results_to: Optional[str] = None
-    train_loop: list[Union[TrainGeneratorDTO, GenerateSamplesDTO, ValidateDTO, FooDTO]]
+    loop: list[Union[TrainGeneratorDTO, GenerateSamplesDTO, ValidateDTO, FooDTO]]
 
-    @field_validator("train_loop", mode="before")
+    @field_validator("loop", mode="before")
     @classmethod
-    def train_loop_validator(cls, v, values):
+    def loop_validator(cls, v, values):
         res = []
         for loop_obj in v:
             loop_obj["results_dir"] = values.data.get("results_dir", ".results")

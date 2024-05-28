@@ -1,9 +1,9 @@
 from enum import Enum
 
 from .data_dto import DataDTO
+from .experiment_dto import ExperimentDTO
 from .general_dto import GeneralDTO
 from .output_dto import OutputDTO
-from .training_dto import TrainingDTO
 
 
 class ConfigBlocks(Enum):
@@ -13,5 +13,5 @@ class ConfigBlocks(Enum):
 
     general = GeneralDTO
     data = DataDTO
-    training = TrainingDTO
+    experiment = ExperimentDTO
     output = OutputDTO

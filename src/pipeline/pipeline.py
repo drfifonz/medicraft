@@ -34,7 +34,7 @@ class PipelineBlocks(Enum):
 
     general = "general"
     data = "data"
-    training = "training"
+    experiment = "experiment"
     output = "output"
 
 
@@ -116,6 +116,7 @@ class Pipeline:
         )
         trainer.train()
         logging.info("Training completed successfully.")
+        self.runned_steps += config.num_steps
 
         if config.copy_results_to:
             logging.info("Copying results...")
@@ -129,18 +130,20 @@ class Pipeline:
         """
         Train the pipeline with specified configuration
         """
-        train_loop_blocks: list = config.train_loop
+        loop_blocks: list = config.loop
 
-        only_once_blocks = [block for block in train_loop_blocks if not block.repeat]
+        only_once_blocks = [block for block in loop_blocks if not block.repeat]
 
         total_steps = config.total_steps
 
         models_config = config.models
         image_size = config.image_size
 
+        if total_steps == 0 and self.runned_steps == 0:
+            total_steps = -1
         while total_steps > self.runned_steps:
             print(f"Step {self.runned_steps}")
-            for block in train_loop_blocks:
+            for block in loop_blocks:
                 if block not in only_once_blocks and not block.repeat:
                     continue
                 if block.name.lower() == pipeline_blocks.TRAIN_GENERATOR:
@@ -164,7 +167,7 @@ class Pipeline:
 
     def generate_samples(self, config: pipeline_blocks.GenerateSamplesDTO, models_config: dict, image_size: list[int]):
         """
-        Generate dataset
+        Generate samples
         """
         print(f"{config=}")
         print("Generating samples")
@@ -175,7 +178,7 @@ class Pipeline:
         diffusion = self.__get_diffusion_model(image_size, diffusion_config, unet_config)
         print("Diffusion loaded")
 
-        raise NotImplementedError("Generating samples")
+        raise NotImplementedError("Generating samples")  # TODO remove
         if config.wandb:
             wandb.init(
                 project="opthal_anonymized_datasets",
@@ -230,7 +233,7 @@ class Pipeline:
         logging.info("Data loaded successfully.")
 
         logging.info("Training...")
-        self.train(self.config.get(PipelineBlocks.training.name))
+        self.train(self.config.get(PipelineBlocks.experiment.name))
 
     def load_config(self, config_file: str | Path = "config.yml") -> None:
         """

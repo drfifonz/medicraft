@@ -13,7 +13,7 @@ __all__ = [
 
 from .blocks import ConfigBlocks
 from .data_dto import DataDTO
-from .training_dto import (
+from .experiment_dto import (
     FOO,
     GENERATE_SAMPLES,
     TRAIN_GENERATOR,

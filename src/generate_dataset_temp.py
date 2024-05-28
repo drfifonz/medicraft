@@ -105,7 +105,7 @@ def save_image(image: Image, path) -> None:
         image.save(f, format="png")
 
 
-if __name__ == "__main__":
+raiserif __name__ == "__main__":
     DATASET_PATH = "datasets/05.2024/0001"
 
     ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/ophtal_anonym/"

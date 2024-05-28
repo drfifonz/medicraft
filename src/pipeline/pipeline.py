@@ -17,7 +17,6 @@ import pipeline.blocks as pipeline_blocks
 import wandb
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from generate_samples import generate_samples as generate
-
 # from config import DEVICE
 # from datasets import OpthalAnonymizedDataset
 from models import GaussianDiffusion, ResNetClassifier
@@ -279,12 +278,12 @@ class Pipeline:
 
         data_module.setup()
         logging.info("Data module setup completed successfully.")
-        print(classifier_config)
         model = self.__get_classifier_model(config, classifier_config)
         wandb_logger = WandbLogger(
             project="medicraft-classification2",
             id=config.logger_experiment_name,
-            # mode="offline",
+            offline=config.offline,
+            save_dir=Path(config.results_dir) / "classification-wandb",
             job_type="train",
             tags=config.logger_tags,
         )

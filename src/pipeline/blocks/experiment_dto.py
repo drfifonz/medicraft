@@ -102,6 +102,9 @@ class ClassificationDTO(BaseModel):
     log_every_n_steps: int = 10
     logger_tags: Optional[list[str]] = None
     logger_experiment_name: Optional[str] = None
+    offline: bool = False
+
+    results_dir: str
 
     @computed_field
     @property
@@ -120,6 +123,12 @@ class ValidateDTO(LoopObjectDTO):
         if v != VALIDATE:
             raise ValueError(f"name must be {VALIDATE}")
         return v.title()
+
+    @field_validator("classification", mode="before")
+    @classmethod
+    def classification_validator(cls, v, values):
+        v["results_dir"] = values.data.get("results_dir", ".results")
+        return ClassificationDTO(**v)
 
 
 class ExperimentDTO(BaseModel):

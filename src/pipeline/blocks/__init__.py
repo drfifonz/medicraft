@@ -9,6 +9,7 @@ __all__ = [
     "TrainGeneratorDTO",
     "ValidateDTO",
     "DataDTO",
+    "ClassificationDTO",
 ]
 
 from .blocks import ConfigBlocks
@@ -18,6 +19,7 @@ from .experiment_dto import (
     GENERATE_SAMPLES,
     TRAIN_GENERATOR,
     VALIDATE,
+    ClassificationDTO,
     FooDTO,
     GenerateSamplesDTO,
     TrainGeneratorDTO,

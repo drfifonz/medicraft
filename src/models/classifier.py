@@ -1,3 +1,5 @@
+from typing import Literal
+
 import lightning as pl
 import torch
 import torch.nn.functional as F
@@ -14,13 +16,14 @@ class ResNetClassifier(pl.LightningModule):
         loss_fn=None,
         optimizer=None,
         pretrained: bool = True,
+        architecture: Literal["resnet18", "resnet34", "resnet50"] = "resnet34",
         learning_rate: float = 1e-4,
         loss_multiply: float = 1.0,
         class_names: list[str] = ["fluid", "benign", "precancerous", "reference"],
     ):
         self.class_names = class_names
         super().__init__()
-        self.model = models.resnet34(pretrained=pretrained)
+        self.model = self.__get_model(architecture, pretrained)
         # self.model.fc = torch.nn.Linear(in_features=512, out_features=num_classes)
         fc_output = self.model.fc.out_features
 
@@ -143,3 +146,15 @@ class ResNetClassifier(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = self.optimizer(self.parameters(), lr=self.learning_rate)
         return optimizer
+
+    def __get_model(self, architecture: str, pretrained: bool) -> models.ResNet:
+        match architecture:
+            case "resnet18":
+                model = models.resnet18(pretrained=pretrained)
+            case "resnet34":
+                model = models.resnet34(pretrained=pretrained)
+            case "resnet50":
+                model = models.resnet50(pretrained=pretrained)
+            case _:
+                raise ValueError(f"Invalid architecture: {architecture}")
+        return model

@@ -1,6 +1,6 @@
 import lightning as pl
 import torch
-import torchvision.transforms as transforms
+import torchvision.transforms as T
 from torchvision import datasets
 
 
@@ -15,6 +15,7 @@ class EyeScans(pl.LightningDataModule):
         val_data_dir: str | None = None,
         test_dataset_dir: str | None = None,
         num_workers: int = 4,
+        transforms: T.Compose = None,
     ) -> None:
         """#TODO update
         Initializes an instance of the EyeScans dataset.
@@ -42,13 +43,17 @@ class EyeScans(pl.LightningDataModule):
         self.ratio = ratio
         self.seed = seed
 
-        self.transforms = transforms.Compose(
-            [
-                transforms.CenterCrop((256, 512)),
-                transforms.Resize((256, 512)),
-                transforms.ToTensor(),
-                transforms.Normalize((0.5,), (0.5,)),
-            ]
+        self.transforms = (
+            T.Compose(
+                [
+                    T.CenterCrop((256, 512)),
+                    T.Resize((256, 512)),
+                    T.ToTensor(),
+                    T.Normalize((0.5,), (0.5,)),
+                ]
+            )
+            if transforms is None
+            else transforms
         )
         self.num_workers = num_workers
 

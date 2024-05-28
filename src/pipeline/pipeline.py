@@ -1,25 +1,28 @@
 import logging
+import re
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Literal
 
-# import pandas as pd
+import lightning as pl
 import pandas as pd
 import torch
 import torch.nn as nn
 from denoising_diffusion_pytorch import Unet
+from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
+from lightning.pytorch.loggers import WandbLogger
 from torchvision import transforms as T
 
 import pipeline.blocks as pipeline_blocks
 import wandb
-from datasets import OpthalAnonymizedDataset, get_csv_dataset
+from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from generate_samples import generate_samples as generate
 
 # from config import DEVICE
 # from datasets import OpthalAnonymizedDataset
-from models import GaussianDiffusion
+from models import GaussianDiffusion, ResNetClassifier
 from pipeline.parser import parse_config, read_config_file
+from trackers import ImagePredictionLogger
 from trainers import Trainer
 from utils import copy_results_directory
 from utils.transforms import HorizontalCenterCrop
@@ -151,7 +154,7 @@ class Pipeline:
                 elif block.name.lower() == pipeline_blocks.GENERATE_SAMPLES:
                     self.generate_samples(block, models_config, image_size)
                 elif block.name.lower() == pipeline_blocks.VALIDATE:
-                    self.validate(block)
+                    self.validate(block, models_config)
                 elif block.name.lower() == pipeline_blocks.FOO:
                     print("foo")
                     self.foo(block)
@@ -207,11 +210,20 @@ class Pipeline:
 
         raise NotImplementedError("Generating samples")
 
-    def validate(self, config: pipeline_blocks.ValidateDTO):
+    def validate(self, config: pipeline_blocks.ValidateDTO, models_config: dict):
         """
         Validate the model
         """
-        pass
+        print(f"{config=}")
+
+        print(models_config)
+
+        if config.classification:
+            # print("Running classification experiment")
+            # print(config.classification)
+            # raise NotImplementedError("Running classification experiment")
+            self.__run_classification_experiment(config.classification, models_config)
+        raise NotImplementedError("Validating model")
 
     def run(self, verbose: bool = False):
         """
@@ -220,7 +232,7 @@ class Pipeline:
 
         if verbose:
             self.__set_logging_level(
-                level=10,
+                level=20,
                 save_to_file=False,
             )
 
@@ -235,6 +247,67 @@ class Pipeline:
         logging.info("Training...")
         self.train(self.config.get(PipelineBlocks.experiment.name))
 
+    def __run_classification_experiment(self, config: pipeline_blocks.ClassificationDTO, models_config: dict) -> None:
+        """
+        Run the classification experiment
+        """
+        classifier_config = models_config.classifier
+        print(f"{classifier_config=}")
+        match config.train_data_type:
+            case "real":
+                is_real_train_data = True
+            case "synthetic":
+                is_real_train_data = False
+            case _:
+                raise ValueError(f"Unknown data type: {config.train_data_type}")
+
+        train_dataset_dir = config.train_dataset_dir
+        val_dataset_dir = config.val_dataset_dir
+        test_dataset_dir = config.test_dataset_dir
+        # raise NotImplementedError("Run classification experiment")
+        data_module = EyeScans(
+            num_workers=config.num_workers,
+            batch_size=config.batch_size,
+            ratio=config.ratio,
+            real_word_data=is_real_train_data,
+            train_data_dir=train_dataset_dir,
+            val_data_dir=val_dataset_dir,
+            test_dataset_dir=test_dataset_dir,
+        )
+
+        data_module.setup()
+        logging.info("Data module setup completed successfully.")
+        print(classifier_config)
+        model = self.__get_classifier_model(config, classifier_config)
+        wandb_logger = WandbLogger(
+            project="medicraft-classification",
+            mode="offline",
+            job_type="train",
+            tags=config.logger_tags,
+        )
+
+        early_stop_callback = EarlyStopping(monitor="val_loss")
+        progressbar_callback = TQDMProgressBar()
+        # Samples required by the custom ImagePredictionLogger callback to log image predictions.
+        val_samples = next(iter(data_module.val_dataloader()))
+
+        trainer = pl.Trainer(
+            max_epochs=config.epochs,
+            # progress_bar_refresh_rate=20,
+            # gpus=1,
+            logger=wandb_logger,
+            callbacks=[early_stop_callback, ImagePredictionLogger(val_samples), progressbar_callback],
+            # checkpoint_callback=checkpoint_callback,
+            enable_checkpointing=True,
+            enable_progress_bar=True,
+            log_every_n_steps=config.log_every_n_steps,
+        )
+        trainer.fit(model, data_module)
+        trainer.test(model, data_module)
+
+        wandb.finish()
+        logging.info("Classification process completed successfully.")
+
     def load_config(self, config_file: str | Path = "config.yml") -> None:
         """
         Load the configuration
@@ -243,15 +316,6 @@ class Pipeline:
         self.config = parse_config(config)
         self.__image_size = self.config.get(PipelineBlocks.general.name).image_size
         logging.info("Configuration parsed successfully.")
-
-    def __get_dataset(self, type: Literal["train", "val", "test"]):
-        match type:
-            case "train":
-                return self.train_dataset
-            case "val":
-                return self.val_dataset
-            case "test":
-                return self.test_dataset
 
     @property
     def transform(self) -> T.Compose:
@@ -291,6 +355,32 @@ class Pipeline:
         diffusion.to(device=DEVICE)
         logging.info(f"Model loaded to {DEVICE} device.")
         return diffusion
+
+    def __get_classifier_model(
+        self, config: pipeline_blocks.ClassificationDTO, classifier_config: dict
+    ) -> pl.LightningModule:
+        def get_loss_fn(loss_fn_name: str) -> nn.Module:
+            if loss_fn_name.lower() == "cross_entropy":
+                return nn.CrossEntropyLoss()
+            elif loss_fn_name.lower() == "nll":
+                return nn.NLLLoss()
+            else:
+                raise ValueError(f"Unknown loss function: {loss_fn_name}")
+
+        architecture: str = classifier_config.get("architecture")
+        if re.match(r"resnet", architecture.lower()):
+            model = ResNetClassifier(
+                architecture=architecture,
+                num_classes=config.num_classes,
+                loss_fn=get_loss_fn(config.loss_fn),
+                pretrained=False,
+                learning_rate=config.lr,
+                loss_multiply=config.loss_multiply,
+            )
+        else:
+            raise ValueError(f"Unknown architecture: {architecture}")
+
+        return model
 
     def __set_logging_level(
         self,

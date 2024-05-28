@@ -100,7 +100,7 @@ def get_experiment_configs(config: dict) -> dict:
         sys.exit("Parsing config failed")
 
     experiment_config = {
-        "total_steps": general_config.get("total_steps"),
+        "total_steps": general_config.get("total_steps", 0),
         "image_size": general_config.get("image_size"),
         "experiment_id": general_config.get("experiment_id"),
         "models": general_config.get("models"),

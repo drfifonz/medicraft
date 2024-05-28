@@ -143,7 +143,8 @@ class Pipeline:
         image_size = config.image_size
 
         if total_steps == 0 and self.runned_steps == 0:
-            total_steps = -1
+            logging.info("Running 1 iteration of the pipeline")
+            self.runned_steps = -1
         while total_steps > self.runned_steps:
             print(f"Step {self.runned_steps}")
             for block in loop_blocks:
@@ -160,6 +161,8 @@ class Pipeline:
                     self.foo(block)
                 if not block.repeat:
                     only_once_blocks.remove(block)
+            if total_steps == 0:
+                break
 
     def foo(self, config: pipeline_blocks.FooDTO):
         """
@@ -223,7 +226,6 @@ class Pipeline:
             # print(config.classification)
             # raise NotImplementedError("Running classification experiment")
             self.__run_classification_experiment(config.classification, models_config)
-        raise NotImplementedError("Validating model")
 
     def run(self, verbose: bool = False):
         """
@@ -280,8 +282,9 @@ class Pipeline:
         print(classifier_config)
         model = self.__get_classifier_model(config, classifier_config)
         wandb_logger = WandbLogger(
-            project="medicraft-classification",
-            mode="offline",
+            project="medicraft-classification2",
+            id=config.logger_experiment_name,
+            # mode="offline",
             job_type="train",
             tags=config.logger_tags,
         )

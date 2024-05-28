@@ -101,6 +101,7 @@ class ClassificationDTO(BaseModel):
 
     log_every_n_steps: int = 10
     logger_tags: Optional[list[str]] = None
+    logger_experiment_name: Optional[str] = None
 
     @computed_field
     @property

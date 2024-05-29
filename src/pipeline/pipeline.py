@@ -13,10 +13,12 @@ from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
 from torchvision import transforms as T
 
+import config as cfg
 import pipeline.blocks as pipeline_blocks
 import wandb
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from generate_samples import generate_samples as generate
+
 # from config import DEVICE
 # from datasets import OpthalAnonymizedDataset
 from models import GaussianDiffusion, ResNetClassifier
@@ -26,7 +28,7 @@ from trainers import Trainer
 from utils import copy_results_directory
 from utils.transforms import HorizontalCenterCrop
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+# DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 class PipelineBlocks(Enum):
@@ -103,7 +105,7 @@ class Pipeline:
             train_lr=config.lr,
             save_and_sample_every=config.save_and_sample_every,
             # save_and_sample_every=10,
-            results_folder=results_folder,  # TODO CHANGE THAT
+            results_folder=results_folder,
             train_num_steps=config.num_steps,
             gradient_accumulate_every=config.gradient_accumulate_every,  # gradient accumulation steps
             ema_decay=0.995,  # exponential moving average decay
@@ -113,7 +115,8 @@ class Pipeline:
             tracker="wandb",
             tracker_kwargs={
                 "tags": [config.diagnosis, "opthal_anonymized"],
-                "mode": "offline",
+                "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,
+                "mode": "offline",  # TODO uncomment
             },
         )
         trainer.train()
@@ -186,9 +189,9 @@ class Pipeline:
         raise NotImplementedError("Generating samples")  # TODO remove
         if config.wandb:
             wandb.init(
-                project="opthal_anonymized_datasets",
+                project=cfg.WANDB_PRJ_NAME_GENERATE_SAMPLES,
                 tags=["opthal_anonymized", "generate_dataset"],
-                mode="offline",
+                mode="offline",  # TODO remove
             )
 
         diffusion.load_state_dict(torch.load(config.checkpoint_path)["model"])
@@ -280,7 +283,7 @@ class Pipeline:
         logging.info("Data module setup completed successfully.")
         model = self.__get_classifier_model(config, classifier_config)
         wandb_logger = WandbLogger(
-            project="medicraft-classification2",
+            project=cfg.WANDB_PRJ_NAME_CLASSIFICATION,
             id=config.logger_experiment_name,
             offline=config.offline,
             save_dir=Path(config.results_dir) / "classification-wandb",
@@ -340,7 +343,7 @@ class Pipeline:
             dim_mults=dim_mults,
             channels=channels,
         )
-        model.to(device=DEVICE)
+        model.to(device=cfg.DEVICE)
         return model
 
     def __get_diffusion_model(self, image_size: list[int], diffusion_config: dict, unet_config: dict) -> nn.Module:
@@ -354,8 +357,8 @@ class Pipeline:
             **diffusion_config
             # loss_type = 'l1'    # L1 or L2
         )
-        diffusion.to(device=DEVICE)
-        logging.info(f"Model loaded to {DEVICE} device.")
+        diffusion.to(device=cfg.DEVICE)
+        logging.info(f"Model loaded to {cfg.DEVICE} device.")
         return diffusion
 
     def __get_classifier_model(

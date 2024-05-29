@@ -71,7 +71,7 @@ class Trainer(DiffusionTrainer):
             ]
             parameters["dataset_name"] = Path(folder).name if folder else dataset.diagnosis
 
-            print(tracker_kwargs)
+            # print(tracker_kwargs)
             # group = tracker_kwargs.get("group", "diffusion")
             # raise
             # tracker_class = get_tracker_class(tracker.lower()) #TODO fix tracker selection

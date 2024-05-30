@@ -17,17 +17,28 @@ class EyeScans(pl.LightningDataModule):
         num_workers: int = 4,
         transforms: T.Compose = None,
     ) -> None:
-        """#TODO update
+        """
         Initializes an instance of the EyeScans dataset.
 
-        :param data_dir: The directory path where the dataset is located.
         :param batch_size: The batch size for data loading.
-        :param ratio: The ratio of train, validation, and test data split. Default is [0.8, 0.1, 0.1].
+        :type batch_size: int
+        :param real_word_data: A flag indicating whether the dataset contains real-world data.
+        :type real_word_data: bool
+        :param ratio: The ratio of train, validation, and test data split. Default is [0.8, 0.1].
+        :type ratio: list[float]
         :param seed: The random seed for reproducibility. Default is 42.
+        :type seed: int
+        :param train_data_dir: The directory path for the training dataset. Default is None.
+        :type train_data_dir: str, optional
+        :param val_data_dir: The directory path for the validation dataset. Default is None.
+        :type val_data_dir: str, optional
         :param test_dataset_dir: The directory path for the test dataset. Default is None.
+        :type test_dataset_dir: str, optional
         :param num_workers: The number of worker threads for data loading. Default is 4.
+        :type num_workers: int
+        :param transforms: The data transformations to apply. Default is None.
+        :type transforms: torchvision.transforms.Compose, optional
         """
-
         super().__init__()
 
         self.train_dataset = None
@@ -58,6 +69,14 @@ class EyeScans(pl.LightningDataModule):
         self.num_workers = num_workers
 
     def setup(self, stage: str = None):
+        """
+        Set up the eye scans dataset for training, validation, and testing.
+
+        Args:
+            stage (str, optional): The stage of the dataset setup. Can be "fit" for training, "test" for testing,
+                or None for both. Defaults to None.
+        """
+
         torch.manual_seed(self.seed)
 
         if self.real_word_data:
@@ -79,7 +98,10 @@ class EyeScans(pl.LightningDataModule):
 
     def __prepare_synthetic_datasets(self) -> dict[torch.utils.data.Dataset]:
         """
-        prepare the synthetic dataset with real world data test set
+        Prepare the synthetic dataset with real world data test set.
+
+        Returns:
+            dict[torch.utils.data.Dataset]: A dictionary containing the train, validation, and test datasets.
         """
         dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
         train_size = int(self.ratio[0] * len(dataset))
@@ -96,7 +118,10 @@ class EyeScans(pl.LightningDataModule):
 
     def _prepare_real_world_datasets(self) -> dict[torch.utils.data.Dataset]:
         """
-        prepare the real world dataset with synthetic data test set
+        Prepare the real world dataset with synthetic data test set.
+
+        Returns:
+            dict[torch.utils.data.Dataset]: A dictionary containing the train, validation, and test datasets.
         """
         train_dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
         val_dataset = datasets.ImageFolder(root=self.val_data_dir, transform=self.transforms)

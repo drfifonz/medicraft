@@ -9,7 +9,21 @@ def crop_image(
     image: Image, new_size: tuple[int, int], orientation: Literal["center", "left", "right"] = "center"
 ) -> Image:
     """
-    Crop image to new_size with orientation
+    Crop image to new_size with specified orientation.
+
+    :param image: The image to be cropped.
+    :type image: Image
+
+    :param new_size: The new size of the cropped image.
+    :type new_size: tuple[int, int]
+
+    :param orientation: The orientation of the cropped image. Valid values are "center", "left", or "right".
+    :type orientation: Literal["center", "left", "right"], optional
+
+    :return: The cropped image.
+    :rtype: Image
+
+    :raises ValueError: If the specified orientation is invalid.
     """
     width, height = image.size
 
@@ -30,6 +44,15 @@ def crop_image(
 
 
 def load_dataset_csv_file(file_path: str | Path) -> pd.DataFrame:
+    """
+    Load a dataset from a CSV file and add a column with the file path of each image.
+
+    Args:
+        file_path (str or Path): The path to the CSV file.
+
+    Returns:
+        pd.DataFrame: The loaded dataset with an additional "file_path" column.
+    """
     if isinstance(file_path, str):
         file_path = Path(file_path)
 

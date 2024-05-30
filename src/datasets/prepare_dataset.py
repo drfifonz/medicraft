@@ -13,12 +13,26 @@ IMAGE_FORMATS = [".jpg", ".jpeg", ".png"]
 
 
 def get_patients_paths(dataset_dir: Path) -> list[Path]:
-    """Returns list of paths to patients directories in given directory."""
+    """
+    Returns a list of paths to patients directories in the given directory.
+
+    :param dataset_dir: The directory containing the dataset.
+    :type dataset_dir: Path
+    :return: A list of Path objects representing the paths to patients directories.
+    :rtype: list[Path]
+    """
     return [p for p in dataset_dir.iterdir() if p.is_dir()]
 
 
 def get_images_paths(images_dir: Path) -> Optional[list[Path]]:
-    """Returns list of paths to images in given directory."""
+    """
+    Returns a list of paths to images in the given directory.
+
+    :param images_dir: The directory containing the images.
+    :type images_dir: Path
+    :return: A list of paths to images.
+    :rtype: Optional[list[Path]]
+    """
     try:
         return [p for p in images_dir.iterdir() if p.suffix.lower() in IMAGE_FORMATS]
     except FileNotFoundError:
@@ -26,7 +40,14 @@ def get_images_paths(images_dir: Path) -> Optional[list[Path]]:
 
 
 def get_lesion_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
-    """Returns list of paths to all reference (second, healfy) eyes images in dataset directory."""
+    """
+    Returns a list of paths to all reference (second, healthy) eyes images in the dataset directory.
+
+    :param dataset_dir: The directory path of the dataset.
+    :type dataset_dir: Path
+    :return: A list of paths to the reference eyes images.
+    :rtype: Optional[list[Path]]
+    """
     lesion_eyes_paths = []
 
     for patient_dir in get_patients_paths(dataset_dir):
@@ -39,7 +60,14 @@ def get_lesion_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
 
 
 def get_reference_eyes_paths(dataset_dir: Path) -> Optional[list[Path]]:
-    """Returns list of images' paths to all eyes with reference healthy eye"""
+    """
+    Returns a list of paths to images of healthy eyes with reference healthy eye.
+
+    :param dataset_dir: The directory path of the dataset.
+    :type dataset_dir: Path
+    :return: A list of paths to images of healthy eyes.
+    :rtype: Optional[list[Path]]
+    """
     healthy_eyes_paths = []
 
     for patient_dir in get_patients_paths(dataset_dir):
@@ -56,7 +84,18 @@ def resize_images_and_save(
     size: tuple[int, int],
     max_images: int | None = None,
 ) -> None:
-    """Resizes images from given paths and saves them to given directory."""
+    """
+    Resizes images from given paths and saves them to the given directory.
+
+    :param images_paths: List of paths to the images.
+    :type images_paths: list[Path]
+    :param output_dir_path: Path to the output directory.
+    :type output_dir_path: str
+    :param size: The desired size of the images after resizing.
+    :type size: tuple[int, int]
+    :param max_images: The maximum number of images to resize and save. If None, all images will be processed.
+    :type max_images: int | None
+    """
     images_paths = images_paths[:max_images] if max_images else images_paths
 
     output_dir_path = Path(output_dir_path)
@@ -68,8 +107,15 @@ def resize_images_and_save(
 
 
 def copy_images_to_dir(images_paths: list[Path], destination_dir: Path) -> None:
-    """Copies images from given paths to given directory."""
+    """
+    Copies images from given paths to given directory.
 
+    :param images_paths: List of paths to the images.
+    :type images_paths: list[Path]
+    :param destination_dir: Path to the destination directory.
+    :type destination_dir: Path
+    :return: None
+    """
     destination_dir.mkdir(parents=True, exist_ok=True)
     for source_path in tqdm(images_paths):
         destination_path = destination_dir / source_path.name

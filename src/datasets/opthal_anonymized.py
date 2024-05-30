@@ -17,9 +17,18 @@ def get_csv_dataset(
     seed: int = 42,
 ) -> dict[str, pd.DataFrame]:
     """
-    Load dataset from csv file and split it into train and validation sets from previosly splitted train/test dataset.
-    """
+    Load dataset from csv file and split it into train validation,test sets from previously splitted train/test dataset.
 
+    :param filepath: The path to the CSV file containing the dataset.
+    :type filepath: str or Path
+    :param val_size: The proportion of the dataset to be used for validation. Default is 0.1 (10%).
+    :type val_size: float or None
+    :param seed: The random seed for reproducible train/validation split. Default is 42.
+    :type seed: int
+    :return: A dictionary containing the train, validation, and test sets as pandas DataFrames.
+             If val_size is None, only the train and test sets are returned.
+    :rtype: dict[str, pd.DataFrame]
+    """
     filepath = Path(filepath) if isinstance(filepath, str) else filepath
 
     df = pd.read_csv(filepath)
@@ -39,6 +48,19 @@ def get_csv_dataset(
 
 
 class OpthalAnonymizedDataset(Dataset):
+    """
+    Dataset class for OpthalAnonymizedDataset.
+
+    Args:
+        diagnosis (Literal["precancerous", "fluid", "benign", "reference"]): The diagnosis category for the dataset.
+        df (pd.DataFrame): The DataFrame containing the dataset information.
+        images_dir (str | Path): The directory path where the images are stored.
+        image_size (tuple[int, int], optional): The desired size of the images. Defaults to (256, 512).
+        transform (nn.Module, optional): The transformation to apply to the images. Defaults to None.
+        convert_image_to (Any, optional): The function or transformation to convert the images to a specific format. Defaults to None.
+        seed (int, optional): The random seed for shuffling the dataset. Defaults to None.
+    """
+
     def __init__(
         self,
         diagnosis: Literal["precancerous", "fluid", "benign", "reference"],
@@ -46,7 +68,6 @@ class OpthalAnonymizedDataset(Dataset):
         images_dir: str | Path,
         image_size: tuple[int, int] = (256, 512),
         transform: nn.Module = None,
-        extension: list[str] = [".png", ".jpg", ".jpeg"],  # TODO use it
         convert_image_to=None,
         seed: int = None,
     ):
@@ -68,8 +89,6 @@ class OpthalAnonymizedDataset(Dataset):
                     T.Lambda(maybe_convert_fn),
                     T.CenterCrop(image_size),
                     T.Resize(image_size),
-                    # T.RandomHorizontalFlip(),
-                    # T.normalize(mean=[0.5,], std=[0.5,])
                     T.Grayscale(num_output_channels=1),
                     T.ToTensor(),
                 ]
@@ -96,22 +115,3 @@ class OpthalAnonymizedDataset(Dataset):
 
     def __len__(self):
         return self.diagnosis_df.shape[0]
-
-
-if __name__ == "__main__":
-    DATASET_FILE_PATH = Path("data/datasets/ophthal_anonym-2024-04-22/new_df.csv")
-    IMAGE_FILE_PATH = Path("data/datasets/ophthal_anonym-2024-04-22/images")
-    df_dataset = get_csv_dataset(DATASET_FILE_PATH, val_size=0.1 / 0.9)
-
-    train_dataset = OpthalAnonymizedDataset("reference", df_dataset["train"], IMAGE_FILE_PATH)
-    test_dataset = OpthalAnonymizedDataset("reference", df_dataset["test"], IMAGE_FILE_PATH)
-    val_dataset = OpthalAnonymizedDataset("reference", df_dataset["val"], IMAGE_FILE_PATH)
-    # im_tensor = next(iter())
-    print(len(train_dataset))
-    print(len(test_dataset))
-    print(len(val_dataset))
-
-    # print(dataset.__get_df_by_diagnosis("reference"))
-    # print(dataset.__get_df_by_diagnosis("precancerous"))
-    # print(dataset.__get_df_by_diagnosis("fluid"))
-    # print(dataset.__get_df_by_diagnosis("benign"))

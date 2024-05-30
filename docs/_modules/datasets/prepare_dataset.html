@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>datasets.prepare_dataset &mdash; medicraft 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            medicraft
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">datasets.prepare_dataset</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for datasets.prepare_dataset</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="n">DATA_ROOT_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">EASY_CASES_PATH</span> <span class="o">=</span> <span class="n">DATA_ROOT_PATH</span> <span class="o">/</span> <span class="s2">&quot;easy_cases_with_fluid&quot;</span>
+<span class="n">REFERENCE_EYE_DIR_NAME</span> <span class="o">=</span> <span class="s2">&quot;healthy_eye&quot;</span>  <span class="c1"># TODO rename to reference_eye</span>
+
+<span class="n">IMAGE_FORMATS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="get_patients_paths">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.get_patients_paths">[docs]</a>
+<span class="k">def</span> <span class="nf">get_patients_paths</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of paths to patients directories in the given directory.</span>
+
+<span class="sd">    :param dataset_dir: The directory containing the dataset.</span>
+<span class="sd">    :type dataset_dir: Path</span>
+<span class="sd">    :return: A list of Path objects representing the paths to patients directories.</span>
+<span class="sd">    :rtype: list[Path]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dataset_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()]</span></div>
+
+
+
+<div class="viewcode-block" id="get_images_paths">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.get_images_paths">[docs]</a>
+<span class="k">def</span> <span class="nf">get_images_paths</span><span class="p">(</span><span class="n">images_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of paths to images in the given directory.</span>
+
+<span class="sd">    :param images_dir: The directory containing the images.</span>
+<span class="sd">    :type images_dir: Path</span>
+<span class="sd">    :return: A list of paths to images.</span>
+<span class="sd">    :rtype: Optional[list[Path]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">images_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">IMAGE_FORMATS</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="get_lesion_eyes_paths">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths">[docs]</a>
+<span class="k">def</span> <span class="nf">get_lesion_eyes_paths</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of paths to all reference (second, healthy) eyes images in the dataset directory.</span>
+
+<span class="sd">    :param dataset_dir: The directory path of the dataset.</span>
+<span class="sd">    :type dataset_dir: Path</span>
+<span class="sd">    :return: A list of paths to the reference eyes images.</span>
+<span class="sd">    :rtype: Optional[list[Path]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lesion_eyes_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">patient_dir</span> <span class="ow">in</span> <span class="n">get_patients_paths</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">):</span>
+        <span class="n">patient_examinations</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patient_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">REFERENCE_EYE_DIR_NAME</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">examination_dir</span> <span class="ow">in</span> <span class="n">patient_examinations</span><span class="p">:</span>
+            <span class="n">lesion_eye_photos</span> <span class="o">=</span> <span class="n">get_images_paths</span><span class="p">(</span><span class="n">examination_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lesion_eye_photos</span><span class="p">:</span>
+                <span class="n">lesion_eyes_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">lesion_eye_photos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lesion_eyes_paths</span></div>
+
+
+
+<div class="viewcode-block" id="get_reference_eyes_paths">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.get_reference_eyes_paths">[docs]</a>
+<span class="k">def</span> <span class="nf">get_reference_eyes_paths</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of paths to images of healthy eyes with reference healthy eye.</span>
+
+<span class="sd">    :param dataset_dir: The directory path of the dataset.</span>
+<span class="sd">    :type dataset_dir: Path</span>
+<span class="sd">    :return: A list of paths to images of healthy eyes.</span>
+<span class="sd">    :rtype: Optional[list[Path]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">healthy_eyes_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">patient_dir</span> <span class="ow">in</span> <span class="n">get_patients_paths</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">):</span>
+        <span class="n">healthy_eye_dir</span> <span class="o">=</span> <span class="n">patient_dir</span> <span class="o">/</span> <span class="n">REFERENCE_EYE_DIR_NAME</span>
+        <span class="n">healthy_eye_photos</span> <span class="o">=</span> <span class="n">get_images_paths</span><span class="p">(</span><span class="n">healthy_eye_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">healthy_eye_photos</span><span class="p">:</span>
+            <span class="n">healthy_eyes_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">healthy_eye_photos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">healthy_eyes_paths</span></div>
+
+
+
+<div class="viewcode-block" id="resize_images_and_save">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.resize_images_and_save">[docs]</a>
+<span class="k">def</span> <span class="nf">resize_images_and_save</span><span class="p">(</span>
+    <span class="n">images_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
+    <span class="n">output_dir_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">max_images</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resizes images from given paths and saves them to the given directory.</span>
+
+<span class="sd">    :param images_paths: List of paths to the images.</span>
+<span class="sd">    :type images_paths: list[Path]</span>
+<span class="sd">    :param output_dir_path: Path to the output directory.</span>
+<span class="sd">    :type output_dir_path: str</span>
+<span class="sd">    :param size: The desired size of the images after resizing.</span>
+<span class="sd">    :type size: tuple[int, int]</span>
+<span class="sd">    :param max_images: The maximum number of images to resize and save. If None, all images will be processed.</span>
+<span class="sd">    :type max_images: int | None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">images_paths</span> <span class="o">=</span> <span class="n">images_paths</span><span class="p">[:</span><span class="n">max_images</span><span class="p">]</span> <span class="k">if</span> <span class="n">max_images</span> <span class="k">else</span> <span class="n">images_paths</span>
+
+    <span class="n">output_dir_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir_path</span><span class="p">)</span>
+    <span class="n">output_dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">images_paths</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_dir_path</span> <span class="o">/</span> <span class="n">image_path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="copy_images_to_dir">
+<a class="viewcode-back" href="../../datasets.html#datasets.prepare_dataset.copy_images_to_dir">[docs]</a>
+<span class="k">def</span> <span class="nf">copy_images_to_dir</span><span class="p">(</span><span class="n">images_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">destination_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copies images from given paths to given directory.</span>
+
+<span class="sd">    :param images_paths: List of paths to the images.</span>
+<span class="sd">    :type images_paths: list[Path]</span>
+<span class="sd">    :param destination_dir: Path to the destination directory.</span>
+<span class="sd">    :type destination_dir: Path</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">destination_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">source_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">images_paths</span><span class="p">):</span>
+        <span class="n">destination_path</span> <span class="o">=</span> <span class="n">destination_dir</span> <span class="o">/</span> <span class="n">source_path</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">copy2</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">destination_path</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">patiens_paths</span> <span class="o">=</span> <span class="n">get_patients_paths</span><span class="p">(</span><span class="n">EASY_CASES_PATH</span><span class="p">)</span>
+
+    <span class="c1"># print(get_healty_eyes_paths(patiens_paths[0]))</span>
+    <span class="n">healthy_eyes_paths</span> <span class="o">=</span> <span class="n">get_reference_eyes_paths</span><span class="p">(</span><span class="n">EASY_CASES_PATH</span><span class="p">)</span>
+
+    <span class="c1"># raise ValueError(&quot;Testing only&quot;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Healthy eyes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">healthy_eyes_paths</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">healthy_eyes_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">lesion_eyes_paths</span> <span class="o">=</span> <span class="n">get_lesion_eyes_paths</span><span class="p">(</span><span class="n">EASY_CASES_PATH</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lesion eyes : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lesion_eyes_paths</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lesion_eyes_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># destination_dir = DATA_ROOT_PATH / &quot;healthy_eyes&quot;</span>
+    <span class="c1"># copy_images_to_dir(healthy_eyes_paths, destination_dir)</span>
+
+    <span class="c1"># SIZE = (256, 128)</span>
+    <span class="c1"># SIZE = (128, 64)</span>
+    <span class="n">SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resize to </span><span class="si">{</span><span class="n">SIZE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">HEALTHY_OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;datasets/genuine_eyes_ballanced/healthy_eyes_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">SIZE</span><span class="p">]))</span>
+    <span class="n">WITH_FLUID_OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;datasets/genuine_eyes_ballanced/with_fluid_eyes_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">SIZE</span><span class="p">]))</span>
+    <span class="n">resize_images_and_save</span><span class="p">(</span><span class="n">healthy_eyes_paths</span><span class="p">,</span> <span class="n">HEALTHY_OUTPUT_DIR</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">,</span> <span class="n">max_images</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">resize_images_and_save</span><span class="p">(</span><span class="n">lesion_eyes_paths</span><span class="p">,</span> <span class="n">WITH_FLUID_OUTPUT_DIR</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">,</span> <span class="n">max_images</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

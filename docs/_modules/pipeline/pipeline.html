@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pipeline.pipeline &mdash; medicraft 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            medicraft
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pipeline.pipeline</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pipeline.pipeline</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch</span> <span class="kn">import</span> <span class="n">Unet</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">TQDMProgressBar</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.loggers</span> <span class="kn">import</span> <span class="n">WandbLogger</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span> <span class="k">as</span> <span class="n">T</span>
+
+<span class="kn">import</span> <span class="nn">config</span> <span class="k">as</span> <span class="nn">cfg</span>
+<span class="kn">import</span> <span class="nn">pipeline.blocks</span> <span class="k">as</span> <span class="nn">pipeline_blocks</span>
+<span class="kn">import</span> <span class="nn">wandb</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">EyeScans</span><span class="p">,</span> <span class="n">OpthalAnonymizedDataset</span><span class="p">,</span> <span class="n">get_csv_dataset</span>
+<span class="kn">from</span> <span class="nn">generate_samples</span> <span class="kn">import</span> <span class="n">generate_samples</span> <span class="k">as</span> <span class="n">generate</span>
+
+<span class="c1"># from config import DEVICE</span>
+<span class="c1"># from datasets import OpthalAnonymizedDataset</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">GaussianDiffusion</span><span class="p">,</span> <span class="n">ResNetClassifier</span>
+<span class="kn">from</span> <span class="nn">pipeline.parser</span> <span class="kn">import</span> <span class="n">parse_config</span><span class="p">,</span> <span class="n">read_config_file</span>
+<span class="kn">from</span> <span class="nn">trackers</span> <span class="kn">import</span> <span class="n">ImagePredictionLogger</span>
+<span class="kn">from</span> <span class="nn">trainers</span> <span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">copy_results_directory</span>
+<span class="kn">from</span> <span class="nn">utils.transforms</span> <span class="kn">import</span> <span class="n">HorizontalCenterCrop</span>
+
+<span class="c1"># DEVICE = &quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;</span>
+
+
+<div class="viewcode-block" id="PipelineBlocks">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.PipelineBlocks">[docs]</a>
+<span class="k">class</span> <span class="nc">PipelineBlocks</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum for the pipeline blocks</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">general</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
+    <span class="n">experiment</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;output&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="Pipeline">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline">[docs]</a>
+<span class="k">class</span> <span class="nc">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to represent a pipeline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">images_directory</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">__df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">__image_size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+    <span class="n">runned_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">train_dataset</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span>
+    <span class="n">val_dataset</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span>
+    <span class="n">test_dataset</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span>
+
+<div class="viewcode-block" id="Pipeline.load_data">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.load_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">DataDTO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">images_directory</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">images_directory</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__df</span> <span class="o">=</span> <span class="n">get_csv_dataset</span><span class="p">(</span>
+            <span class="n">filepath</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">csv_file_path</span><span class="p">,</span>
+            <span class="n">val_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">validation_split</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">split_seed</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.train_generator">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.train_generator">[docs]</a>
+    <span class="k">def</span> <span class="nf">train_generator</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">TrainGeneratorDTO</span><span class="p">,</span> <span class="n">models_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">image_size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the generator model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unet_config</span> <span class="o">=</span> <span class="n">models_config</span><span class="o">.</span><span class="n">unet</span>
+        <span class="n">diffusion_config</span> <span class="o">=</span> <span class="n">models_config</span><span class="o">.</span><span class="n">diffusion</span>
+
+        <span class="n">diffusion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_diffusion_model</span><span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">diffusion_config</span><span class="p">,</span> <span class="n">unet_config</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">dataset_split_type</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">batch_size</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">OpthalAnonymizedDataset</span><span class="p">(</span>
+            <span class="n">diagnosis</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">diagnosis</span><span class="p">,</span>
+            <span class="n">df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__df</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">dataset_split_type</span><span class="p">],</span>
+            <span class="n">images_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">images_directory</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span>
+            <span class="n">convert_image_to</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">:</span>
+            <span class="n">results_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">results_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">experiment_id</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">diagnosis</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">results_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">results_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">diagnosis</span>
+
+        <span class="c1"># raise NotImplementedError(&quot;dataset loaded&quot;)</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>  <span class="c1"># noqa : F841</span>
+            <span class="n">diffusion_model</span><span class="o">=</span><span class="n">diffusion</span><span class="p">,</span>
+            <span class="n">folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">images_directory</span><span class="p">,</span>
+            <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+            <span class="n">train_batch_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">train_lr</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">save_and_sample_every</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">save_and_sample_every</span><span class="p">,</span>
+            <span class="c1"># save_and_sample_every=10,</span>
+            <span class="n">results_folder</span><span class="o">=</span><span class="n">results_folder</span><span class="p">,</span>
+            <span class="n">train_num_steps</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_steps</span><span class="p">,</span>
+            <span class="n">gradient_accumulate_every</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">gradient_accumulate_every</span><span class="p">,</span>  <span class="c1"># gradient accumulation steps</span>
+            <span class="n">ema_decay</span><span class="o">=</span><span class="mf">0.995</span><span class="p">,</span>  <span class="c1"># exponential moving average decay</span>
+            <span class="n">amp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># turn on mixed precision</span>
+            <span class="n">num_samples</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>  <span class="c1"># number of samples to save</span>
+            <span class="n">calculate_fid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># calculate FID during sampling</span>
+            <span class="n">tracker</span><span class="o">=</span><span class="s2">&quot;wandb&quot;</span><span class="p">,</span>
+            <span class="n">tracker_kwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">diagnosis</span><span class="p">,</span> <span class="s2">&quot;opthal_anonymized&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;project_name&quot;</span><span class="p">:</span> <span class="n">cfg</span><span class="o">.</span><span class="n">WANDB_PRJ_NAME_TRAIN_GENERATOR</span><span class="p">,</span>
+                <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;offline&quot;</span><span class="p">,</span>  <span class="c1"># TODO uncomment</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training completed successfully.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span> <span class="o">+=</span> <span class="n">config</span><span class="o">.</span><span class="n">num_steps</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">copy_results_to</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Copying results...&quot;</span><span class="p">)</span>
+            <span class="n">copy_results_directory</span><span class="p">(</span>
+                <span class="n">results_folder</span><span class="p">,</span>
+                <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">copy_results_to</span><span class="p">)</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">experiment_id</span> <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">experiment_id</span> <span class="k">else</span> <span class="n">config</span><span class="o">.</span><span class="n">copy_results_to</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Results copied successfully.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.train">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.train">[docs]</a>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the pipeline with specified configuration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loop_blocks</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">loop</span>
+
+        <span class="n">only_once_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">block</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">loop_blocks</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">block</span><span class="o">.</span><span class="n">repeat</span><span class="p">]</span>
+
+        <span class="n">total_steps</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">total_steps</span>
+
+        <span class="n">models_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">models</span>
+        <span class="n">image_size</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">image_size</span>
+
+        <span class="k">if</span> <span class="n">total_steps</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running 1 iteration of the pipeline&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">while</span> <span class="n">total_steps</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">loop_blocks</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">block</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">only_once_blocks</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">block</span><span class="o">.</span><span class="n">repeat</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">TRAIN_GENERATOR</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">train_generator</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">models_config</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">block</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">GENERATE_SAMPLES</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">generate_samples</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">models_config</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">block</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">models_config</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">block</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">FOO</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">block</span><span class="o">.</span><span class="n">repeat</span><span class="p">:</span>
+                    <span class="n">only_once_blocks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.foo">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.foo">[docs]</a>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">FooDTO</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Foo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">foo</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runned_steps</span> <span class="o">+=</span> <span class="mi">10</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.generate_samples">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.generate_samples">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">GenerateSamplesDTO</span><span class="p">,</span> <span class="n">models_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">image_size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate samples</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating samples&quot;</span><span class="p">)</span>
+
+        <span class="n">unet_config</span> <span class="o">=</span> <span class="n">models_config</span><span class="o">.</span><span class="n">unet</span>
+        <span class="n">diffusion_config</span> <span class="o">=</span> <span class="n">models_config</span><span class="o">.</span><span class="n">diffusion</span>
+
+        <span class="n">diffusion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_diffusion_model</span><span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">diffusion_config</span><span class="p">,</span> <span class="n">unet_config</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Diffusion loaded&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Generating samples&quot;</span><span class="p">)</span>  <span class="c1"># TODO remove</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">wandb</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+                <span class="n">project</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">WANDB_PRJ_NAME_GENERATE_SAMPLES</span><span class="p">,</span>
+                <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;opthal_anonymized&quot;</span><span class="p">,</span> <span class="s2">&quot;generate_dataset&quot;</span><span class="p">],</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;offline&quot;</span><span class="p">,</span>  <span class="c1"># TODO remove</span>
+            <span class="p">)</span>
+
+        <span class="n">diffusion</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="p">)[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
+        <span class="c1"># checkpoint = torch.load(config.checkpoint_path)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded from </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+        <span class="n">generate</span><span class="p">(</span>
+            <span class="n">diffusion_model</span><span class="o">=</span><span class="n">diffusion</span><span class="p">,</span>
+            <span class="n">results_dir</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">generete_samples_dir</span><span class="p">,</span>
+            <span class="n">num_samples</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_samples</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">copy_results_to</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Copying results...&quot;</span><span class="p">)</span>
+            <span class="n">copy_results_directory</span><span class="p">(</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">generete_samples_dir</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">copy_results_to</span><span class="p">)</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">relative_dataset_results_dir</span> <span class="o">/</span> <span class="n">config</span><span class="o">.</span><span class="n">base_on</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Results copied successfully.&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Generating samples&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.validate">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.validate">[docs]</a>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">ValidateDTO</span><span class="p">,</span> <span class="n">models_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">models_config</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">classification</span><span class="p">:</span>
+            <span class="c1"># print(&quot;Running classification experiment&quot;)</span>
+            <span class="c1"># print(config.classification)</span>
+            <span class="c1"># raise NotImplementedError(&quot;Running classification experiment&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__run_classification_experiment</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">classification</span><span class="p">,</span> <span class="n">models_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.run">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the pipeline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__set_logging_level</span><span class="p">(</span>
+                <span class="n">level</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">save_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Configuration not loaded&quot;</span><span class="p">)</span>
+
+        <span class="c1"># load data</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading data...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">PipelineBlocks</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Data loaded successfully.&quot;</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">PipelineBlocks</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__run_classification_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">ClassificationDTO</span><span class="p">,</span> <span class="n">models_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the classification experiment</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classifier_config</span> <span class="o">=</span> <span class="n">models_config</span><span class="o">.</span><span class="n">classifier</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">classifier_config</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">match</span> <span class="n">config</span><span class="o">.</span><span class="n">train_data_type</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;real&quot;</span><span class="p">:</span>
+                <span class="n">is_real_train_data</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">case</span> <span class="s2">&quot;synthetic&quot;</span><span class="p">:</span>
+                <span class="n">is_real_train_data</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown data type: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">train_data_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">train_dataset_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">train_dataset_dir</span>
+        <span class="n">val_dataset_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">val_dataset_dir</span>
+        <span class="n">test_dataset_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">test_dataset_dir</span>
+        <span class="c1"># raise NotImplementedError(&quot;Run classification experiment&quot;)</span>
+        <span class="n">data_module</span> <span class="o">=</span> <span class="n">EyeScans</span><span class="p">(</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">ratio</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span>
+            <span class="n">real_word_data</span><span class="o">=</span><span class="n">is_real_train_data</span><span class="p">,</span>
+            <span class="n">train_data_dir</span><span class="o">=</span><span class="n">train_dataset_dir</span><span class="p">,</span>
+            <span class="n">val_data_dir</span><span class="o">=</span><span class="n">val_dataset_dir</span><span class="p">,</span>
+            <span class="n">test_dataset_dir</span><span class="o">=</span><span class="n">test_dataset_dir</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">data_module</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Data module setup completed successfully.&quot;</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_classifier_model</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">classifier_config</span><span class="p">)</span>
+        <span class="n">wandb_logger</span> <span class="o">=</span> <span class="n">WandbLogger</span><span class="p">(</span>
+            <span class="n">project</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">WANDB_PRJ_NAME_CLASSIFICATION</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">logger_experiment_name</span><span class="p">,</span>
+            <span class="n">offline</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">offline</span><span class="p">,</span>
+            <span class="n">save_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">results_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;classification-wandb&quot;</span><span class="p">,</span>
+            <span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+            <span class="n">tags</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">logger_tags</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">early_stop_callback</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">)</span>
+        <span class="n">progressbar_callback</span> <span class="o">=</span> <span class="n">TQDMProgressBar</span><span class="p">()</span>
+        <span class="c1"># Samples required by the custom ImagePredictionLogger callback to log image predictions.</span>
+        <span class="n">val_samples</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">data_module</span><span class="o">.</span><span class="n">val_dataloader</span><span class="p">()))</span>
+
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
+            <span class="c1"># progress_bar_refresh_rate=20,</span>
+            <span class="c1"># gpus=1,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">wandb_logger</span><span class="p">,</span>
+            <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stop_callback</span><span class="p">,</span> <span class="n">ImagePredictionLogger</span><span class="p">(</span><span class="n">val_samples</span><span class="p">),</span> <span class="n">progressbar_callback</span><span class="p">],</span>
+            <span class="c1"># checkpoint_callback=checkpoint_callback,</span>
+            <span class="n">enable_checkpointing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">enable_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">log_every_n_steps</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">log_every_n_steps</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_module</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_module</span><span class="p">)</span>
+
+        <span class="n">wandb</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Classification process completed successfully.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Pipeline.load_config">
+<a class="viewcode-back" href="../../pipeline.html#pipeline.pipeline.Pipeline.load_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the configuration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">read_config_file</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">parse_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__image_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">PipelineBlocks</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">image_size</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Configuration parsed successfully.&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">HorizontalCenterCrop</span><span class="p">(</span><span class="mi">512</span><span class="p">),</span>
+                <span class="n">T</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__image_size</span><span class="p">),</span>
+                <span class="n">T</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
+                <span class="n">T</span><span class="o">.</span><span class="n">Grayscale</span><span class="p">(</span><span class="n">num_output_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_unet_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim_mults</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Unet model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Unet</span><span class="p">(</span>
+            <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span>
+            <span class="n">dim_mults</span><span class="o">=</span><span class="n">dim_mults</span><span class="p">,</span>
+            <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DEVICE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">__get_diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">diffusion_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">unet_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Gaussian diffusion model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_unet_model</span><span class="p">(</span><span class="o">**</span><span class="n">unet_config</span><span class="p">)</span>
+        <span class="n">diffusion</span> <span class="o">=</span> <span class="n">GaussianDiffusion</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">diffusion_config</span>
+            <span class="c1"># loss_type = &#39;l1&#39;    # L1 or L2</span>
+        <span class="p">)</span>
+        <span class="n">diffusion</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DEVICE</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded to </span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">DEVICE</span><span class="si">}</span><span class="s2"> device.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">diffusion</span>
+
+    <span class="k">def</span> <span class="nf">__get_classifier_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pipeline_blocks</span><span class="o">.</span><span class="n">ClassificationDTO</span><span class="p">,</span> <span class="n">classifier_config</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">get_loss_fn</span><span class="p">(</span><span class="n">loss_fn_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">loss_fn_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;cross_entropy&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">loss_fn_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;nll&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown loss function: </span><span class="si">{</span><span class="n">loss_fn_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">architecture</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">classifier_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;architecture&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;resnet&quot;</span><span class="p">,</span> <span class="n">architecture</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">ResNetClassifier</span><span class="p">(</span>
+                <span class="n">architecture</span><span class="o">=</span><span class="n">architecture</span><span class="p">,</span>
+                <span class="n">num_classes</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span>
+                <span class="n">loss_fn</span><span class="o">=</span><span class="n">get_loss_fn</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">),</span>
+                <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span>
+                <span class="n">loss_multiply</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">loss_multiply</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown architecture: </span><span class="si">{</span><span class="n">architecture</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">__set_logging_level</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">save_to_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;run.log&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the logging level</span>
+<span class="sd">        10: DEBUG</span>
+<span class="sd">        20: INFO</span>
+<span class="sd">        30: WARNING</span>
+<span class="sd">        40: ERROR</span>
+<span class="sd">        50: CRITICAL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="n">current_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">current_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">filename</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">handlers</span> <span class="o">=</span> <span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">save_to_file</span><span class="p">:</span>
+            <span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - </span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">datefmt</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span>
+            <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">handlers</span><span class="o">=</span><span class="n">handlers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

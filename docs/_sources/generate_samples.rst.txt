@@ -1,0 +1,7 @@
+generate\_samples module
+========================
+
+.. automodule:: generate_samples
+   :members:
+   :undoc-members:
+   :show-inheritance:

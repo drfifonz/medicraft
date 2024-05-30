@@ -1,0 +1,29 @@
+trackers package
+================
+
+Submodules
+----------
+
+trackers.callbacks module
+-------------------------
+
+.. automodule:: trackers.callbacks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+trackers.wandb module
+---------------------
+
+.. automodule:: trackers.wandb
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: trackers
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trainers package &mdash; medicraft 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils package" href="utils.html" />
+    <link rel="prev" title="trackers package" href="trackers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            medicraft
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#post-installation-steps">Post-Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets 1package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html">pipeline package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_experiment.html">run_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackers.html">trackers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">trainers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-trainers.trainer">trainers.trainer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-trainers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.transforms">utils.transforms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">validation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#validation-fid-module">validation.fid module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Further improvments &amp; contribution guidelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">trainers package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="trainers-package">
+<h1>trainers package<a class="headerlink" href="#trainers-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="trainers-classifier-trainer-module">
+<h2>trainers.classifier_trainer module<a class="headerlink" href="#trainers-classifier-trainer-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-trainers.trainer">
+<span id="trainers-trainer-module"></span><h2>trainers.trainer module<a class="headerlink" href="#module-trainers.trainer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="trainers.trainer.Trainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">trainers.trainer.</span></span><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient_accumulate_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augment_horizontal_flip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_every_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ema_update_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ema_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.995</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adam_betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.99)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_and_sample_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fp16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_image_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculate_fid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inception_block_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_grad_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_fid_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_best_and_latest_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.trainer.Trainer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Trainer</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffusion_model</strong> (<em>Module</em>)</p></li>
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>dataset</strong> (<em>Dataset</em>)</p></li>
+<li><p><strong>train_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>gradient_accumulate_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>augment_horizontal_flip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>train_lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>train_num_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>break_every_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>ema_update_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>ema_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>adam_betas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>save_and_sample_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>results_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>amp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>mixed_precision_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>split_batches</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>convert_image_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><em>Literal</em></a><em>[</em><em>'L'</em><em>, </em><em>'RGB'</em><em>, </em><em>'RGBA'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>calculate_fid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>inception_block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>max_grad_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>num_fid_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>save_best_and_latest_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>tracker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>tracker_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.trainer.Trainer.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">milestone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_last_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.trainer.Trainer.save" title="Link to this definition"></a></dt>
+<dd><p>Save the current state of the trainer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>milestone</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The milestone identifier for the saved model.</p></li>
+<li><p><strong>keep_last_models</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – The number of last models to keep. Defaults to 10.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.trainer.Trainer.keep_last_models">
+<span class="sig-name descname"><span class="pre">keep_last_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.keep_last_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.trainer.Trainer.keep_last_models" title="Link to this definition"></a></dt>
+<dd><p>Keep only the last <cite>num_models</cite> models in the results folder.
+Function will keep the latest model also.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_models</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of models to keep.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.trainer.Trainer.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">milestone_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.trainer.Trainer.load" title="Link to this definition"></a></dt>
+<dd><p>Load the model, optimizer, and other training state from a milestone file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>milestone_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The path to the milestone file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.trainer.Trainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.trainer.Trainer.train" title="Link to this definition"></a></dt>
+<dd><p>Train the model.</p>
+<p>This method performs the training loop for the model. It iterates over the specified number of training steps,
+accumulates gradients, updates the model parameters, and saves intermediate results if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-trainers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-trainers" title="Link to this heading"></a></h2>
+<p>This module provides the Trainer class for training models.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="trainers.Trainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">trainers.</span></span><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient_accumulate_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augment_horizontal_flip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_every_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ema_update_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ema_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.995</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adam_betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.99)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_and_sample_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixed_precision_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fp16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_image_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculate_fid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inception_block_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_grad_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_fid_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_best_and_latest_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.Trainer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Trainer</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffusion_model</strong> (<em>Module</em>)</p></li>
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>dataset</strong> (<em>Dataset</em>)</p></li>
+<li><p><strong>train_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>gradient_accumulate_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>augment_horizontal_flip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>train_lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>train_num_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>break_every_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>ema_update_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>ema_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>adam_betas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>save_and_sample_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>results_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>amp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>mixed_precision_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>)</p></li>
+<li><p><strong>split_batches</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>convert_image_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><em>Literal</em></a><em>[</em><em>'L'</em><em>, </em><em>'RGB'</em><em>, </em><em>'RGBA'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>calculate_fid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>inception_block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>max_grad_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>)</p></li>
+<li><p><strong>num_fid_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>)</p></li>
+<li><p><strong>save_best_and_latest_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>)</p></li>
+<li><p><strong>tracker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>tracker_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.Trainer.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">milestone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_last_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.Trainer.save" title="Link to this definition"></a></dt>
+<dd><p>Save the current state of the trainer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>milestone</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The milestone identifier for the saved model.</p></li>
+<li><p><strong>keep_last_models</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – The number of last models to keep. Defaults to 10.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.Trainer.keep_last_models">
+<span class="sig-name descname"><span class="pre">keep_last_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.keep_last_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.Trainer.keep_last_models" title="Link to this definition"></a></dt>
+<dd><p>Keep only the last <cite>num_models</cite> models in the results folder.
+Function will keep the latest model also.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_models</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of models to keep.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.Trainer.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">milestone_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.Trainer.load" title="Link to this definition"></a></dt>
+<dd><p>Load the model, optimizer, and other training state from a milestone file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>milestone_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The path to the milestone file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="trainers.Trainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trainers/trainer.html#Trainer.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trainers.Trainer.train" title="Link to this definition"></a></dt>
+<dd><p>Train the model.</p>
+<p>This method performs the training loop for the model. It iterates over the specified number of training steps,
+accumulates gradients, updates the model parameters, and saves intermediate results if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="trackers.html" class="btn btn-neutral float-left" title="trackers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

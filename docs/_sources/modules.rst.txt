@@ -1,0 +1,20 @@
+src
+===
+
+.. toctree::
+   :maxdepth: 4
+
+   config
+   datasets
+   generate_dataset_temp
+   generate_samples
+   main
+   models
+   pipeline
+   run_classification_experiment
+   run_experiment
+   test_pipeline
+   trackers
+   trainers
+   utils
+   validation

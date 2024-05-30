@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>run_experiment &mdash; medicraft 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            medicraft
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">run_experiment</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for run_experiment</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch</span> <span class="kn">import</span> <span class="n">Unet</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span> <span class="k">as</span> <span class="n">T</span>
+
+<span class="kn">import</span> <span class="nn">config</span> <span class="k">as</span> <span class="nn">cfg</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">OpthalAnonymizedDataset</span><span class="p">,</span> <span class="n">get_csv_dataset</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">GaussianDiffusion</span>
+<span class="kn">from</span> <span class="nn">trainers</span> <span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">copy_results_directory</span>
+<span class="kn">from</span> <span class="nn">utils.transforms</span> <span class="kn">import</span> <span class="n">HorizontalCenterCrop</span>
+
+<span class="n">DEVICE</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+
+<span class="n">IMAGE_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../run_experiment.html#run_experiment.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">get_csv_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATASET_FILE_PATH</span><span class="p">)[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span>
+
+    <span class="n">DIAGNOSIS</span> <span class="o">=</span> <span class="s2">&quot;reference&quot;</span>  <span class="c1"># [&quot;precancerous&quot;, &quot;fluid&quot;, &quot;benign&quot;, &quot;reference&quot;]</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">HorizontalCenterCrop</span><span class="p">(</span><span class="mi">512</span><span class="p">),</span>
+            <span class="n">T</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">IMAGE_SIZE</span><span class="p">),</span>
+            <span class="n">T</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
+            <span class="n">T</span><span class="o">.</span><span class="n">Grayscale</span><span class="p">(</span><span class="n">num_output_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">OpthalAnonymizedDataset</span><span class="p">(</span>
+        <span class="n">diagnosis</span><span class="o">=</span><span class="n">DIAGNOSIS</span><span class="p">,</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+        <span class="n">images_dir</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATASET_FILE_PATH</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">convert_image_to</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Unet</span><span class="p">(</span>
+        <span class="n">dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+        <span class="n">dim_mults</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">)</span>
+
+    <span class="n">diffusion</span> <span class="o">=</span> <span class="n">GaussianDiffusion</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">image_size</span><span class="o">=</span><span class="n">IMAGE_SIZE</span><span class="p">,</span>
+        <span class="n">timesteps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># number of steps #</span>
+        <span class="c1"># timesteps=2,  # number of steps</span>
+        <span class="c1"># loss_type = &#39;l1&#39;    # L1 or L2</span>
+    <span class="p">)</span>
+    <span class="n">diffusion</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded to </span><span class="si">{</span><span class="n">DEVICE</span><span class="si">}</span><span class="s2"> device.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># data_path = &quot;./data/input_datasets/with_fluid_eyes_512x256&quot;</span>
+    <span class="c1"># data_path = &quot;./data/input_datasets/healthy_eyes_512x256&quot;</span>
+
+    <span class="n">experiment_id</span> <span class="o">=</span> <span class="s2">&quot;0003&quot;</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>  <span class="c1"># noqa : F841</span>
+        <span class="n">diffusion</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATASET_FILE_PATH</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;images&quot;</span><span class="p">),</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+        <span class="n">train_batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">train_lr</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span>
+        <span class="n">save_and_sample_every</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="c1"># save_and_sample_every=10,</span>
+        <span class="n">results_folder</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;./.results/</span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">DIAGNOSIS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">train_num_steps</span><span class="o">=</span><span class="mi">100_000</span><span class="p">,</span>  <span class="c1"># total training steps</span>
+        <span class="n">gradient_accumulate_every</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># gradient accumulation steps</span>
+        <span class="n">ema_decay</span><span class="o">=</span><span class="mf">0.995</span><span class="p">,</span>  <span class="c1"># exponential moving average decay</span>
+        <span class="n">amp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># turn on mixed precision</span>
+        <span class="n">num_samples</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>  <span class="c1"># number of samples to save</span>
+        <span class="n">calculate_fid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># calculate FID during sampling</span>
+        <span class="n">tracker</span><span class="o">=</span><span class="s2">&quot;wandb&quot;</span><span class="p">,</span>
+        <span class="n">tracker_kwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">DIAGNOSIS</span><span class="p">,</span> <span class="s2">&quot;opthal_anonymized&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;online&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="c1"># trainer.load(&quot;.results/0002/reference/model-30.pt&quot;)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">copy_results_directory</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;./.results/</span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">DIAGNOSIS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;/home/wmi/OneDrive/General/results/05.2024/.results/</span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

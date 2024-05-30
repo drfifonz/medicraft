@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trainers.trainer &mdash; medicraft 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            medicraft
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#post-installation-steps">Post-Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../config.html">config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datasets.html">datasets 1package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../datasets.html#module-datasets">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../generate_dataset_temp.html">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generate_samples.html">generate_samples module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../main.html">main module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../main.html#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../models.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.html#module-models.classifier">models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.html#module-models">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../pipeline.html">pipeline package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../pipeline.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.blocks.html">pipeline.blocks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../pipeline.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.parser.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../pipeline.html#module-pipeline.pipeline">pipeline.pipeline module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.pipeline.PipelineBlocks"><code class="docutils literal notranslate"><span class="pre">PipelineBlocks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../pipeline.html#module-pipeline">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipeline.html#pipeline.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../run_classification_experiment.html">run_classification_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../run_experiment.html">run_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_pipeline.html">test_pipeline module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../trackers.html">trackers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../trackers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../trackers.html#module-trackers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../trainers.html">trainers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../trainers.html#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../trainers.html#module-trainers.trainer">trainers.trainer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../trainers.html#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../trainers.html#module-trainers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../trainers.html#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../utils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils.html#module-utils.transforms">utils.transforms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils.html#module-utils">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../validation.html">validation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../validation.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../validation.html#validation-fid-module">validation.fid module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../validation.html#module-validation">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">Further improvments &amp; contribution guidelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">trainers.trainer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for trainers.trainer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch</span> <span class="kn">import</span> <span class="n">Trainer</span> <span class="k">as</span> <span class="n">DiffusionTrainer</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch.denoising_diffusion_pytorch</span> <span class="kn">import</span> <span class="n">Dataset</span> <span class="k">as</span> <span class="n">_Dataset</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch.denoising_diffusion_pytorch</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">cpu_count</span><span class="p">,</span>
+    <span class="n">cycle</span><span class="p">,</span>
+    <span class="n">divisible_by</span><span class="p">,</span>
+    <span class="n">exists</span><span class="p">,</span>
+    <span class="n">num_to_groups</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">denoising_diffusion_pytorch.version</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">trackers.wandb</span> <span class="kn">import</span> <span class="n">WandbTracker</span>
+
+
+<div class="viewcode-block" id="Trainer">
+<a class="viewcode-back" href="../../trainers.html#trainers.trainer.Trainer">[docs]</a>
+<span class="k">class</span> <span class="nc">Trainer</span><span class="p">(</span><span class="n">DiffusionTrainer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">diffusion_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">train_batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="n">gradient_accumulate_every</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">augment_horizontal_flip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">train_lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">train_num_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100_000</span><span class="p">,</span>
+        <span class="n">break_every_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ema_update_every</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">ema_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.995</span><span class="p">,</span>
+        <span class="n">adam_betas</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">),</span>
+        <span class="n">save_and_sample_every</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="n">results_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./results&quot;</span><span class="p">,</span>
+        <span class="n">amp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">mixed_precision_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;fp16&quot;</span><span class="p">,</span>
+        <span class="n">split_batches</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">convert_image_to</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="s2">&quot;RGBA&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">calculate_fid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">inception_block_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">,</span>
+        <span class="n">max_grad_norm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">num_fid_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">,</span>
+        <span class="n">save_best_and_latest_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">tracker</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tracker_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Trainer object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            diffusion_model (nn.Module): The diffusion model to be trained.</span>
+<span class="sd">            folder (str, optional): The folder path containing the dataset. Defaults to None.</span>
+<span class="sd">            dataset (Dataset, optional): The dataset object. Defaults to None.</span>
+<span class="sd">            train_batch_size (int, optional): The batch size for training. Defaults to 16.</span>
+<span class="sd">            gradient_accumulate_every (int, optional): Number of steps to accumulate gradients before performing optimization. Defaults to 1.</span>
+<span class="sd">            augment_horizontal_flip (int, optional): Whether to apply horizontal flip augmentation. Defaults to True.</span>
+<span class="sd">            train_lr (float, optional): The learning rate for training. Defaults to 1e-4.</span>
+<span class="sd">            train_num_steps (int, optional): The total number of training steps. Defaults to 100_000.</span>
+<span class="sd">            break_every_steps (int | None, optional): Number of steps after which to break the training loop. Defaults to None.</span>
+<span class="sd">            ema_update_every (int, optional): Number of steps after which to update the exponential moving average of model weights. Defaults to 10.</span>
+<span class="sd">            ema_decay (float, optional): Decay rate for the exponential moving average. Defaults to 0.995.</span>
+<span class="sd">            adam_betas (tuple[float, float], optional): Coefficients for computing running averages of gradient and its square. Defaults to (0.9, 0.99).</span>
+<span class="sd">            save_and_sample_every (int, optional): Number of steps after which to save model checkpoints and generate samples. Defaults to 1000.</span>
+<span class="sd">            num_samples (int, optional): Number of samples to generate during training. Defaults to 25.</span>
+<span class="sd">            results_folder (str, optional): The folder path to save results. Defaults to &quot;./results&quot;.</span>
+<span class="sd">            amp (bool, optional): Whether to use automatic mixed precision training. Defaults to False.</span>
+<span class="sd">            mixed_precision_type (str, optional): The type of mixed precision training. Defaults to &quot;fp16&quot;.</span>
+<span class="sd">            split_batches (bool, optional): Whether to split batches across devices. Defaults to True.</span>
+<span class="sd">            convert_image_to (Literal[&quot;L&quot;, &quot;RGB&quot;, &quot;RGBA&quot;] | None, optional): The color space to convert images to. Defaults to None.</span>
+<span class="sd">            calculate_fid (bool, optional): Whether to calculate Fréchet Inception Distance (FID) during training. Defaults to True.</span>
+<span class="sd">            inception_block_idx (int, optional): The index of the inception block to use for FID calculation. Defaults to 2048.</span>
+<span class="sd">            max_grad_norm (float, optional): Maximum gradient norm for gradient clipping. Defaults to 1.0.</span>
+<span class="sd">            num_fid_samples (int, optional): Number of samples to use for FID calculation. Defaults to 50000.</span>
+<span class="sd">            save_best_and_latest_only (bool, optional): Whether to save only the best and latest model checkpoints. Defaults to False.</span>
+<span class="sd">            tracker (str | None, optional): The tracker name for experiment tracking. Defaults to None.</span>
+<span class="sd">            tracker_kwargs (dict | None, optional): Additional keyword arguments for the tracker. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># TODO try if is it necessary then remove this line</span>
+        <span class="k">if</span> <span class="n">tracker</span><span class="p">:</span>
+            <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;self&quot;</span><span class="p">}</span>
+            <span class="p">[</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">&quot;tracker_kwargs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;results_folder&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;convert_image_to&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;save_and_sample_every&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">]</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;dataset_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">folder</span> <span class="k">else</span> <span class="n">dataset</span><span class="o">.</span><span class="n">diagnosis</span>
+
+            <span class="c1"># tracker_class = get_tracker_class(tracker.lower()) #TODO add tracker selection depending on the tracker name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span> <span class="o">=</span> <span class="n">WandbTracker</span><span class="p">(</span>
+                <span class="n">project_name</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;project_name&quot;</span><span class="p">,</span> <span class="s2">&quot;medicraft&quot;</span><span class="p">),</span>
+                <span class="n">hyperparameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                <span class="n">tags</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="c1"># tags=getattr(tracker_kwargs, &quot;tags&quot;, None),</span>
+                <span class="n">group</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;diffusion&quot;</span><span class="p">),</span>
+                <span class="n">resume</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resume&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="n">mode</span><span class="o">=</span><span class="n">tracker_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;online&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">break_every_steps</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">Path</span><span class="p">(</span><span class="n">results_folder</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">diffusion_model</span><span class="o">=</span><span class="n">diffusion_model</span><span class="p">,</span>
+            <span class="n">folder</span><span class="o">=</span><span class="n">folder</span><span class="p">,</span>
+            <span class="n">train_batch_size</span><span class="o">=</span><span class="n">train_batch_size</span><span class="p">,</span>
+            <span class="n">gradient_accumulate_every</span><span class="o">=</span><span class="n">gradient_accumulate_every</span><span class="p">,</span>
+            <span class="n">augment_horizontal_flip</span><span class="o">=</span><span class="n">augment_horizontal_flip</span><span class="p">,</span>
+            <span class="n">train_lr</span><span class="o">=</span><span class="n">train_lr</span><span class="p">,</span>
+            <span class="n">train_num_steps</span><span class="o">=</span><span class="n">train_num_steps</span><span class="p">,</span>
+            <span class="n">ema_update_every</span><span class="o">=</span><span class="n">ema_update_every</span><span class="p">,</span>
+            <span class="n">ema_decay</span><span class="o">=</span><span class="n">ema_decay</span><span class="p">,</span>
+            <span class="n">adam_betas</span><span class="o">=</span><span class="n">adam_betas</span><span class="p">,</span>
+            <span class="n">save_and_sample_every</span><span class="o">=</span><span class="n">save_and_sample_every</span><span class="p">,</span>
+            <span class="n">num_samples</span><span class="o">=</span><span class="n">num_samples</span><span class="p">,</span>
+            <span class="n">results_folder</span><span class="o">=</span><span class="n">results_folder</span><span class="p">,</span>
+            <span class="n">amp</span><span class="o">=</span><span class="n">amp</span><span class="p">,</span>
+            <span class="n">mixed_precision_type</span><span class="o">=</span><span class="n">mixed_precision_type</span><span class="p">,</span>
+            <span class="n">split_batches</span><span class="o">=</span><span class="n">split_batches</span><span class="p">,</span>
+            <span class="n">convert_image_to</span><span class="o">=</span><span class="n">convert_image_to</span><span class="p">,</span>
+            <span class="n">calculate_fid</span><span class="o">=</span><span class="n">calculate_fid</span><span class="p">,</span>
+            <span class="n">inception_block_idx</span><span class="o">=</span><span class="n">inception_block_idx</span><span class="p">,</span>
+            <span class="n">max_grad_norm</span><span class="o">=</span><span class="n">max_grad_norm</span><span class="p">,</span>
+            <span class="n">num_fid_samples</span><span class="o">=</span><span class="n">num_fid_samples</span><span class="p">,</span>
+            <span class="n">save_best_and_latest_only</span><span class="o">=</span><span class="n">save_best_and_latest_only</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">dataset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">_Dataset</span><span class="p">(</span>
+                <span class="n">folder</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span>
+                <span class="n">augment_horizontal_flip</span><span class="o">=</span><span class="n">augment_horizontal_flip</span><span class="p">,</span>
+                <span class="n">convert_image_to</span><span class="o">=</span><span class="n">convert_image_to</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset initialized&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">100</span>
+        <span class="p">),</span> <span class="s2">&quot;you should have at least 100 images in your folder. at least 10k images recommended&quot;</span>
+
+        <span class="n">dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">train_batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">cpu_count</span><span class="p">())</span>
+
+        <span class="n">dl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">dl</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dl</span> <span class="o">=</span> <span class="n">cycle</span><span class="p">(</span><span class="n">dl</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trainer initialized&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Trainer.save">
+<a class="viewcode-back" href="../../trainers.html#trainers.trainer.Trainer.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milestone</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keep_last_models</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the current state of the trainer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            milestone (str): The milestone identifier for the saved model.</span>
+<span class="sd">            keep_last_models (int | None, optional): The number of last models to keep. Defaults to 10.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">is_local_main_process</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">get_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">),</span>
+            <span class="s2">&quot;opt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;ema&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ema</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;scaler&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span> <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">scaler</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">model_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;model-</span><span class="si">{</span><span class="n">milestone</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model_path</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span> <span class="o">/</span> <span class="s2">&quot;latest.pt&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keep_last_models</span><span class="p">(</span><span class="n">keep_last_models</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Trainer.keep_last_models">
+<a class="viewcode-back" href="../../trainers.html#trainers.trainer.Trainer.keep_last_models">[docs]</a>
+    <span class="k">def</span> <span class="nf">keep_last_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_models</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Keep only the last `num_models` models in the results folder.</span>
+<span class="sd">        Function will keep the latest model also.</span>
+
+<span class="sd">        :param num_models: The number of models to keep.</span>
+<span class="sd">        :type num_models: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">list_of_models</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pt&quot;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">)</span>
+        <span class="n">models_to_remove</span> <span class="o">=</span> <span class="n">list_of_models</span><span class="p">[:</span><span class="o">-</span><span class="n">num_models</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models_to_remove</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">stem</span> <span class="o">==</span> <span class="s2">&quot;latest&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Trainer.load">
+<a class="viewcode-back" href="../../trainers.html#trainers.trainer.Trainer.load">[docs]</a>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milestone_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the model, optimizer, and other training state from a milestone file.</span>
+
+<span class="sd">        :param milestone_path: The path to the milestone file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">accelerator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">device</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">milestone_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">unwrap_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ema</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ema&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s2">&quot;version&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;loading from version </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">scaler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">exists</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;scaler&quot;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;scaler&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Trainer.train">
+<a class="viewcode-back" href="../../trainers.html#trainers.trainer.Trainer.train">[docs]</a>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the model.</span>
+
+<span class="sd">        This method performs the training loop for the model. It iterates over the specified number of training steps,</span>
+<span class="sd">        accumulates gradients, updates the model parameters, and saves intermediate results if necessary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">accelerator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">device</span>
+
+        <span class="k">with</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">train_num_steps</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_num_steps</span><span class="p">:</span>
+                <span class="n">total_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gradient_accumulate_every</span><span class="p">):</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">autocast</span><span class="p">():</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_accumulate_every</span>
+                        <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+                <span class="n">pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;loss: </span><span class="si">{</span><span class="n">total_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">total_loss</span><span class="p">})</span>
+
+                <span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
+                <span class="n">accelerator</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_grad_norm</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+                <span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ema</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">divisible_by</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_and_sample_every</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ema</span><span class="o">.</span><span class="n">ema_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+                        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+                            <span class="n">milestone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_and_sample_every</span>
+                            <span class="n">batches</span> <span class="o">=</span> <span class="n">num_to_groups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+                            <span class="n">all_images_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ema</span><span class="o">.</span><span class="n">ema_model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span> <span class="n">batches</span><span class="p">))</span>
+
+                        <span class="n">all_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">all_images_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">log_images</span><span class="p">(</span><span class="n">all_images</span><span class="p">)</span>
+
+                        <span class="n">utils</span><span class="o">.</span><span class="n">save_image</span><span class="p">(</span>
+                            <span class="n">all_images</span><span class="p">,</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;sample-</span><span class="si">{</span><span class="n">milestone</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">),</span>
+                            <span class="n">nrow</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">)),</span>
+                        <span class="p">)</span>
+
+                        <span class="c1"># whether to calculate fid</span>
+
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_fid</span><span class="p">:</span>
+                            <span class="n">fid_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fid_scorer</span><span class="o">.</span><span class="n">fid_score</span><span class="p">()</span>
+                            <span class="n">accelerator</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fid_score: </span><span class="si">{</span><span class="n">fid_score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_best_and_latest_only</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_fid</span> <span class="o">&gt;</span> <span class="n">fid_score</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">best_fid</span> <span class="o">=</span> <span class="n">fid_score</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">milestone</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">break_every_steps</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">break_every_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">milestone</span><span class="si">}</span><span class="s2">-val&quot;</span><span class="p">)</span>
+
+                <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">update_step</span><span class="p">()</span>
+
+        <span class="n">accelerator</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;training complete&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

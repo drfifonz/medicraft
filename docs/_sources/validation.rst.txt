@@ -1,0 +1,29 @@
+validation package
+==================
+
+Submodules
+----------
+
+validation.embeddings module
+----------------------------
+
+.. automodule:: validation.embeddings
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+validation.fid module
+---------------------
+
+.. automodule:: validation.fid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: validation
+   :members:
+   :undoc-members:
+   :show-inheritance:

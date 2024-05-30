@@ -1,0 +1,38 @@
+.. medicraft documentation master file, created by
+   sphinx-quickstart on Thu May 30 14:59:20 2024.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to medicraft's documentation!
+=====================================
+
+Introduction
+------------
+
+Welcome to the official documentation of **Medicraft**.
+
+The medical imaging analysis using machine learning encounters challenges such as limited and imbalanced datasets, often constrained by privacy concerns related to patient information. The Medicraft project addresses these limitations by developing software capable of generating synthetic and diverse medical datasets from imaging information. In cooperation with the University Clinical Hospital in Poznan this tool utilizes OCT eye scans, featuring images with abnormalities like tumors and melanomas. To reduce the scarcity of real data, for medically rare cases, the solution uses diffusion models (Denoising Diffusion Probabilistic Model) to create synthetic balanced datasets which can facilitate better research and education in machine learning for medical image analysis and classification. The project uses a data-driven learning approach focused on analyzing the generated data, where synthetic images are analyzed for accuracy with the medical team, in order to achieve the best possible result.
+
+In this documentation, you will find:
+
+- A comprehensive guide on how to install and use the project.
+- Detailed API documentation.
+- Examples and tutorials to help you get started.
+- Contribution guidelines for those who wish to contribute.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   introduction
+   installation
+   modules
+   todo
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

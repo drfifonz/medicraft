@@ -1,0 +1,29 @@
+trainers package
+================
+
+Submodules
+----------
+
+trainers.classifier\_trainer module
+-----------------------------------
+
+.. automodule:: trainers.classifier_trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+trainers.trainer module
+-----------------------
+
+.. automodule:: trainers.trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: trainers
+   :members:
+   :undoc-members:
+   :show-inheritance:

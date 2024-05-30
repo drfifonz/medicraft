@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index &mdash; medicraft 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            medicraft
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#post-installation-steps">Post-Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">src</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets 1package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html">pipeline package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_experiment.html">run_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackers.html">trackers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="trainers.html">trainers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers.trainer">trainers.trainer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.transforms">utils.transforms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">validation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#validation-fid-module">validation.fid module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Further improvments &amp; contribution guidelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#_"><strong>_</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ 
+</div>
+<h2 id="_">_</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.transforms.HorizontalCenterCrop.__call__">__call__() (utils.transforms.HorizontalCenterCrop method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.base_on">base_on (pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.base_on">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.batch_size">batch_size (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.batch_size">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.batch_size">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.batch_size">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.batch_size">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.batch_size">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="validation.html#validation.Embeddings.calculate_cosine_similarity">calculate_cosine_similarity() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.calculate_cosine_similarity">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.calculate_embeddings_distances">calculate_embeddings_distances() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.calculate_embeddings_distances">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.gausian_diffusion.GaussianDiffusion.channels">channels (models.gausian_diffusion.GaussianDiffusion attribute)</a>
+
+      <ul>
+        <li><a href="models.html#models.GaussianDiffusion.channels">(models.GaussianDiffusion attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="utils.html#utils.artifact_utilities.check_results_dir_exists">check_results_dir_exists() (in module utils.artifact_utilities)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.checkpoint_path">checkpoint_path (pipeline.blocks.experiment_dto.GenerateSamplesDTO property)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.checkpoint_path">(pipeline.blocks.GenerateSamplesDTO property)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.class_names">class_names (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.class_names">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.classification">classification (pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.classification">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.classification_validator">classification_validator() (pipeline.blocks.experiment_dto.ValidateDTO class method)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.classification_validator">(pipeline.blocks.ValidateDTO class method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO">ClassificationDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO">(class in pipeline.blocks.experiment_dto)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.classifier">classifier (pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+      <li>
+    config
+
+      <ul>
+        <li><a href="config.html#module-config">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks">ConfigBlocks (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks">(class in pipeline.blocks.blocks)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.configure_optimizers">configure_optimizers() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.configure_optimizers">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.prepare_dataset.copy_images_to_dir">copy_images_to_dir() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="utils.html#utils.copy_results_directory">copy_results_directory() (in module utils)</a>
+
+      <ul>
+        <li><a href="utils.html#utils.files_managment.copy_results_directory">(in module utils.files_managment)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.copy_results_to">copy_results_to (pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.copy_results_to">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.copy_results_to">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.copy_results_to">(pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.copy_results_to">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.copy_results_to">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.copy_results_to">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.create_umap_plot">create_umap_plot() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.create_umap_plot">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.create_violin_plot">create_violin_plot() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.create_violin_plot">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.preprocess.crop_image">crop_image() (in module datasets.preprocess)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.csv_file_path">csv_file_path (pipeline.blocks.data_dto.DataDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.csv_file_path">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.data">data (pipeline.blocks.blocks.ConfigBlocks attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.data">(pipeline.blocks.ConfigBlocks attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO">DataDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO">(class in pipeline.blocks.data_dto)</a>
+</li>
+      </ul></li>
+      <li><a href="config.html#config.DATASET_FILE_PATH">DATASET_FILE_PATH (in module config)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.dataset_split_type">dataset_split_type (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.dataset_split_type">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    datasets
+
+      <ul>
+        <li><a href="datasets.html#module-datasets">module</a>
+</li>
+      </ul></li>
+      <li>
+    datasets.eye_scans
+
+      <ul>
+        <li><a href="datasets.html#module-datasets.eye_scans">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    datasets.opthal_anonymized
+
+      <ul>
+        <li><a href="datasets.html#module-datasets.opthal_anonymized">module</a>
+</li>
+      </ul></li>
+      <li>
+    datasets.prepare_dataset
+
+      <ul>
+        <li><a href="datasets.html#module-datasets.prepare_dataset">module</a>
+</li>
+      </ul></li>
+      <li>
+    datasets.preprocess
+
+      <ul>
+        <li><a href="datasets.html#module-datasets.preprocess">module</a>
+</li>
+      </ul></li>
+      <li><a href="config.html#config.DEV_DEBUG">DEV_DEBUG (in module config)</a>
+</li>
+      <li><a href="config.html#config.DEVICE">DEVICE (in module config)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.diagnosis">diagnosis (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.diagnosis">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.diffusion">diffusion (pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="validation.html#validation.Embeddings">Embeddings (class in validation)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings">(class in validation.embeddings)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.epochs">epochs (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.epochs">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.experiment">experiment (pipeline.blocks.blocks.ConfigBlocks attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.experiment">(pipeline.blocks.ConfigBlocks attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.experiment_id">experiment_id (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.experiment_id">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.experiment_id">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO">ExperimentDTO (class in pipeline.blocks.experiment_dto)</a>
+</li>
+      <li><a href="datasets.html#datasets.EyeScans">EyeScans (class in datasets)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.eye_scans.EyeScans">(class in datasets.eye_scans)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.finish">finish() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.finish">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.foo">foo (pipeline.blocks.experiment_dto.FooDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.foo">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO">FooDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO">(class in pipeline.blocks.experiment_dto)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="models.html#models.classifier.ResNetClassifier.forward">forward() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#id0">(models.gausian_diffusion.GaussianDiffusion method)</a>, <a href="models.html#models.gausian_diffusion.GaussianDiffusion.forward">[1]</a>
+</li>
+        <li><a href="models.html#id2">(models.GaussianDiffusion method)</a>, <a href="models.html#models.GaussianDiffusion.forward">[1]</a>
+</li>
+        <li><a href="models.html#models.ResNetClassifier.forward">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="models.html#models.GaussianDiffusion">GaussianDiffusion (class in models)</a>
+
+      <ul>
+        <li><a href="models.html#models.gausian_diffusion.GaussianDiffusion">(class in models.gausian_diffusion)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.general">general (pipeline.blocks.blocks.ConfigBlocks attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.general">(pipeline.blocks.ConfigBlocks attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO">GeneralDTO (class in pipeline.blocks.general_dto)</a>
+</li>
+      <li>
+    generate_samples
+
+      <ul>
+        <li><a href="generate_samples.html#module-generate_samples">module</a>
+</li>
+      </ul></li>
+      <li><a href="generate_samples.html#generate_samples.generate_samples">generate_samples() (in module generate_samples)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO">GenerateSamplesDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO">(class in pipeline.blocks.experiment_dto)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.generete_samples_dir">generete_samples_dir (pipeline.blocks.experiment_dto.GenerateSamplesDTO property)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.generete_samples_dir">(pipeline.blocks.GenerateSamplesDTO property)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.get_csv_dataset">get_csv_dataset() (in module datasets)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.opthal_anonymized.get_csv_dataset">(in module datasets.opthal_anonymized)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.html#pipeline.parser.get_experiment_configs">get_experiment_configs() (in module pipeline.parser)</a>
+</li>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.get_experiment_name">get_experiment_name() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.get_experiment_name">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.get_images_embeddings">get_images_embeddings() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.get_images_embeddings">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.get_images_embeddings_from_dataset">get_images_embeddings_from_dataset() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.get_images_embeddings_from_dataset">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.prepare_dataset.get_images_paths">get_images_paths() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths">get_lesion_eyes_paths() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="datasets.html#datasets.prepare_dataset.get_patients_paths">get_patients_paths() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths">get_reference_eyes_paths() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="trackers.html#trackers.get_tracker_class">get_tracker_class() (in module trackers)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.gradient_accumulate_every">gradient_accumulate_every (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.gradient_accumulate_every">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.transforms.HorizontalCenterCrop">HorizontalCenterCrop (class in utils.transforms)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="models.html#models.gausian_diffusion.GaussianDiffusion.image_size">image_size (models.gausian_diffusion.GaussianDiffusion attribute)</a>
+
+      <ul>
+        <li><a href="models.html#models.GaussianDiffusion.image_size">(models.GaussianDiffusion attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.image_size">(pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.image_size">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.image_to_embedding">image_to_embedding() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.image_to_embedding">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trackers.html#trackers.ImagePredictionLogger">ImagePredictionLogger (class in trackers)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.callbacks.ImagePredictionLogger">(class in trackers.callbacks)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.images_directory">images_directory (pipeline.blocks.data_dto.DataDTO property)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.images_directory">(pipeline.blocks.DataDTO property)</a>
+</li>
+      </ul></li>
+      <li><a href="trackers.html#trackers.wandb.is_square">is_square() (in module trackers.wandb)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.html#pipeline.parser.j_print">j_print() (in module pipeline.parser)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trainers.html#trainers.Trainer.keep_last_models">keep_last_models() (trainers.Trainer method)</a>
+
+      <ul>
+        <li><a href="trainers.html#trainers.trainer.Trainer.keep_last_models">(trainers.trainer.Trainer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trainers.html#trainers.Trainer.load">load() (trainers.Trainer method)</a>
+
+      <ul>
+        <li><a href="trainers.html#trainers.trainer.Trainer.load">(trainers.trainer.Trainer method)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.preprocess.load_dataset_csv_file">load_dataset_csv_file() (in module datasets.preprocess)</a>
+</li>
+      <li><a href="validation.html#validation.Embeddings.load_embeddings">load_embeddings() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.load_embeddings">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.log">log() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.log">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.log_every_n_steps">log_every_n_steps (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.log_every_n_steps">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.log_images">log_images() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.log_images">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.logger_experiment_name">logger_experiment_name (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.logger_experiment_name">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.logger_tags">logger_tags (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.logger_tags">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.loop">loop (pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.loop_validator">loop_validator() (pipeline.blocks.experiment_dto.ExperimentDTO class method)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO">LoopObjectDTO (class in pipeline.blocks.experiment_dto)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.loss_fn">loss_fn (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.loss_fn">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.loss_multiply">loss_multiply (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.loss_multiply">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.lr">lr (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.lr">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.lr">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.lr">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="run_classification_experiment.html#run_classification_experiment.main">main() (in module run_classification_experiment)</a>
+
+      <ul>
+        <li><a href="run_experiment.html#run_experiment.main">(in module run_experiment)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_computed_fields">model_computed_fields (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_computed_fields">(pipeline.blocks.data_dto.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_computed_fields">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_computed_fields">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_computed_fields">(pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_computed_fields">(pipeline.blocks.experiment_dto.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_computed_fields">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_computed_fields">(pipeline.blocks.experiment_dto.LoopObjectDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_computed_fields">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_computed_fields">(pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_computed_fields">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_computed_fields">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_computed_fields">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_computed_fields">(pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_computed_fields">(pipeline.blocks.output_dto.OutputDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_computed_fields">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_computed_fields">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_config">model_config (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_config">(pipeline.blocks.data_dto.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_config">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_config">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_config">(pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_config">(pipeline.blocks.experiment_dto.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_config">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_config">(pipeline.blocks.experiment_dto.LoopObjectDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_config">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_config">(pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_config">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_config">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_config">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_config">(pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_config">(pipeline.blocks.output_dto.OutputDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_config">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_config">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_fields">model_fields (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_fields">(pipeline.blocks.data_dto.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_fields">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_fields">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_fields">(pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_fields">(pipeline.blocks.experiment_dto.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_fields">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_fields">(pipeline.blocks.experiment_dto.LoopObjectDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_fields">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_fields">(pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_fields">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_fields">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_fields">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_fields">(pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_fields">(pipeline.blocks.output_dto.OutputDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_fields">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_fields">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_version">model_version (pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_version">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    models
+
+      <ul>
+        <li><a href="models.html#module-models">module</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.models">models (pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.models">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    models.classifier
+
+      <ul>
+        <li><a href="models.html#module-models.classifier">module</a>
+</li>
+      </ul></li>
+      <li>
+    models.gausian_diffusion
+
+      <ul>
+        <li><a href="models.html#module-models.gausian_diffusion">module</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO">ModelsDTO (class in pipeline.blocks.models_dto)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="config.html#module-config">config</a>
+</li>
+        <li><a href="datasets.html#module-datasets">datasets</a>
+</li>
+        <li><a href="datasets.html#module-datasets.eye_scans">datasets.eye_scans</a>
+</li>
+        <li><a href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized</a>
+</li>
+        <li><a href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset</a>
+</li>
+        <li><a href="datasets.html#module-datasets.preprocess">datasets.preprocess</a>
+</li>
+        <li><a href="generate_samples.html#module-generate_samples">generate_samples</a>
+</li>
+        <li><a href="models.html#module-models">models</a>
+</li>
+        <li><a href="models.html#module-models.classifier">models.classifier</a>
+</li>
+        <li><a href="models.html#module-models.gausian_diffusion">models.gausian_diffusion</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks">pipeline.blocks</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.blocks">pipeline.blocks.blocks</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.data_dto">pipeline.blocks.data_dto</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.experiment_dto">pipeline.blocks.experiment_dto</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.general_dto">pipeline.blocks.general_dto</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.models_dto">pipeline.blocks.models_dto</a>
+</li>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.output_dto">pipeline.blocks.output_dto</a>
+</li>
+        <li><a href="pipeline.html#module-pipeline.parser">pipeline.parser</a>
+</li>
+        <li><a href="run_classification_experiment.html#module-run_classification_experiment">run_classification_experiment</a>
+</li>
+        <li><a href="run_experiment.html#module-run_experiment">run_experiment</a>
+</li>
+        <li><a href="trackers.html#module-trackers">trackers</a>
+</li>
+        <li><a href="trackers.html#module-trackers.callbacks">trackers.callbacks</a>
+</li>
+        <li><a href="trackers.html#module-trackers.wandb">trackers.wandb</a>
+</li>
+        <li><a href="trainers.html#module-trainers">trainers</a>
+</li>
+        <li><a href="trainers.html#module-trainers.trainer">trainers.trainer</a>
+</li>
+        <li><a href="utils.html#module-utils">utils</a>
+</li>
+        <li><a href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities</a>
+</li>
+        <li><a href="utils.html#module-utils.files_managment">utils.files_managment</a>
+</li>
+        <li><a href="utils.html#module-utils.transforms">utils.transforms</a>
+</li>
+        <li><a href="validation.html#module-validation">validation</a>
+</li>
+        <li><a href="validation.html#module-validation.embeddings">validation.embeddings</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.move_results_to">move_results_to (pipeline.blocks.output_dto.OutputDTO attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.name">name (pipeline.blocks.experiment_dto.LoopObjectDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.name">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.name">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.name">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.name">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.name_validator">name_validator() (pipeline.blocks.experiment_dto.FooDTO class method)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.name_validator">(pipeline.blocks.experiment_dto.GenerateSamplesDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.name_validator">(pipeline.blocks.experiment_dto.LoopObjectDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.name_validator">(pipeline.blocks.experiment_dto.TrainGeneratorDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.name_validator">(pipeline.blocks.experiment_dto.ValidateDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.name_validator">(pipeline.blocks.FooDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.name_validator">(pipeline.blocks.GenerateSamplesDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.name_validator">(pipeline.blocks.TrainGeneratorDTO class method)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.name_validator">(pipeline.blocks.ValidateDTO class method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.num_classes">num_classes (pipeline.blocks.ClassificationDTO property)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.num_classes">(pipeline.blocks.experiment_dto.ClassificationDTO property)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.num_samples">num_samples (pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.num_samples">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.num_steps">num_steps (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.num_steps">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.gausian_diffusion.GaussianDiffusion.num_timesteps">num_timesteps (models.gausian_diffusion.GaussianDiffusion attribute)</a>
+
+      <ul>
+        <li><a href="models.html#models.GaussianDiffusion.num_timesteps">(models.GaussianDiffusion attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.num_workers">num_workers (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.num_workers">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.observe_model">observe_model() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.observe_model">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.offline">offline (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.offline">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.on_test_epoch_end">on_test_epoch_end() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.on_test_epoch_end">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.on_validation_epoch_end">on_validation_epoch_end() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.on_validation_epoch_end">(models.ResNetClassifier method)</a>
+</li>
+        <li><a href="trackers.html#trackers.callbacks.ImagePredictionLogger.on_validation_epoch_end">(trackers.callbacks.ImagePredictionLogger method)</a>
+</li>
+        <li><a href="trackers.html#trackers.ImagePredictionLogger.on_validation_epoch_end">(trackers.ImagePredictionLogger method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="datasets.html#datasets.OpthalAnonymizedDataset">OpthalAnonymizedDataset (class in datasets)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset">(class in datasets.opthal_anonymized)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.output">output (pipeline.blocks.blocks.ConfigBlocks attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.output">(pipeline.blocks.ConfigBlocks attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO">OutputDTO (class in pipeline.blocks.output_dto)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.html#pipeline.parser.parse_config">parse_config() (in module pipeline.parser)</a>
+</li>
+      <li>
+    pipeline.blocks
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.blocks.blocks
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.blocks">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.blocks.data_dto
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.data_dto">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.blocks.experiment_dto
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.experiment_dto">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pipeline.blocks.general_dto
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.general_dto">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.blocks.models_dto
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.models_dto">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.blocks.output_dto
+
+      <ul>
+        <li><a href="pipeline.blocks.html#module-pipeline.blocks.output_dto">module</a>
+</li>
+      </ul></li>
+      <li>
+    pipeline.parser
+
+      <ul>
+        <li><a href="pipeline.html#module-pipeline.parser">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.ratio">ratio (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.ratio">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.html#pipeline.parser.read_config_file">read_config_file() (in module pipeline.parser)</a>
+</li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.relative_dataset_results_dir">relative_dataset_results_dir (pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.relative_dataset_results_dir">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.repeat">repeat (pipeline.blocks.experiment_dto.LoopObjectDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.FooDTO.repeat">(pipeline.blocks.FooDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.repeat">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.repeat">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.repeat">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.prepare_dataset.resize_images_and_save">resize_images_and_save() (in module datasets.prepare_dataset)</a>
+</li>
+      <li><a href="models.html#models.ResNetClassifier">ResNetClassifier (class in models)</a>
+
+      <ul>
+        <li><a href="models.html#models.classifier.ResNetClassifier">(class in models.classifier)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.results_dir">results_dir (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.results_dir">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.results_dir">(pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.results_dir">(pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.results_dir">(pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.results_dir">(pipeline.blocks.experiment_dto.ValidateDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.results_dir">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.results_dir">(pipeline.blocks.output_dto.OutputDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.results_dir">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.results_dir">(pipeline.blocks.ValidateDTO attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    run_classification_experiment
+
+      <ul>
+        <li><a href="run_classification_experiment.html#module-run_classification_experiment">module</a>
+</li>
+      </ul></li>
+      <li>
+    run_experiment
+
+      <ul>
+        <li><a href="run_experiment.html#module-run_experiment">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="models.html#id1">sample() (models.gausian_diffusion.GaussianDiffusion method)</a>, <a href="models.html#models.gausian_diffusion.GaussianDiffusion.sample">[1]</a>
+
+      <ul>
+        <li><a href="models.html#id3">(models.GaussianDiffusion method)</a>, <a href="models.html#models.GaussianDiffusion.sample">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="trainers.html#trainers.Trainer.save">save() (trainers.Trainer method)</a>
+
+      <ul>
+        <li><a href="trainers.html#trainers.trainer.Trainer.save">(trainers.trainer.Trainer method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.save_and_sample_every">save_and_sample_every (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.save_and_sample_every">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="validation.html#validation.Embeddings.save_embeddings">save_embeddings() (validation.Embeddings method)</a>
+
+      <ul>
+        <li><a href="validation.html#validation.embeddings.Embeddings.save_embeddings">(validation.embeddings.Embeddings method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.save_model">save_model() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.save_model">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.eye_scans.EyeScans.setup">setup() (datasets.eye_scans.EyeScans method)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.EyeScans.setup">(datasets.EyeScans method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.split_seed">split_seed (pipeline.blocks.data_dto.DataDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.split_seed">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.start_from_checkpoint">start_from_checkpoint (pipeline.blocks.experiment_dto.TrainGeneratorDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.start_from_checkpoint">(pipeline.blocks.TrainGeneratorDTO attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="datasets.html#datasets.eye_scans.EyeScans.test_dataloader">test_dataloader() (datasets.eye_scans.EyeScans method)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.EyeScans.test_dataloader">(datasets.EyeScans method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.test_dataset_dir">test_dataset_dir (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.test_dataset_dir">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.test_step">test_step() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.test_step">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.total_steps">total_steps (pipeline.blocks.experiment_dto.ExperimentDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.total_steps">(pipeline.blocks.general_dto.GeneralDTO attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    trackers
+
+      <ul>
+        <li><a href="trackers.html#module-trackers">module</a>
+</li>
+      </ul></li>
+      <li>
+    trackers.callbacks
+
+      <ul>
+        <li><a href="trackers.html#module-trackers.callbacks">module</a>
+</li>
+      </ul></li>
+      <li>
+    trackers.wandb
+
+      <ul>
+        <li><a href="trackers.html#module-trackers.wandb">module</a>
+</li>
+      </ul></li>
+      <li><a href="trainers.html#trainers.Trainer.train">train() (trainers.Trainer method)</a>
+
+      <ul>
+        <li><a href="trainers.html#trainers.trainer.Trainer.train">(trainers.trainer.Trainer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.train_data_type">train_data_type (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.train_data_type">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="datasets.html#datasets.eye_scans.EyeScans.train_dataloader">train_dataloader() (datasets.eye_scans.EyeScans method)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.EyeScans.train_dataloader">(datasets.EyeScans method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.train_dataset_dir">train_dataset_dir (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.train_dataset_dir">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="trainers.html#trainers.Trainer">Trainer (class in trainers)</a>
+
+      <ul>
+        <li><a href="trainers.html#trainers.trainer.Trainer">(class in trainers.trainer)</a>
+</li>
+      </ul></li>
+      <li>
+    trainers
+
+      <ul>
+        <li><a href="trainers.html#module-trainers">module</a>
+</li>
+      </ul></li>
+      <li>
+    trainers.trainer
+
+      <ul>
+        <li><a href="trainers.html#module-trainers.trainer">module</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO">TrainGeneratorDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO">(class in pipeline.blocks.experiment_dto)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.training_step">training_step() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.training_step">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.unet">unet (pipeline.blocks.models_dto.ModelsDTO attribute)</a>
+</li>
+      <li><a href="trackers.html#trackers.wandb.WandbTracker.update_step">update_step() (trackers.wandb.WandbTracker method)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.WandbTracker.update_step">(trackers.WandbTracker method)</a>
+</li>
+      </ul></li>
+      <li>
+    utils
+
+      <ul>
+        <li><a href="utils.html#module-utils">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    utils.artifact_utilities
+
+      <ul>
+        <li><a href="utils.html#module-utils.artifact_utilities">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.files_managment
+
+      <ul>
+        <li><a href="utils.html#module-utils.files_managment">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.transforms
+
+      <ul>
+        <li><a href="utils.html#module-utils.transforms">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="datasets.html#datasets.eye_scans.EyeScans.val_dataloader">val_dataloader() (datasets.eye_scans.EyeScans method)</a>
+
+      <ul>
+        <li><a href="datasets.html#datasets.EyeScans.val_dataloader">(datasets.EyeScans method)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.val_dataset_dir">val_dataset_dir (pipeline.blocks.ClassificationDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.val_dataset_dir">(pipeline.blocks.experiment_dto.ClassificationDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.ValidateDTO">ValidateDTO (class in pipeline.blocks)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO">(class in pipeline.blocks.experiment_dto)</a>
+</li>
+      </ul></li>
+      <li>
+    validation
+
+      <ul>
+        <li><a href="validation.html#module-validation">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    validation.embeddings
+
+      <ul>
+        <li><a href="validation.html#module-validation.embeddings">module</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.validation_split">validation_split (pipeline.blocks.data_dto.DataDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.validation_split">(pipeline.blocks.DataDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.validation_split_validator">validation_split_validator() (pipeline.blocks.data_dto.DataDTO class method)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.DataDTO.validation_split_validator">(pipeline.blocks.DataDTO class method)</a>
+</li>
+      </ul></li>
+      <li><a href="models.html#models.classifier.ResNetClassifier.validation_step">validation_step() (models.classifier.ResNetClassifier method)</a>
+
+      <ul>
+        <li><a href="models.html#models.ResNetClassifier.validation_step">(models.ResNetClassifier method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.wandb">wandb (pipeline.blocks.experiment_dto.GenerateSamplesDTO attribute)</a>
+
+      <ul>
+        <li><a href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.wandb">(pipeline.blocks.GenerateSamplesDTO attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION">WANDB_PRJ_NAME_CLASSIFICATION (in module config)</a>
+</li>
+      <li><a href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES">WANDB_PRJ_NAME_GENERATE_SAMPLES (in module config)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR">WANDB_PRJ_NAME_TRAIN_GENERATOR (in module config)</a>
+</li>
+      <li><a href="trackers.html#trackers.WandbTracker">WandbTracker (class in trackers)</a>
+
+      <ul>
+        <li><a href="trackers.html#trackers.wandb.WandbTracker">(class in trackers.wandb)</a>
+</li>
+      </ul></li>
+      <li><a href="utils.html#utils.transforms.HorizontalCenterCrop.width">width (utils.transforms.HorizontalCenterCrop attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

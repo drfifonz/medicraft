@@ -1,0 +1,37 @@
+utils package
+=============
+
+Submodules
+----------
+
+utils.artifact\_utilities module
+--------------------------------
+
+.. automodule:: utils.artifact_utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utils.files\_managment module
+-----------------------------
+
+.. automodule:: utils.files_managment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utils.transforms module
+-----------------------
+
+.. automodule:: utils.transforms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+test\_pipeline module
+=====================
+
+.. automodule:: test_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:

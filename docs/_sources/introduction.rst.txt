@@ -1,0 +1,29 @@
+Introduction
+============
+
+Overview
+--------
+
+**Medicraft** is based on DDPM (Denoising Diffusion Probabilistic Models) and is designed to address the challenges in medical imaging analysis using machine learning. These challenges include limited and imbalanced datasets, as well as privacy concerns related to patient information. The project aims to develop software capable of generating synthetic and diverse medical datasets from imaging information, specifically utilizing OCT (Optical Coherence Tomography) eye scans. This facilitates better research and education in machine learning for medical image analysis and classification. Key benefits include enhanced accuracy in diagnosis and increased availability of data for medically rare cases.
+
+Key Features
+------------
+
+- **Synthetic Data Generation**: Utilizes diffusion models (Denoising Diffusion Probabilistic Model) to create balanced datasets, reducing data scarcity and enhancing research capabilities.
+- **Privacy Protection**: Generates synthetic data to circumvent privacy concerns associated with real patient information.
+- **Collaboration with Medical Experts**: Works in cooperation with the University Clinical Hospital in Poznan to ensure the generated data is accurate and clinically relevant.
+
+Getting Started
+---------------
+
+To get started with **Medicraft**, follow these steps:
+
+1. Install the project (`link <installation.html>`_).
+2. Follow usage guide instructions (`link <usage.html>`_).
+3. Explore the API [link to API documentation].
+4. Check out examples [link to examples].
+
+Support
+-------
+
+If you need help, you can reach out to our support team via GitHub issues or by sending an email to fp.patyk@gmail.com.

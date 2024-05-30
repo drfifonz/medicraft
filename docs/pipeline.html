@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pipeline package &mdash; medicraft 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pipeline.blocks package" href="pipeline.blocks.html" />
+    <link rel="prev" title="models package" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            medicraft
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#post-installation-steps">Post-Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets 1package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pipeline package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pipeline.parser">pipeline.parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="run_experiment.html">run_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackers.html">trackers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="trainers.html">trainers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers.trainer">trainers.trainer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.transforms">utils.transforms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">validation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#validation-fid-module">validation.fid module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Further improvments &amp; contribution guidelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">medicraft</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">pipeline package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pipeline-package">
+<h1>pipeline package<a class="headerlink" href="#pipeline-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.blocks">pipeline.blocks.blocks module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.general"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.general</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.data"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.experiment"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.experiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.blocks.ConfigBlocks.output"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.output</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.data_dto">pipeline.blocks.data_dto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO"><code class="docutils literal notranslate"><span class="pre">DataDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.csv_file_path"><code class="docutils literal notranslate"><span class="pre">DataDTO.csv_file_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.validation_split"><code class="docutils literal notranslate"><span class="pre">DataDTO.validation_split</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.split_seed"><code class="docutils literal notranslate"><span class="pre">DataDTO.split_seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.validation_split_validator"><code class="docutils literal notranslate"><span class="pre">DataDTO.validation_split_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.images_directory"><code class="docutils literal notranslate"><span class="pre">DataDTO.images_directory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_config"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.data_dto.DataDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.experiment_dto">pipeline.blocks.experiment_dto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_config"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.name"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.repeat"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.repeat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.LoopObjectDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">LoopObjectDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.lr"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.lr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.save_and_sample_every"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.save_and_sample_every</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.num_steps"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.num_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.gradient_accumulate_every"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.gradient_accumulate_every</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.experiment_id"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.experiment_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.start_from_checkpoint"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.start_from_checkpoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.dataset_split_type"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.dataset_split_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.diagnosis"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.diagnosis</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_config"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.TrainGeneratorDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.num_samples"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.num_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.wandb"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.wandb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_version"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.base_on"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.base_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.relative_dataset_results_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.relative_dataset_results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.checkpoint_path"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.checkpoint_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.generete_samples_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.generete_samples_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_config"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.GenerateSamplesDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO"><code class="docutils literal notranslate"><span class="pre">FooDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.foo"><code class="docutils literal notranslate"><span class="pre">FooDTO.foo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">FooDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_config"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.FooDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.epochs"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.epochs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.lr"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.lr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.loss_multiply"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.loss_multiply</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.ratio"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.class_names"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.class_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.train_data_type"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.train_data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.train_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.train_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.val_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.val_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.test_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.test_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.loss_fn"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.loss_fn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.num_workers"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.num_workers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.log_every_n_steps"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.log_every_n_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.logger_tags"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.logger_tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.logger_experiment_name"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.logger_experiment_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.offline"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.offline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.num_classes"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.num_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ClassificationDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO"><code class="docutils literal notranslate"><span class="pre">ValidateDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.classification"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.classification</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.classification_validator"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.classification_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ValidateDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.total_steps"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.total_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.image_size"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.image_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.models"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.loop"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.loop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.loop_validator"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.loop_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.experiment_dto.ExperimentDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ExperimentDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.general_dto">pipeline.blocks.general_dto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO"><code class="docutils literal notranslate"><span class="pre">GeneralDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.total_steps"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.total_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.image_size"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.image_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.experiment_id"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.experiment_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.models"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_config"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.general_dto.GeneralDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">GeneralDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.models_dto">pipeline.blocks.models_dto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO"><code class="docutils literal notranslate"><span class="pre">ModelsDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.unet"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.unet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.diffusion"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.diffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.classifier"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.classifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.models_dto.ModelsDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ModelsDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.output_dto">pipeline.blocks.output_dto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO"><code class="docutils literal notranslate"><span class="pre">OutputDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">OutputDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.move_results_to"><code class="docutils literal notranslate"><span class="pre">OutputDTO.move_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">OutputDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_config"><code class="docutils literal notranslate"><span class="pre">OutputDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.output_dto.OutputDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">OutputDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#pipeline-blocks-testing-dto-module">pipeline.blocks.testing_dto module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.general"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.general</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.data"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.experiment"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.experiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ConfigBlocks.output"><code class="docutils literal notranslate"><span class="pre">ConfigBlocks.output</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO"><code class="docutils literal notranslate"><span class="pre">FooDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.foo"><code class="docutils literal notranslate"><span class="pre">FooDTO.foo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">FooDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_config"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">FooDTO.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.name"><code class="docutils literal notranslate"><span class="pre">FooDTO.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.FooDTO.repeat"><code class="docutils literal notranslate"><span class="pre">FooDTO.repeat</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.num_samples"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.num_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.wandb"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.wandb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_version"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.base_on"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.base_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.relative_dataset_results_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.relative_dataset_results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.checkpoint_path"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.checkpoint_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.generete_samples_dir"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.generete_samples_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_config"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.name"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.GenerateSamplesDTO.repeat"><code class="docutils literal notranslate"><span class="pre">GenerateSamplesDTO.repeat</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.lr"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.lr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.save_and_sample_every"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.save_and_sample_every</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.num_steps"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.num_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.gradient_accumulate_every"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.gradient_accumulate_every</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.experiment_id"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.experiment_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.start_from_checkpoint"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.start_from_checkpoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.dataset_split_type"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.dataset_split_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.diagnosis"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.diagnosis</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_config"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.name"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.TrainGeneratorDTO.repeat"><code class="docutils literal notranslate"><span class="pre">TrainGeneratorDTO.repeat</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO"><code class="docutils literal notranslate"><span class="pre">ValidateDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.copy_results_to"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.copy_results_to</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.classification"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.classification</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.name_validator"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.name_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.classification_validator"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.classification_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.model_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.name"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ValidateDTO.repeat"><code class="docutils literal notranslate"><span class="pre">ValidateDTO.repeat</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO"><code class="docutils literal notranslate"><span class="pre">DataDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.csv_file_path"><code class="docutils literal notranslate"><span class="pre">DataDTO.csv_file_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.validation_split"><code class="docutils literal notranslate"><span class="pre">DataDTO.validation_split</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.split_seed"><code class="docutils literal notranslate"><span class="pre">DataDTO.split_seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.validation_split_validator"><code class="docutils literal notranslate"><span class="pre">DataDTO.validation_split_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.images_directory"><code class="docutils literal notranslate"><span class="pre">DataDTO.images_directory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_config"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.DataDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">DataDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.epochs"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.epochs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.lr"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.lr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.loss_multiply"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.loss_multiply</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.ratio"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.class_names"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.class_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.train_data_type"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.train_data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.train_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.train_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.val_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.val_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.test_dataset_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.test_dataset_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.loss_fn"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.loss_fn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.num_workers"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.num_workers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.batch_size"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.log_every_n_steps"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.log_every_n_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.logger_tags"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.logger_tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.logger_experiment_name"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.logger_experiment_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.offline"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.offline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.results_dir"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.results_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.num_classes"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.num_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline.blocks.ClassificationDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ClassificationDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-pipeline.parser">
+<span id="pipeline-parser-module"></span><h2>pipeline.parser module<a class="headerlink" href="#module-pipeline.parser" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pipeline.parser.j_print">
+<span class="sig-prename descclassname"><span class="pre">pipeline.parser.</span></span><span class="sig-name descname"><span class="pre">j_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pipeline/parser.html#j_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipeline.parser.j_print" title="Link to this definition"></a></dt>
+<dd><p>Print the given data in JSON format if possible, otherwise print it as is.
+For development purposes only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – The data to be printed.</p></li>
+<li><p><strong>*args</strong> – Additional positional arguments to be passed to the print function.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to be passed to the print function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pipeline.parser.read_config_file">
+<span class="sig-prename descclassname"><span class="pre">pipeline.parser.</span></span><span class="sig-name descname"><span class="pre">read_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pipeline/parser.html#read_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipeline.parser.read_config_file" title="Link to this definition"></a></dt>
+<dd><p>Parse the configuration file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The path to the configuration file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed configuration data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>yaml.YAMLError</strong> – If there is an error parsing the configuration file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pipeline.parser.parse_config">
+<span class="sig-prename descclassname"><span class="pre">pipeline.parser.</span></span><span class="sig-name descname"><span class="pre">parse_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pipeline/parser.html#parse_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipeline.parser.parse_config" title="Link to this definition"></a></dt>
+<dd><p>Parse and validate the configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – The configuration dictionary to be parsed and validated</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the parsed and validated configuration blocks</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, BaseModel]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pipeline.parser.get_experiment_configs">
+<span class="sig-prename descclassname"><span class="pre">pipeline.parser.</span></span><span class="sig-name descname"><span class="pre">get_experiment_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pipeline/parser.html#get_experiment_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipeline.parser.get_experiment_configs" title="Link to this definition"></a></dt>
+<dd><p>Get training configuration defined in other blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – The configuration dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The experiment configuration dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="pipeline-pipeline-module">
+<h2>pipeline.pipeline module<a class="headerlink" href="#pipeline-pipeline-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="models.html" class="btn btn-neutral float-left" title="models package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pipeline.blocks.html" class="btn btn-neutral float-right" title="pipeline.blocks package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Filip Patyk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

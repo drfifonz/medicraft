@@ -1,0 +1,31 @@
+name: medicraft
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+  - pytorch
+  - torchvision
+  - pytorch-cuda=12.1
+  - ca-certificates
+  - openssl
+  - black
+  - flake8
+  - certifi
+  - ipykernel
+  - tqdm
+  - ipywidgets
+  - plotly
+  - lightning
+  - pandas
+  - h5py
+  - matplotlib
+  - scikit-learn
+  - umap-learn
+  - pip
+  - pip:
+    - denoising_diffusion_pytorch 
+    - wandb
+    - PyYAML
+    - pydantic

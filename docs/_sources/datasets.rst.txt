@@ -1,0 +1,61 @@
+datasets 1package
+================
+
+Submodules
+----------
+
+datasets.eye\_fundus module
+---------------------------
+
+.. automodule:: datasets.eye_fundus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+datasets.eye\_scans module
+--------------------------
+
+.. automodule:: datasets.eye_scans
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+datasets.opthal\_anonymized module
+----------------------------------
+
+.. automodule:: datasets.opthal_anonymized
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+datasets.prepare\_dataset module
+--------------------------------
+
+.. automodule:: datasets.prepare_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+datasets.prepare\_opthal\_anonym module
+---------------------------------------
+
+.. automodule:: datasets.prepare_opthal_anonym
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+datasets.preprocess module
+--------------------------
+
+.. automodule:: datasets.preprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

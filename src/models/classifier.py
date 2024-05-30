@@ -4,9 +4,8 @@ import lightning as pl
 import torch
 import torch.nn.functional as F
 import torchvision.models as models
-from torchmetrics import Accuracy, F1Score, Precision, Recall
-
 import wandb
+from torchmetrics import Accuracy, F1Score, Precision, Recall
 
 
 class ResNetClassifier(pl.LightningModule):
@@ -20,11 +19,24 @@ class ResNetClassifier(pl.LightningModule):
         learning_rate: float = 1e-4,
         loss_multiply: float = 1.0,
         class_names: list[str] = ["fluid", "benign", "precancerous", "reference"],
-    ):
+    ) -> None:
+        """
+        Initializes the Classifier model used in validation process.
+
+        Args:
+            num_classes (int): The number of classes for classification.
+            loss_fn (callable, optional): The loss function to use. Defaults to None.
+            optimizer (callable, optional): The optimizer to use. Defaults to None.
+            pretrained (bool, optional): Whether to use a pretrained model. Defaults to True.
+            architecture (Literal["resnet18", "resnet34", "resnet50"], optional): The architecture of the model. Defaults to "resnet34".
+            learning_rate (float, optional): The learning rate for the optimizer. Defaults to 1e-4.
+            loss_multiply (float, optional): The loss multiplier. Defaults to 1.0.
+            class_names (list[str], optional): The names of the classes. Defaults to ["fluid", "benign", "precancerous", "reference"].
+        """
+
         self.class_names = class_names
         super().__init__()
         self.model = self.__get_model(architecture, pretrained)
-        # self.model.fc = torch.nn.Linear(in_features=512, out_features=num_classes)
         fc_output = self.model.fc.out_features
 
         self.head = torch.nn.Sequential(
@@ -42,7 +54,6 @@ class ResNetClassifier(pl.LightningModule):
         self.f1score = F1Score(task="multiclass", num_classes=num_classes, average="macro")
         self.precision = Precision(task="multiclass", num_classes=num_classes, average="macro")
         self.recall = Recall(task="multiclass", num_classes=num_classes, average="macro")
-        # self.confusion_matrix = ConfusionMatrix(task="multiclass", num_classes=num_classes)
 
         self.loss_multiply = loss_multiply
 
@@ -133,7 +144,6 @@ class ResNetClassifier(pl.LightningModule):
         y_true = torch.cat([output["y"] for output in outputs]).tolist()
         y_pred = torch.cat([output["y_hat"] for output in outputs]).tolist()
 
-        # cm = confusion_matrix(y_true, y_pred)
         wandb.log(
             {
                 "confusion_mat": wandb.plot.confusion_matrix(

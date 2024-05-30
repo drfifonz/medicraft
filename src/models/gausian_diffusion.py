@@ -3,8 +3,25 @@ from denoising_diffusion_pytorch import GaussianDiffusion as GausianDiffusionMod
 
 
 class GaussianDiffusion(GausianDiffusionModel):
+    """A class representing the Gaussian Diffusion model.
+
+    Args:
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+
+    Attributes:
+        image_size: The size of the input image.
+        channels: The number of channels in the input image.
+        num_timesteps: The number of diffusion timesteps.
+
+    Methods:
+        forward: Performs the forward pass of the model.
+        sample: Generates samples from the model.
+
+    """
+
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)  # TODo add direct arguments passing with typing
+        super().__init__(*args, **kwargs)  # TODO add direct arguments passing with typing
 
     def forward(self, img, *args, **kwargs):
         (b, _, h, w, device, img_size) = (
@@ -33,6 +50,3 @@ class GaussianDiffusion(GausianDiffusionModel):
             (batch_size, channels, image_size, image_size),
             return_all_timesteps=return_all_timesteps,
         )
-
-    def get_hyperparameters(self) -> dict:  # TODO get guassian diffusion hyperparameters
-        return {}

@@ -2,13 +2,20 @@ from PIL import Image
 
 
 class HorizontalCenterCrop:
-    def __init__(self, width: int):
-        """
-        Initializes a HorizontalCenterCrop instance.
+    """
+    Applies a horizontal center crop to an image.
 
-        Args:
-            width (int): The desired width of the cropped image.
-        """
+    Args:
+        width (int): The desired width of the cropped image.
+
+    Attributes:
+        width (int): The desired width of the cropped image.
+
+    Methods:
+        __call__(img: Image.Image) -> Image.Image: Applies a horizontal center crop to the input image.
+    """
+
+    def __init__(self, width: int):
         self.width = width
 
     def __call__(self, img: Image.Image) -> Image.Image:

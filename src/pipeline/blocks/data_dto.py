@@ -1,12 +1,10 @@
 from pathlib import Path
-from typing import Optional, Union
 
 from pydantic import BaseModel, computed_field, field_validator
 
 
 class DataDTO(BaseModel):
     csv_file_path: str
-    # seperate_validation_data: bool = True
     validation_split: float = 0.2
 
     split_seed: int = 42

@@ -5,6 +5,7 @@ This file contains various configuration parameters used throughout the project.
 
 Attributes:
     DATASET_FILE_PATH (Path): The file path to the dataset CSV file.
+    DEV_DEBUG (bool): Whether to enable debug mode.
     DEVICE (torch.device): The device to be used for computation (cuda if available, otherwise cpu).
     WANDB_PRJ_NAME_GENERATE_SAMPLES (str): The project name for generating samples.
     WANDB_PRJ_NAME_CLASSIFICATION (str): The project name for classification.
@@ -15,6 +16,8 @@ from pathlib import Path
 from torch import cuda, device
 
 DATASET_FILE_PATH = Path("datasets/ophthal_anonym/dataset.csv")
+
+DEV_DEBUG = False
 
 DEVICE = device("cuda" if cuda.is_available() else "cpu")
 

@@ -8,6 +8,7 @@ import lightning as pl
 import pandas as pd
 import torch
 import torch.nn as nn
+import wandb
 from denoising_diffusion_pytorch import Unet
 from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
@@ -15,12 +16,8 @@ from torchvision import transforms as T
 
 import config as cfg
 import pipeline.blocks as pipeline_blocks
-import wandb
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from generate_samples import generate_samples as generate
-
-# from config import DEVICE
-# from datasets import OpthalAnonymizedDataset
 from models import GaussianDiffusion, ResNetClassifier
 from pipeline.parser import parse_config, read_config_file
 from trackers import ImagePredictionLogger
@@ -28,12 +25,19 @@ from trainers import Trainer
 from utils import copy_results_directory
 from utils.transforms import HorizontalCenterCrop
 
-# DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-
 
 class PipelineBlocks(Enum):
     """
     Enum for the pipeline blocks
+
+    :cvar general: Represents the general block
+    :vartype general: str
+    :cvar data: Represents the data block
+    :vartype data: str
+    :cvar experiment: Represents the experiment block
+    :vartype experiment: str
+    :cvar output: Represents the output block
+    :vartype output: str
     """
 
     general = "general"
@@ -72,6 +76,13 @@ class Pipeline:
     ) -> None:
         """
         Train the generator model
+
+        :param config: Configuration for training the generator model
+        :type config: pipeline_blocks.TrainGeneratorDTO
+        :param models_config: Configuration for the generator and diffusion models
+        :type models_config: dict
+        :param image_size: Size of the input images
+        :type image_size: list[int]
         """
         unet_config = models_config.unet
         diffusion_config = models_config.diffusion
@@ -87,9 +98,6 @@ class Pipeline:
             transform=self.transform,
             convert_image_to="L",
         )
-        print("---" * 12)
-        print(config)
-        print("---" * 12)
 
         if config.experiment_id:
             results_folder = Path(config.results_dir) / config.experiment_id / config.diagnosis
@@ -116,7 +124,6 @@ class Pipeline:
             tracker_kwargs={
                 "tags": [config.diagnosis, "opthal_anonymized"],
                 "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,
-                "mode": "offline",  # TODO uncomment
             },
         )
         trainer.train()
@@ -177,8 +184,7 @@ class Pipeline:
         """
         Generate samples
         """
-        print(f"{config=}")
-        print("Generating samples")
+        logging.info("Generating samples")
 
         unet_config = models_config.unet
         diffusion_config = models_config.diffusion
@@ -186,12 +192,10 @@ class Pipeline:
         diffusion = self.__get_diffusion_model(image_size, diffusion_config, unet_config)
         print("Diffusion loaded")
 
-        raise NotImplementedError("Generating samples")  # TODO remove
         if config.wandb:
             wandb.init(
                 project=cfg.WANDB_PRJ_NAME_GENERATE_SAMPLES,
                 tags=["opthal_anonymized", "generate_dataset"],
-                mode="offline",  # TODO remove
             )
 
         diffusion.load_state_dict(torch.load(config.checkpoint_path)["model"])
@@ -217,23 +221,24 @@ class Pipeline:
 
     def validate(self, config: pipeline_blocks.ValidateDTO, models_config: dict):
         """
-        Validate the model
+        Validate experiment block
+
+        :param config: The configuration for validation
+        :type config: pipeline_blocks.ValidateDTO
+        :param models_config: The configuration for the models
+        :type models_config: dict
         """
-        print(f"{config=}")
-
-        print(models_config)
-
         if config.classification:
-            # print("Running classification experiment")
-            # print(config.classification)
-            # raise NotImplementedError("Running classification experiment")
             self.__run_classification_experiment(config.classification, models_config)
 
     def run(self, verbose: bool = False):
         """
-        Run the pipeline
-        """
+        Run the pipeline.
 
+        :param verbose: Whether to enable verbose logging (default: False)
+        :type verbose: bool
+        :raises ValueError: If configuration is not loaded
+        """
         if verbose:
             self.__set_logging_level(
                 level=20,
@@ -253,7 +258,14 @@ class Pipeline:
 
     def __run_classification_experiment(self, config: pipeline_blocks.ClassificationDTO, models_config: dict) -> None:
         """
-        Run the classification experiment
+        Run the classification experiment.
+
+        Args:
+            config (pipeline_blocks.ClassificationDTO): The configuration for the classification experiment.
+            models_config (dict): The configuration for the models.
+
+        Returns:
+            None
         """
         classifier_config = models_config.classifier
         print(f"{classifier_config=}")
@@ -268,7 +280,7 @@ class Pipeline:
         train_dataset_dir = config.train_dataset_dir
         val_dataset_dir = config.val_dataset_dir
         test_dataset_dir = config.test_dataset_dir
-        # raise NotImplementedError("Run classification experiment")
+
         data_module = EyeScans(
             num_workers=config.num_workers,
             batch_size=config.batch_size,
@@ -293,16 +305,13 @@ class Pipeline:
 
         early_stop_callback = EarlyStopping(monitor="val_loss")
         progressbar_callback = TQDMProgressBar()
-        # Samples required by the custom ImagePredictionLogger callback to log image predictions.
+
         val_samples = next(iter(data_module.val_dataloader()))
 
         trainer = pl.Trainer(
             max_epochs=config.epochs,
-            # progress_bar_refresh_rate=20,
-            # gpus=1,
             logger=wandb_logger,
             callbacks=[early_stop_callback, ImagePredictionLogger(val_samples), progressbar_callback],
-            # checkpoint_callback=checkpoint_callback,
             enable_checkpointing=True,
             enable_progress_bar=True,
             log_every_n_steps=config.log_every_n_steps,
@@ -315,7 +324,11 @@ class Pipeline:
 
     def load_config(self, config_file: str | Path = "config.yml") -> None:
         """
-        Load the configuration
+        Load the configuration.
+
+        :param config_file: The path to the configuration file. Default is "config.yml".
+        :type config_file: str or Path
+        :return: None
         """
         config = read_config_file(config_file)
         self.config = parse_config(config)
@@ -337,6 +350,15 @@ class Pipeline:
     def __get_unet_model(self, dim: int, dim_mults: list[int], channels: int) -> nn.Module:
         """
         Create a Unet model
+
+        :param dim: The dimension of the model
+        :type dim: int
+        :param dim_mults: The dimension multipliers for each layer in the model
+        :type dim_mults: list[int]
+        :param channels: The number of input channels
+        :type channels: int
+        :return: The Unet model
+        :rtype: nn.Module
         """
         model = Unet(
             dim=dim,
@@ -349,6 +371,15 @@ class Pipeline:
     def __get_diffusion_model(self, image_size: list[int], diffusion_config: dict, unet_config: dict) -> nn.Module:
         """
         Create a Gaussian diffusion model
+
+        :param image_size: The size of the input image
+        :type image_size: list[int]
+        :param diffusion_config: Configuration parameters for Gaussian diffusion
+        :type diffusion_config: dict
+        :param unet_config: Configuration parameters for the U-Net model
+        :type unet_config: dict
+        :return: The diffusion model
+        :rtype: nn.Module
         """
         model = self.__get_unet_model(**unet_config)
         diffusion = GaussianDiffusion(
@@ -364,7 +395,33 @@ class Pipeline:
     def __get_classifier_model(
         self, config: pipeline_blocks.ClassificationDTO, classifier_config: dict
     ) -> pl.LightningModule:
+        """
+        Get the classifier model based on the provided configuration.
+
+        Args:
+            config (pipeline_blocks.ClassificationDTO): The configuration for the classifier.
+            classifier_config (dict): The configuration for the specific classifier.
+
+        Returns:
+            pl.LightningModule: The classifier model.
+
+        Raises:
+            ValueError: If the architecture or loss function is unknown.
+        """
+
         def get_loss_fn(loss_fn_name: str) -> nn.Module:
+            """
+            Get the loss function based on the provided name.
+
+            Args:
+                loss_fn_name (str): The name of the loss function.
+
+            Returns:
+                nn.Module: The loss function module.
+
+            Raises:
+                ValueError: If the loss function name is unknown.
+            """
             if loss_fn_name.lower() == "cross_entropy":
                 return nn.CrossEntropyLoss()
             elif loss_fn_name.lower() == "nll":
@@ -395,11 +452,19 @@ class Pipeline:
     ) -> None:
         """
         Set the logging level
-        10: DEBUG
-        20: INFO
-        30: WARNING
-        40: ERROR
-        50: CRITICAL
+
+        :param level: The logging level to set. Valid values are:
+                      10: DEBUG
+                      20: INFO
+                      30: WARNING
+                      40: ERROR
+                      50: CRITICAL
+        :type level: int
+        :param save_to_file: Whether to save logs to a file. Defaults to False.
+        :type save_to_file: bool
+        :param filename: The name of the log file. Defaults to "run.log".
+        :type filename: str
+        :return: None
         """
         filename = Path(filename)
 

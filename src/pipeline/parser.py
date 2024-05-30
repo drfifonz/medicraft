@@ -1,14 +1,24 @@
+import json
 import logging
 import sys
 
 import yaml
 from pydantic import BaseModel, ValidationError
 
+import config as cfg
 from pipeline.blocks import ConfigBlocks
 
 
-def j_print(data, *args, **kwargs):  # TODO remove
-    import json
+def j_print(data, *args, **kwargs):
+    """
+    Print the given data in JSON format if possible, otherwise print it as is.
+    For development purposes only.
+
+    Args:
+        data: The data to be printed.
+        *args: Additional positional arguments to be passed to the print function.
+        **kwargs: Additional keyword arguments to be passed to the print function.
+    """
 
     try:
         print(json.dumps(data, indent=4), *args, **kwargs)
@@ -19,6 +29,12 @@ def j_print(data, *args, **kwargs):  # TODO remove
 def read_config_file(config_file: str) -> dict:
     """
     Parse the configuration file
+
+    :param config_file: The path to the configuration file
+    :type config_file: str
+    :return: The parsed configuration data
+    :rtype: dict
+    :raises yaml.YAMLError: If there is an error parsing the configuration file
     """
     try:
         with open(config_file, "r") as f:
@@ -29,16 +45,14 @@ def read_config_file(config_file: str) -> dict:
         raise e
 
 
-def create_pipeline(config: dict) -> None:
-    """
-    Create the pipeline
-    """
-    pass
-
-
 def parse_config(config: dict) -> dict[str, BaseModel]:
     """
     Parse and validate the configuration
+
+    :param config: The configuration dictionary to be parsed and validated
+    :type config: dict
+    :return: A dictionary containing the parsed and validated configuration blocks
+    :rtype: dict[str, BaseModel]
     """
     results = {}
 
@@ -72,7 +86,7 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
                     f"Error type: \033[1m{e['type']}\033[0m \tfor \033[1m{e['loc']}\033[0m\t| Error message: {e['msg']}"
                 )
             sys.exit("Parsing config failed")
-        if block.name == ConfigBlocks.experiment.name:
+        if block.name == ConfigBlocks.experiment.name and cfg.DEV_DEBUG:
             j_print(block_instance.model_dump())
             print("OK", block.name)
 
@@ -81,7 +95,12 @@ def parse_config(config: dict) -> dict[str, BaseModel]:
 
 def get_experiment_configs(config: dict) -> dict:
     """
-    Get tranining configuration defined in another blocks
+    Get training configuration defined in other blocks.
+
+    :param config: The configuration dictionary.
+    :type config: dict
+    :return: The experiment configuration dictionary.
+    :rtype: dict
     """
     output_config = config.get(ConfigBlocks.output.name.lower())
     general_config = config.get(ConfigBlocks.general.name.lower())
@@ -110,12 +129,3 @@ def get_experiment_configs(config: dict) -> dict:
     }
 
     return experiment_config
-
-
-if __name__ == "__main__":
-    config = read_config_file("mock_config.yml")
-    # j_print(config)
-    print(config.keys())
-
-    parse_config(config)
-    print("FINISHED PARSING")

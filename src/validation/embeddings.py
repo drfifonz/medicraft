@@ -15,6 +15,13 @@ from config import DEVICE
 
 class Embeddings:
     def __init__(self, model: nn.Module, transform: T.transforms.Compose):
+        """
+        Initialize the Embeddings class.
+
+        Args:
+            model (nn.Module): The neural network model.
+            transform (T.transforms.Compose): The image transformation pipeline.
+        """
         self.model = self.__remove_last_layer(model)
         self.model.to(DEVICE)
         self.model.eval()
@@ -33,7 +40,12 @@ class Embeddings:
 
     def __remove_last_layer(self, model: nn.Module) -> nn.Module:
         """
-        Remove last layer from model.
+        Remove the last layer from the model.
+
+        :param model: The input model.
+        :type model: nn.Module
+        :return: The modified model with the last layer removed.
+        :rtype: nn.Module
         """
         return nn.Sequential(*list(model.children())[:-1])
 
@@ -45,7 +57,13 @@ class Embeddings:
         img_type: str = "L",
     ) -> torch.Tensor:
         """
-        transform image to  embedding with given model.
+        Transform an image to an embedding using the given model.
+
+        :param image_path: The path to the image file.
+        :param model: The neural network model used for embedding.
+        :param transform: The image transformation pipeline.
+        :param img_type: The image type (default: "L").
+        :return: The embedding tensor.
         """
         img = Image.open(image_path).convert(img_type)
         img = transform(img).unsqueeze(0)
@@ -56,6 +74,13 @@ class Embeddings:
     def get_images_embeddings(self, image_paths: list[str | Path], diagnosis: str) -> dict[str, torch.Tensor]:
         """
         Get embeddings for list of images.
+
+        :param image_paths: List of image paths.
+        :type image_paths: list[str | Path]
+        :param diagnosis: Diagnosis for the images.
+        :type diagnosis: str
+        :return: Dictionary containing image embeddings.
+        :rtype: dict[str, torch.Tensor]
         """
         embeddings = {}
         for image_path in tqdm(image_paths, desc="Getting embeddings"):
@@ -71,6 +96,11 @@ class Embeddings:
     def get_images_embeddings_from_dataset(self, dataset_df: pd.DataFrame) -> dict[str, torch.Tensor]:
         """
         Get embeddings for list of images.
+
+        :param dataset_df: DataFrame containing image paths and diagnoses.
+        :type dataset_df: pd.DataFrame
+        :return: Dictionary containing embeddings for each image.
+        :rtype: dict[str, torch.Tensor]
         """
         embeddings = {}
         for diagnosis in dataset_df["diagnosis"].unique():
@@ -81,6 +111,12 @@ class Embeddings:
     def save_embeddings(self, embeddings: dict[str, torch.Tensor], save_path: str | Path) -> None:
         """
         Save embeddings to file.
+
+        :param embeddings: A dictionary containing embeddings as values and their corresponding keys.
+        :type embeddings: dict[str, torch.Tensor]
+        :param save_path: The path where the embeddings will be saved.
+        :type save_path: str or Path
+        :return: None
         """
         if not isinstance(save_path, Path):
             save_path = Path(save_path)
@@ -90,6 +126,11 @@ class Embeddings:
     def load_embeddings(self, embeddings_path: str | Path) -> dict[str, torch.Tensor]:
         """
         Load embeddings from file.
+
+        :param embeddings_path: The path to the embeddings file.
+        :type embeddings_path: str | Path
+        :return: A dictionary mapping strings to torch.Tensor objects representing the embeddings.
+        :rtype: dict[str, torch.Tensor]
         """
         if not isinstance(embeddings_path, Path):
             embeddings_path = Path(embeddings_path)
@@ -99,6 +140,11 @@ class Embeddings:
     def create_umap_plot(self, embeddings: dict[str, torch.Tensor], save_path: str | Path) -> None:
         """
         Create UMAP plot, save it to file.
+
+        :param embeddings: A dictionary containing embeddings as values.
+        :type embeddings: dict[str, torch.Tensor]
+        :param save_path: The path to save the UMAP plot.
+        :type save_path: str or Path
         """
         if not isinstance(save_path, Path):
             save_path = Path(save_path)
@@ -116,6 +162,12 @@ class Embeddings:
     def create_violin_plot(self, embeddings_dataframe: pd.DataFrame, save_path: str | Path) -> None:
         """
         Create violin plot, save it to file.
+
+        :param embeddings_dataframe: DataFrame containing embeddings data.
+        :type embeddings_dataframe: pd.DataFrame
+        :param save_path: Path to save the violin plot.
+        :type save_path: str or Path
+        :return: None
         """
         if not isinstance(save_path, Path):
             save_path = Path(save_path)
@@ -133,6 +185,13 @@ class Embeddings:
     ) -> pd.DataFrame:
         """
         Create pandas dataframe from embeddings.
+
+        :param embedings1: A dictionary containing embeddings for the first set of images.
+        :type embedings1: dict[str, torch.Tensor]
+        :param embedings2: A dictionary containing embeddings for the second set of images.
+        :type embedings2: dict[str, torch.Tensor]
+        :return: A pandas DataFrame containing the calculated distances between embeddings.
+        :rtype: pd.DataFrame
         """
         data = []
         pbar = tqdm(total=len(embedings1) * len(embedings2), desc="Calculating distances")
@@ -157,5 +216,12 @@ class Embeddings:
     def calculate_cosine_similarity(self, emb1: torch.Tensor, emb2: torch.Tensor) -> float:
         """
         Calculate cosine distance between two embeddings.
+
+        :param emb1: The first embedding.
+        :type emb1: torch.Tensor
+        :param emb2: The second embedding.
+        :type emb2: torch.Tensor
+        :return: The cosine similarity between the two embeddings.
+        :rtype: float
         """
         return torch.nn.functional.cosine_similarity(emb1, emb2).item()

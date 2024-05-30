@@ -16,10 +16,9 @@ from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
 from denoising_diffusion_pytorch.version import __version__
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
-from torchvision import utils  # TODO change to other import name
+from torchvision import utils
 from tqdm.auto import tqdm
 
-from trackers import get_tracker_class
 from trackers.wandb import WandbTracker
 
 
@@ -54,27 +53,55 @@ class Trainer(DiffusionTrainer):
         tracker: str | None = None,
         tracker_kwargs: dict | None = None,
     ):
-        self.tracker = None  # TODO try if is it necessary or remove this line
+        """
+        Initialize the Trainer object.
+
+        Args:
+            diffusion_model (nn.Module): The diffusion model to be trained.
+            folder (str, optional): The folder path containing the dataset. Defaults to None.
+            dataset (Dataset, optional): The dataset object. Defaults to None.
+            train_batch_size (int, optional): The batch size for training. Defaults to 16.
+            gradient_accumulate_every (int, optional): Number of steps to accumulate gradients before performing optimization. Defaults to 1.
+            augment_horizontal_flip (int, optional): Whether to apply horizontal flip augmentation. Defaults to True.
+            train_lr (float, optional): The learning rate for training. Defaults to 1e-4.
+            train_num_steps (int, optional): The total number of training steps. Defaults to 100_000.
+            break_every_steps (int | None, optional): Number of steps after which to break the training loop. Defaults to None.
+            ema_update_every (int, optional): Number of steps after which to update the exponential moving average of model weights. Defaults to 10.
+            ema_decay (float, optional): Decay rate for the exponential moving average. Defaults to 0.995.
+            adam_betas (tuple[float, float], optional): Coefficients for computing running averages of gradient and its square. Defaults to (0.9, 0.99).
+            save_and_sample_every (int, optional): Number of steps after which to save model checkpoints and generate samples. Defaults to 1000.
+            num_samples (int, optional): Number of samples to generate during training. Defaults to 25.
+            results_folder (str, optional): The folder path to save results. Defaults to "./results".
+            amp (bool, optional): Whether to use automatic mixed precision training. Defaults to False.
+            mixed_precision_type (str, optional): The type of mixed precision training. Defaults to "fp16".
+            split_batches (bool, optional): Whether to split batches across devices. Defaults to True.
+            convert_image_to (Literal["L", "RGB", "RGBA"] | None, optional): The color space to convert images to. Defaults to None.
+            calculate_fid (bool, optional): Whether to calculate Fréchet Inception Distance (FID) during training. Defaults to True.
+            inception_block_idx (int, optional): The index of the inception block to use for FID calculation. Defaults to 2048.
+            max_grad_norm (float, optional): Maximum gradient norm for gradient clipping. Defaults to 1.0.
+            num_fid_samples (int, optional): Number of samples to use for FID calculation. Defaults to 50000.
+            save_best_and_latest_only (bool, optional): Whether to save only the best and latest model checkpoints. Defaults to False.
+            tracker (str | None, optional): The tracker name for experiment tracking. Defaults to None.
+            tracker_kwargs (dict | None, optional): Additional keyword arguments for the tracker. Defaults to None.
+        """
+
+        self.tracker = None  # TODO try if is it necessary then remove this line
         if tracker:
             parameters = {k: v for k, v in locals().items() if k != "self"}
             [
-                parameters.pop(key)  # TODO pop more keys
+                parameters.pop(key)
                 for key in [
                     "tracker_kwargs",
                     "results_folder",
                     "convert_image_to",
                     "save_and_sample_every",
-                    # "diffusion_model",
                     "folder",
                     "tracker",
                 ]
             ]
             parameters["dataset_name"] = Path(folder).name if folder else dataset.diagnosis
 
-            # print(tracker_kwargs)
-            # group = tracker_kwargs.get("group", "diffusion")
-            # raise
-            # tracker_class = get_tracker_class(tracker.lower()) #TODO fix tracker selection
+            # tracker_class = get_tracker_class(tracker.lower()) #TODO add tracker selection depending on the tracker name
             self.tracker = WandbTracker(
                 project_name=tracker_kwargs.get("project_name", "medicraft"),
                 hyperparameters=parameters,
@@ -85,8 +112,6 @@ class Trainer(DiffusionTrainer):
                 id=tracker_kwargs.get("id", None),
                 mode=tracker_kwargs.get("mode", "online"),
             )
-
-        # raise ValueError("Tracker testing only") # TODO remove this line
 
         self.break_every_steps = None
 
@@ -136,6 +161,14 @@ class Trainer(DiffusionTrainer):
         print("Trainer initialized")
 
     def save(self, milestone: str, keep_last_models: int | None = 10):
+        """
+        Save the current state of the trainer.
+
+        Args:
+            milestone (str): The milestone identifier for the saved model.
+            keep_last_models (int | None, optional): The number of last models to keep. Defaults to 10.
+        """
+
         if not self.accelerator.is_local_main_process:
             return
 
@@ -153,7 +186,13 @@ class Trainer(DiffusionTrainer):
         self.keep_last_models(keep_last_models)
 
     def keep_last_models(self, num_models: int = 10) -> None:
-        # keep only last num_models models
+        """
+        Keep only the last `num_models` models in the results folder.
+        Function will keep the latest model also.
+
+        :param num_models: The number of models to keep.
+        :type num_models: int
+        """
         list_of_models = sorted(self.results_folder.glob("*.pt"), key=os.path.getmtime)
         models_to_remove = list_of_models[:-num_models]
         for model in models_to_remove:
@@ -162,6 +201,12 @@ class Trainer(DiffusionTrainer):
             model.unlink()
 
     def load(self, milestone_path: str):
+        """
+        Load the model, optimizer, and other training state from a milestone file.
+
+        :param milestone_path: The path to the milestone file.
+        """
+
         accelerator = self.accelerator
         device = accelerator.device
 
@@ -182,6 +227,16 @@ class Trainer(DiffusionTrainer):
             self.accelerator.scaler.load_state_dict(data["scaler"])
 
     def train(self):
+        """
+        Train the model.
+
+        This method performs the training loop for the model. It iterates over the specified number of training steps,
+        accumulates gradients, updates the model parameters, and saves intermediate results if necessary.
+
+        Returns:
+            None
+        """
+
         accelerator = self.accelerator
         device = accelerator.device
 

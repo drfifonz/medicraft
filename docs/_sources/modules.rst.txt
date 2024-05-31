@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 Project architecture
 ====================
+=======
+src
+===
+>>>>>>> master
 
 .. toctree::
    :maxdepth: 4

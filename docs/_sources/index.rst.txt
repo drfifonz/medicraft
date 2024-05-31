@@ -27,7 +27,10 @@ In this documentation, you will find:
 
    introduction
    installation
+<<<<<<< HEAD
    usage
+=======
+>>>>>>> master
    modules
    todo
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Usage Guide
 ===========
 
@@ -97,4 +98,8 @@ By following this sequence, the process ensures that the generator is progressiv
 For additional examples and further details, refer to the :ref:`example-section` section.
 
 
+=======
+Usage guide
+============
+>>>>>>> master
 

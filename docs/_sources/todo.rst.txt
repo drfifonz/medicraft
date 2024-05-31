@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Further Improvements & Contribution Guidelines
 ==============================================
 
@@ -78,3 +79,8 @@ To contribute to Medicraft, please follow these steps:
     - Your pull request will be reviewed by the maintainers. Be prepared to make necessary revisions based on feedback.
 
 We appreciate your contributions to Medicraft! Together, we can make medical imaging analysis more accurate and accessible.
+=======
+Further improvments & contribution guidelines
+============
+
+>>>>>>> master

@@ -1,5 +1,9 @@
 const DOCUMENTATION_OPTIONS = {
+<<<<<<< HEAD
     VERSION: '0.9.0',
+=======
+    VERSION: '0.1.0',
+>>>>>>> master
     LANGUAGE: 'en',
     COLLAPSE_INDEX: false,
     BUILDER: 'html',

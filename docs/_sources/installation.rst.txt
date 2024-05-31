@@ -30,7 +30,7 @@ Follow these steps to install Medicraft:
     cd medicraft
     ```
 
-2. ### **Installing as a Package**
+2. **Installing as a Package**
 
    You can also install Medicraft directly as a package using pip. Run the following command in your terminal:
     ```
@@ -44,7 +44,7 @@ Follow these steps to install Medicraft:
     python -m medicraft --version
     ```
 
-3. ### **Using Conda (Recommended)**
+3. **Using Conda (Recommended)**
 
    Create a new conda environment:
     ```
@@ -61,7 +61,7 @@ Follow these steps to install Medicraft:
     conda install --file requirements.txt
     ```
 
-4. ### **Using pip**
+4. **Using pip**
 
    If you prefer to use pip and virtual environments, follow these steps:
 
@@ -91,7 +91,7 @@ Follow these steps to install Medicraft:
 
 Post-Installation Steps
 ------------------------
-After installing Medicraft, you can start using it to generate synthetic medical datasets. Refer to the `Usage Guide <usage.html#usage-guide>`_ for detailed instructions on how to use Medicraft.
+After installing Medicraft, you can start using it to generate synthetic medical datasets. Refer to the `Usage Guide <usage.html>`_ for detailed instructions on how to use Medicraft.
 
 Troubleshooting
 ---------------

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to medicraft’s documentation! &mdash; medicraft 0.1.0 documentation</title>
+  <title>Usage guide &mdash; medicraft 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -21,8 +21,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="introduction.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +32,7 @@
 
           
           
-          <a href="#" class="icon icon-home">
+          <a href="index.html" class="icon icon-home">
             medicraft
           </a>
               <div class="version">
@@ -252,15 +251,15 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">medicraft</a>
+          <a href="index.html">medicraft</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to medicraft’s documentation!</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage guide</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -269,84 +268,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="welcome-to-medicraft-s-documentation">
-<h1>Welcome to medicraft’s documentation!<a class="headerlink" href="#welcome-to-medicraft-s-documentation" title="Link to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>Welcome to the official documentation of <strong>Medicraft</strong>.</p>
-<p>The medical imaging analysis using machine learning encounters challenges such as limited and imbalanced datasets, often constrained by privacy concerns related to patient information. The Medicraft project addresses these limitations by developing software capable of generating synthetic and diverse medical datasets from imaging information. In cooperation with the University Clinical Hospital in Poznan this tool utilizes OCT eye scans, featuring images with abnormalities like tumors and melanomas. To reduce the scarcity of real data, for medically rare cases, the solution uses diffusion models (Denoising Diffusion Probabilistic Model) to create synthetic balanced datasets which can facilitate better research and education in machine learning for medical image analysis and classification. The project uses a data-driven learning approach focused on analyzing the generated data, where synthetic images are analyzed for accuracy with the medical team, in order to achieve the best possible result.</p>
-<p>In this documentation, you will find:</p>
-<ul class="simple">
-<li><p>A comprehensive guide on how to install and use the project.</p></li>
-<li><p>Detailed API documentation.</p></li>
-<li><p>Examples and tutorials to help you get started.</p></li>
-<li><p>Contribution guidelines for those who wish to contribute.</p></li>
-</ul>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#support">Support</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#post-installation-steps">Post-Installation Steps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#running-medicraft-project">Running Medicraft Project</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#configuration-overview">Configuration Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#example-configuration-structure">Example Configuration Structure</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Project architecture</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html">pipeline package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_experiment.html">run_experiment module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trackers.html">trackers package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trainers.html">trainers package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="validation.html">validation package</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">Further Improvements &amp; Contribution Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="todo.html#medicraft-further-improvements">Medicraft Further Improvements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="todo.html#contribution-process">Contribution Process</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+  <section id="usage-guide">
+<h1>Usage guide<a class="headerlink" href="#usage-guide" title="Link to this heading"></a></h1>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

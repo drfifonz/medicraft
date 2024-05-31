@@ -1,0 +1,36 @@
+general:
+  total_steps: 100_000
+  image_size: [256,512]
+  models:
+    unet:
+      dim: 64
+      dim_mults: [1, 2, 4, 8]
+      channels: 1
+
+    diffusion:
+      timesteps: 1000
+    classifier:
+      architecture: resnet34
+      pretrained: False
+      
+
+data:
+  validation_split: 0.1 / 0.9
+  csv_file_path: <dataset-csv-file-path>
+  split_seed: 42
+
+
+experiment:
+  loop:
+    - name: train_generator
+      diagnosis: reference
+      batch_size: 32
+      lr: 1e-4
+      save_and_sample_every: 2000
+      num_steps: 100_000
+      gradient_accumulate_every: 4
+
+
+output:
+  results_dir : .results
+  copy_results_to: <path-to-external-storage>

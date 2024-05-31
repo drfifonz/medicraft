@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Further improvments &amp; contribution guidelines &mdash; medicraft 0.1.0 documentation</title>
+  <title>Further Improvements &amp; Contribution Guidelines &mdash; medicraft 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -64,9 +64,17 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">src</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets 1package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Project architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
@@ -106,10 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="main.html#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">models package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
@@ -136,21 +141,12 @@
 <li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.pipeline">pipeline.pipeline module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.pipeline.PipelineBlocks"><code class="docutils literal notranslate"><span class="pre">PipelineBlocks</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline">Module contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
@@ -229,7 +225,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Further improvments &amp; contribution guidelines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Further Improvements &amp; Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#medicraft-further-improvements">Medicraft Further Improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribution-process">Contribution Process</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -246,7 +246,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Further improvments &amp; contribution guidelines</li>
+      <li class="breadcrumb-item active">Further Improvements &amp; Contribution Guidelines</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -255,8 +255,150 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="further-improvments-contribution-guidelines">
-<h1>Further improvments &amp; contribution guidelines<a class="headerlink" href="#further-improvments-contribution-guidelines" title="Link to this heading"></a></h1>
+  <section id="further-improvements-contribution-guidelines">
+<h1>Further Improvements &amp; Contribution Guidelines<a class="headerlink" href="#further-improvements-contribution-guidelines" title="Link to this heading"></a></h1>
+<section id="medicraft-further-improvements">
+<h2>Medicraft Further Improvements<a class="headerlink" href="#medicraft-further-improvements" title="Link to this heading"></a></h2>
+<p>Medicraft is an open-source project that aims to simplify medical image analysis through synthetic data generation. By leveraging generative models, Medicraft enables the creation of synthetic medical images for training and evaluating machine learning models. While Medicraft offers a range of features and capabilities, there are several areas where further improvements can be made to enhance its functionality and usability.</p>
+<p>We welcome contributions to Medicraft! Here are some areas where we would love your help:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt><strong>Conditional Generating Images</strong></dt><dd><ul class="simple">
+<li><p>Implement features to generate images based on specific conditions or criteria to enhance the flexibility of synthetic data generation.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Add UMAP to Pipeline Configuration</strong></dt><dd><ul class="simple">
+<li><p>Integrate UMAP (Uniform Manifold Approximation and Projection) into the pipeline configuration to improve data visualization and dimensionality reduction.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Add More Trackers Options</strong></dt><dd><ul class="simple">
+<li><p>Extend the existing tracking options beyond Weights &amp; Biases (W&amp;B). Examples include integrating MLflow and other tracking tools to enhance experiment management.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Extend Pipeline Configuration Arguments</strong></dt><dd><ul class="simple">
+<li><p>Provide additional arguments and options in the pipeline configuration to allow for more detailed and customized setup.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Add More Generating Models and Options</strong></dt><dd><ul class="simple">
+<li><p>Introduce new models for image generation and provide various options to configure and fine-tune these models.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Add Other Classifiers than ResNet</strong></dt><dd><ul class="simple">
+<li><p>Incorporate additional classifier models besides ResNet, expanding the variety of models available for medical image classification.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Add More Trackers than W&amp;B</strong></dt><dd><ul class="simple">
+<li><p>Integrate more tracking tools such as MLflow, enhancing the ability to monitor and manage different experiments efficiently.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="contribution-process">
+<h2>Contribution Process<a class="headerlink" href="#contribution-process" title="Link to this heading"></a></h2>
+<p>To contribute to Medicraft, please follow these steps:</p>
+<ol class="arabic">
+<li><dl class="simple">
+<dt><strong>Fork the Repository</strong></dt><dd><ul class="simple">
+<li><p>Fork the Medicraft repository to your GitHub account.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>Clone Your Fork</strong></dt><dd><ul>
+<li><p>Clone your forked repository to your local machine:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/drfifonz/medicraft.git</span>
+<span class="pre">`</span></code></p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>Create a New Branch</strong></dt><dd><ul>
+<li><p>Create a new branch for your feature or bugfix:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/your-feature-name</span>
+<span class="pre">`</span></code></p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Make Your Changes</strong></dt><dd><ul class="simple">
+<li><p>Implement your changes, ensuring to follow the existing code style and guidelines.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Test Your Changes</strong></dt><dd><ul class="simple">
+<li><p>Thoroughly test your changes to ensure they work as expected and do not introduce new issues.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>Commit Your Changes</strong></dt><dd><ul>
+<li><p>Commit your changes with a clear and descriptive commit message:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Add</span> <span class="pre">feature</span> <span class="pre">XYZ</span> <span class="pre">to</span> <span class="pre">improve</span> <span class="pre">ABC&quot;</span>
+<span class="pre">`</span></code></p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>Push Your Changes</strong></dt><dd><ul>
+<li><p>Push your changes to your forked repository:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">feature/your-feature-name</span>
+<span class="pre">`</span></code></p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Create a Pull Request</strong></dt><dd><ul class="simple">
+<li><p>Open a pull request on the main Medicraft repository, describing your changes and their benefits.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Review Process</strong></dt><dd><ul class="simple">
+<li><p>Your pull request will be reviewed by the maintainers. Be prepared to make necessary revisions based on feedback.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>We appreciate your contributions to Medicraft! Together, we can make medical imaging analysis more accurate and accessible.</p>
+</section>
 </section>
 
 

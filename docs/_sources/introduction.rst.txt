@@ -20,13 +20,8 @@ To get started with **Medicraft**, follow these steps:
 
 1. Install the project (`link <installation.html>`_).
 2. Follow usage guide instructions (`link <usage.html>`_).
-<<<<<<< HEAD
 3. Explore the API (`link <modules.html>`_).
 4. Check out examples (`link <examples.html>`_).
-=======
-3. Explore the API [link to API documentation].
-4. Check out examples [link to examples].
->>>>>>> master
 
 Support
 -------

@@ -27,6 +27,7 @@ In this documentation, you will find:
 
    introduction
    installation
+   usage
    modules
    todo
 

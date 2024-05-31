@@ -14,84 +14,84 @@ Before you begin, ensure you have the following prerequisites:
 - Git (for cloning the repository)
 - Virtual environment tools (optional but recommended)
 
-Step-by-Step Installation
--------------------------
-Follow these steps to install Medicraft:
+This guide will walk you through the steps required to install Medicraft. You have multiple options for installation: cloning the repository, installing as a package, using Conda, or using pip.
 
-1. **Clone the Repository**
+1. Clone the Repository
+-----------------------
 
-   Open a terminal and clone the Medicraft repository from GitHub:
-    ```
-    git clone https://github.com/yourusername/medicraft.git
-    ```
+To get started, clone the Medicraft repository from GitHub and navigate to the project directory:
 
-   Navigate to the project directory:
-    ```
-    cd medicraft
-    ```
+.. code-block:: bash
 
-2. ### **Installing as a Package**
+   git clone https://github.com/yourusername/medicraft.git
+   cd medicraft
 
-   You can also install Medicraft directly as a package using pip. Run the following command in your terminal:
-    ```
-    pip install git+https://github.com/yourusername/medicraft.git
-    ```
+2. Installing as a Package
+--------------------------
 
- **Verify the Installation**
+If you prefer to install Medicraft directly as a package, use the following pip command:
 
-   Ensure everything is installed correctly by running:
-    ```
-    python -m medicraft --version
-    ```
+.. code-block:: bash
 
-3. ### **Using Conda (Recommended)**
+   pip install git+https://github.com/yourusername/medicraft.git
 
-   Create a new conda environment:
-    ```
-    conda create --name medicraft python=3.10
-    ```
+Verify the installation by running:
 
-   Activate the conda environment:
-    ```
-    conda activate medicraft
-    ```
+.. code-block:: bash
 
-   Install the required dependencies:
-    ```
-    conda install --file requirements.txt
-    ```
+   python -m medicraft --version
 
-4. ### **Using pip**
+3. Using Conda (Recommended)
+----------------------------
 
-   If you prefer to use pip and virtual environments, follow these steps:
+Creating and activating a new Conda environment is recommended. Follow these steps:
 
-   Create a virtual environment (optional but recommended):
-    ```
-    python -m venv venv
-    ```
+.. code-block:: bash
 
-   Activate the virtual environment:
+   conda create --name medicraft python=3.10
+   conda activate medicraft
+   conda install --file requirements.txt
 
-   - On Windows:
-     ```
+Alternatively, if use `environment.yml` file by creating the environment with:
+
+.. code-block:: bash
+
+   conda env create -f environment.yml
+
+4. Using pip
+------------
+
+If you prefer to use pip and virtual environments, follow these steps:
+
+Create and activate a virtual environment (optional but recommended):
+
+.. code-block:: bash
+
+   python -m venv venv
+
+Activate the virtual environment:
+
+- On Windows:
+
+  .. code-block:: bash
+
      venv\Scripts\activate
-     ```
-   - On macOS/Linux:
-     ```
+
+- On macOS/Linux:
+
+  .. code-block:: bash
+
      source venv/bin/activate
-     ```
 
-   Install the required Python packages using pip:
-    ```
-    pip install -r requirements.txt
-    ```
+Install the required Python packages using pip:
 
+.. code-block:: bash
 
-   You should see the version number of Medicraft, indicating that the installation was successful.
+   pip install -r requirements.txt
 
 Post-Installation Steps
 ------------------------
-After installing Medicraft, you can start using it to generate synthetic medical datasets. Refer to the `Usage Guide <usage.html#usage-guide>`_ for detailed instructions on how to use Medicraft.
+After installing Medicraft, you can start using it to generate synthetic medical datasets. Refer to the `Usage Guide <usage.html>`_ for detailed instructions on how to use Medicraft.
 
 Troubleshooting
 ---------------

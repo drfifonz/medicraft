@@ -1,5 +1,5 @@
-src
-===
+Project architecture
+====================
 
 .. toctree::
    :maxdepth: 4

@@ -1,3 +1,80 @@
-Further improvments & contribution guidelines
-============
+Further Improvements & Contribution Guidelines
+==============================================
 
+Medicraft Further Improvements
+------------------------------
+
+Medicraft is an open-source project that aims to simplify medical image analysis through synthetic data generation. By leveraging generative models, Medicraft enables the creation of synthetic medical images for training and evaluating machine learning models. While Medicraft offers a range of features and capabilities, there are several areas where further improvements can be made to enhance its functionality and usability.
+
+We welcome contributions to Medicraft! Here are some areas where we would love your help:
+
+1. **Conditional Generating Images**
+    - Implement features to generate images based on specific conditions or criteria to enhance the flexibility of synthetic data generation.
+
+2. **Add UMAP to Pipeline Configuration**
+    - Integrate UMAP (Uniform Manifold Approximation and Projection) into the pipeline configuration to improve data visualization and dimensionality reduction.
+
+3. **Add More Trackers Options**
+    - Extend the existing tracking options beyond Weights & Biases (W&B). Examples include integrating MLflow and other tracking tools to enhance experiment management.
+
+4. **Extend Pipeline Configuration Arguments**
+    - Provide additional arguments and options in the pipeline configuration to allow for more detailed and customized setup.
+
+5. **Add More Generating Models and Options**
+    - Introduce new models for image generation and provide various options to configure and fine-tune these models.
+
+6. **Add Other Classifiers than ResNet**
+    - Incorporate additional classifier models besides ResNet, expanding the variety of models available for medical image classification.
+
+7. **Add More Trackers than W&B**
+    - Integrate more tracking tools such as MLflow, enhancing the ability to monitor and manage different experiments efficiently.
+
+Contribution Process
+---------------------
+
+To contribute to Medicraft, please follow these steps:
+
+1. **Fork the Repository**
+    - Fork the Medicraft repository to your GitHub account.
+
+2. **Clone Your Fork**
+    - Clone your forked repository to your local machine:
+    
+      ```
+      git clone https://github.com/drfifonz/medicraft.git
+      ```
+
+3. **Create a New Branch**
+    - Create a new branch for your feature or bugfix:
+    
+      ```
+      git checkout -b feature/your-feature-name
+      ```
+
+4. **Make Your Changes**
+    - Implement your changes, ensuring to follow the existing code style and guidelines.
+
+5. **Test Your Changes**
+    - Thoroughly test your changes to ensure they work as expected and do not introduce new issues.
+
+6. **Commit Your Changes**
+    - Commit your changes with a clear and descriptive commit message:
+    
+      ```
+      git commit -m "Add feature XYZ to improve ABC"
+      ```
+
+7. **Push Your Changes**
+    - Push your changes to your forked repository:
+    
+      ```
+      git push origin feature/your-feature-name
+      ```
+
+8. **Create a Pull Request**
+    - Open a pull request on the main Medicraft repository, describing your changes and their benefits.
+
+9. **Review Process**
+    - Your pull request will be reviewed by the maintainers. Be prepared to make necessary revisions based on feedback.
+
+We appreciate your contributions to Medicraft! Together, we can make medical imaging analysis more accurate and accessible.

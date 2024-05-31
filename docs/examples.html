@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>generate_dataset_temp module &mdash; medicraft 0.9.0 documentation</title>
+  <title>Config examples &mdash; medicraft 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -21,9 +21,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="generate_samples module" href="generate_samples.html" />
-    <link rel="prev" title="datasets package" href="datasets.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,7 +47,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
@@ -76,7 +74,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Project architecture</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Project architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
@@ -121,7 +119,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
 </ul>
@@ -258,8 +256,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">Project architecture</a></li>
-      <li class="breadcrumb-item active">generate_dataset_temp module</li>
+      <li class="breadcrumb-item active">Config examples</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -268,17 +265,168 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="generate-dataset-temp-module">
-<h1>generate_dataset_temp module<a class="headerlink" href="#generate-dataset-temp-module" title="Link to this heading"></a></h1>
+  <section id="config-examples">
+<span id="example-section"></span><h1>Config examples<a class="headerlink" href="#config-examples" title="Link to this heading"></a></h1>
+<p>For example usage, you can find configurations in the <a class="reference external" href="https://github.com/drfifonz/medicraft/tree/master/example-configs/">example-configs</a> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this project, the dataset is needed. However, it is private and contains sensitive data. To access this dataset, you must contact the author. Permission will be required for the data to be made available, and it will be considered on an individual basis.</p>
+</div>
+<p>Each configuration can be run using the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/main.py<span class="w"> </span>-f<span class="w"> </span>config.yml
+</pre></div>
+</div>
+<p>You can also use the optional <cite>–verbose</cite> parameter to enable more detailed logging:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/main.py<span class="w"> </span>-f<span class="w"> </span>config.yml<span class="w"> </span>--verbose
+</pre></div>
+</div>
+<section id="training-generator-model">
+<h2>Training generator model<a class="headerlink" href="#training-generator-model" title="Link to this heading"></a></h2>
+<p>To train a generator model, you can use the following configuration file <a class="reference external" href="https://github.com/drfifonz/medicraft/tree/master/example-configs/train-generator.yml">train-generator.yml</a>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span>
+<span class="nt">total_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100_000</span>
+<span class="nt">image_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="nv">512</span><span class="p p-Indicator">]</span>
+<span class="nt">models</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">unet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">    </span><span class="nt">dim_mults</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="w">    </span><span class="nt">diffusion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">timesteps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">classifier</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
+<span class="w">    </span><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+
+
+<span class="nt">data</span><span class="p">:</span>
+<span class="nt">validation_split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1 / 0.9</span>
+<span class="nt">csv_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dataset-csv-file-path&gt;</span>
+<span class="nt">split_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+
+
+<span class="nt">experiment</span><span class="p">:</span>
+<span class="nt">loop</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">train_generator</span>
+<span class="w">    </span><span class="nt">diagnosis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference</span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e-4</span>
+<span class="w">    </span><span class="nt">save_and_sample_every</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">    </span><span class="nt">num_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100_000</span>
+<span class="w">    </span><span class="nt">gradient_accumulate_every</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="nt">results_dir </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.results</span>
+<span class="nt">copy_results_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;path-to-external-storage&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="generating-images">
+<h2>Generating Images<a class="headerlink" href="#generating-images" title="Link to this heading"></a></h2>
+<p>To generate images using a trained generator model, you can use the following configuration file <a class="reference external" href="https://github.com/drfifonz/medicraft/tree/master/example-configs/generate.yml">generate.yml</a>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span>
+<span class="nt">image_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="nv">512</span><span class="p p-Indicator">]</span>
+<span class="nt">models</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">unet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">    </span><span class="nt">dim_mults</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="w">    </span><span class="nt">diffusion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">timesteps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+
+
+<span class="nt">data</span><span class="p">:</span>
+<span class="nt">validation_split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1 / 0.9</span>
+<span class="nt">csv_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dataset-csv-file-path&gt;</span>
+<span class="nt">split_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+
+
+<span class="nt">experiment</span><span class="p">:</span>
+<span class="nt">loop</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate_samples</span>
+<span class="w">    </span><span class="nt">repeat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">relative_dataset_results_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;relative-dataset-results-directory&gt;</span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">base_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference</span>
+<span class="w">    </span><span class="nt">model_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">    </span><span class="nt">wandb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="nt">results_dir </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.results</span>
+<span class="nt">copy_results_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;path-to-external-storage&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="validate-with-classification-model">
+<h2>Validate with classification model<a class="headerlink" href="#validate-with-classification-model" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the validation dataloader, the real dataset should be split into train, validation, and test directories, each containing subdirectories for each class separately. The structure should match the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ophthal_anonym
+├── test
+│   ├── benign
+│   ├── fluid
+│   ├── precancerous
+│   └── reference
+├── train
+│   ├── benign
+│   ├── fluid
+│   ├── precancerous
+│   └── reference
+└── val
+    ├── benign
+    ├── fluid
+    ├── precancerous
+    └── reference
+</pre></div>
+</div>
+</div>
+<p>To validate the generated images using a trained classification model, you can use the following configuration file <a class="reference external" href="https://github.com/drfifonz/medicraft/tree/master/example-configs/classification.yml">classification.yml</a>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="nv">512</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">models</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">classifier</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
+<span class="w">        </span><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">validation_split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1 / 0.9</span>
+<span class="w">    </span><span class="nt">csv_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dataset-csv-file-path&gt;</span>
+<span class="w">    </span><span class="nt">split_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+
+<span class="nt">experiment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">loop</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate</span>
+<span class="w">        </span><span class="nt">classification</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">loss_fn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cross_entropy</span>
+<span class="w">            </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">            </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e-4</span>
+<span class="w">            </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">            </span><span class="nt">train_data_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">real</span>
+<span class="w">            </span><span class="nt">train_dataset_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;train-dataset-directory&gt;</span>
+<span class="w">            </span><span class="nt">val_dataset_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;validation-dataset-directory&gt;</span>
+<span class="w">            </span><span class="nt">test_dataset_dir </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;test-dataset-directory&gt;</span>
+<span class="w">            </span><span class="nt">logger_experiment_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;experiment-name&gt;</span>
+<span class="w">            </span><span class="nt">logger_tags</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">real</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">results_dir </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.results</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="datasets.html" class="btn btn-neutral float-left" title="datasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="generate_samples.html" class="btn btn-neutral float-right" title="generate_samples module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

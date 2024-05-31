@@ -1,13 +1,15 @@
-Example Usage
+.. _example-section:
+
+Config examples
 =============
 
 For example usage, you can find configurations in the `example-configs`_ directory.
 
-.. _example-configs: ../example-configs/
+.. _example-configs: https://github.com/drfifonz/medicraft/tree/master/example-configs/
 
 .. note::
 
-   In this project, the dataset is needed. However, it is private and contains sensitive data. To access this dataset, you must contact the author. Permission will be required for the data to be made available and will be considered on an individual basis.
+   In this project, the dataset is needed. However, it is private and contains sensitive data. To access this dataset, you must contact the author. Permission will be required for the data to be made available, and it will be considered on an individual basis.
 
 
 Each configuration can be run using the following command:
@@ -29,7 +31,7 @@ Training generator model
 
 To train a generator model, you can use the following configuration file `train-generator.yml`_:
 
-.. _train-generator.yml: ../example-configs/train-generator.yml
+.. _train-generator.yml: https://github.com/drfifonz/medicraft/tree/master/example-configs/train-generator.yml
 
 .. code-block:: yaml
 
@@ -76,7 +78,7 @@ Generating Images
 -----------------
 To generate images using a trained generator model, you can use the following configuration file `generate.yml`_:
 
-.. _generate.yml: ../example-configs/generate.yml
+.. _generate.yml: https://github.com/drfifonz/medicraft/tree/master/example-configs/generate.yml
 
 .. code-block:: yaml
 
@@ -146,7 +148,7 @@ Validate with classification model
 
 To validate the generated images using a trained classification model, you can use the following configuration file `classification.yml`_:
 
-.. _classification.yml: ../example-configs/classification.yml
+.. _classification.yml: https://github.com/drfifonz/medicraft/tree/master/example-configs/classification.yml
 
 
 .. code-block:: yaml

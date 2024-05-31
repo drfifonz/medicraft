@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation Guide &mdash; medicraft 0.1.0 documentation</title>
+  <title>Installation Guide &mdash; medicraft 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -16,13 +16,13 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/documentation_options.js?v=39bb1c6d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="modules.html" />
+    <link rel="next" title="Usage Guide" href="usage.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
             medicraft
           </a>
               <div class="version">
-                0.1
+                0.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -60,293 +60,188 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clone-the-repository">1. Clone the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-as-a-package">2. Installing as a Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-conda-recommended">3. Using Conda (Recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-pip">4. Using pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#post-installation-steps">Post-Installation Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">config module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans.setup"><code class="docutils literal notranslate"><span class="pre">EyeScans.setup()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans.train_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.train_dataloader()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans.val_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.val_dataloader()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans.test_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.test_dataloader()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#running-medicraft-project">Running Medicraft Project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#id1">Usage Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#example-configuration-structure">Example Configuration Structure</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Project architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.eye_scans.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.opthal_anonymized">datasets.opthal_anonymized module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.opthal_anonymized.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html#module-datasets">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans.setup"><code class="docutils literal notranslate"><span class="pre">EyeScans.setup()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans.train_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.train_dataloader()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans.val_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.val_dataloader()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans.test_dataloader"><code class="docutils literal notranslate"><span class="pre">EyeScans.test_dataloader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.prepare_dataset">datasets.prepare_dataset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_patients_paths"><code class="docutils literal notranslate"><span class="pre">get_patients_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_images_paths"><code class="docutils literal notranslate"><span class="pre">get_images_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_lesion_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_lesion_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.get_reference_eyes_paths"><code class="docutils literal notranslate"><span class="pre">get_reference_eyes_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.resize_images_and_save"><code class="docutils literal notranslate"><span class="pre">resize_images_and_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.prepare_dataset.copy_images_to_dir"><code class="docutils literal notranslate"><span class="pre">copy_images_to_dir()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-prepare-opthal-anonym-module">datasets.prepare_opthal_anonym module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.preprocess">datasets.preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.preprocess.load_dataset_csv_file"><code class="docutils literal notranslate"><span class="pre">load_dataset_csv_file()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">models package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.forward"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.training_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.training_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.validation_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.validation_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.on_validation_epoch_end()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.test_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.test_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.on_test_epoch_end"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.on_test_epoch_end()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.configure_optimizers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.EyeScans"><code class="docutils literal notranslate"><span class="pre">EyeScans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.OpthalAnonymizedDataset"><code class="docutils literal notranslate"><span class="pre">OpthalAnonymizedDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="datasets.html#datasets.get_csv_dataset"><code class="docutils literal notranslate"><span class="pre">get_csv_dataset()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion.image_size"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.image_size</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion.channels"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.channels</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion.num_timesteps"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.num_timesteps</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion.forward"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion.sample"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.sample()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#id0"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#id1"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.sample()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset_temp.html">generate_dataset_temp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_samples.html">generate_samples module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.classifier">models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.classifier.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models.gausian_diffusion">models.gausian_diffusion module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.gausian_diffusion.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html#module-models">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#module-models">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="models.html#models.GaussianDiffusion"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion.image_size"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.image_size</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion.channels"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.channels</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion.num_timesteps"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.num_timesteps</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion.forward"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.GaussianDiffusion.sample"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.sample()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#id2"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#id3"><code class="docutils literal notranslate"><span class="pre">GaussianDiffusion.sample()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html">pipeline package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#models.ResNetClassifier"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.forward"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.forward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.training_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.training_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.validation_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.validation_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.on_validation_epoch_end()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.test_step"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.test_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.on_test_epoch_end"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.on_test_epoch_end()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="models.html#models.ResNetClassifier.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">ResNetClassifier.configure_optimizers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">pipeline package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.blocks.html">pipeline.blocks package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.blocks">pipeline.blocks.blocks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.data_dto">pipeline.blocks.data_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.experiment_dto">pipeline.blocks.experiment_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.general_dto">pipeline.blocks.general_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.models_dto">pipeline.blocks.models_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks.output_dto">pipeline.blocks.output_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#pipeline-blocks-testing-dto-module">pipeline.blocks.testing_dto module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.blocks.html#module-pipeline.blocks">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_experiment.html">run_experiment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackers.html">trackers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html#run_classification_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="run_experiment.html">run_experiment module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="run_experiment.html#run_experiment.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="test_pipeline.html">test_pipeline module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trackers.html">trackers package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="trackers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trackers.html#module-trackers.callbacks">trackers.callbacks module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.callbacks.ImagePredictionLogger.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger.on_validation_epoch_end()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="trackers.html#module-trackers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="trackers.html#module-trackers.wandb">trackers.wandb module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.wandb.is_square"><code class="docutils literal notranslate"><span class="pre">is_square()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.observe_model"><code class="docutils literal notranslate"><span class="pre">WandbTracker.observe_model()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.log"><code class="docutils literal notranslate"><span class="pre">WandbTracker.log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.log_images"><code class="docutils literal notranslate"><span class="pre">WandbTracker.log_images()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.finish"><code class="docutils literal notranslate"><span class="pre">WandbTracker.finish()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.get_experiment_name"><code class="docutils literal notranslate"><span class="pre">WandbTracker.get_experiment_name()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.save_model"><code class="docutils literal notranslate"><span class="pre">WandbTracker.save_model()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.wandb.WandbTracker.update_step"><code class="docutils literal notranslate"><span class="pre">WandbTracker.update_step()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="trainers.html">trainers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers.trainer">trainers.trainer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="trainers.html#module-trainers">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="trackers.html#module-trackers">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.WandbTracker"><code class="docutils literal notranslate"><span class="pre">WandbTracker</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.observe_model"><code class="docutils literal notranslate"><span class="pre">WandbTracker.observe_model()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.log"><code class="docutils literal notranslate"><span class="pre">WandbTracker.log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.log_images"><code class="docutils literal notranslate"><span class="pre">WandbTracker.log_images()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.finish"><code class="docutils literal notranslate"><span class="pre">WandbTracker.finish()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.get_experiment_name"><code class="docutils literal notranslate"><span class="pre">WandbTracker.get_experiment_name()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.save_model"><code class="docutils literal notranslate"><span class="pre">WandbTracker.save_model()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.WandbTracker.update_step"><code class="docutils literal notranslate"><span class="pre">WandbTracker.update_step()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.get_tracker_class"><code class="docutils literal notranslate"><span class="pre">get_tracker_class()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trackers.html#trackers.ImagePredictionLogger.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">ImagePredictionLogger.on_validation_epoch_end()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.transforms">utils.transforms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">validation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#validation-fid-module">validation.fid module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation.html#module-validation">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="trainers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trainers.html#trainers-classifier-trainer-module">trainers.classifier_trainer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trainers.html#module-trainers.trainer">trainers.trainer module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer.save"><code class="docutils literal notranslate"><span class="pre">Trainer.save()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer.keep_last_models"><code class="docutils literal notranslate"><span class="pre">Trainer.keep_last_models()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer.load"><code class="docutils literal notranslate"><span class="pre">Trainer.load()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.trainer.Trainer.train"><code class="docutils literal notranslate"><span class="pre">Trainer.train()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Further Improvements &amp; Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#medicraft-further-improvements">Medicraft Further Improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#contribution-process">Contribution Process</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="trainers.html#module-trainers">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="trainers.html#trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer.save"><code class="docutils literal notranslate"><span class="pre">Trainer.save()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer.keep_last_models"><code class="docutils literal notranslate"><span class="pre">Trainer.keep_last_models()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer.load"><code class="docutils literal notranslate"><span class="pre">Trainer.load()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="trainers.html#trainers.Trainer.train"><code class="docutils literal notranslate"><span class="pre">Trainer.train()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.artifact_utilities">utils.artifact_utilities module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.artifact_utilities.check_results_dir_exists"><code class="docutils literal notranslate"><span class="pre">check_results_dir_exists()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.files_managment">utils.files_managment module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.files_managment.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.transforms">utils.transforms module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop.width"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop.width</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.transforms.HorizontalCenterCrop.__call__"><code class="docutils literal notranslate"><span class="pre">HorizontalCenterCrop.__call__()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.copy_results_directory"><code class="docutils literal notranslate"><span class="pre">copy_results_directory()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">validation package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#module-validation.embeddings">validation.embeddings module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.image_to_embedding"><code class="docutils literal notranslate"><span class="pre">Embeddings.image_to_embedding()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.get_images_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.get_images_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.get_images_embeddings_from_dataset"><code class="docutils literal notranslate"><span class="pre">Embeddings.get_images_embeddings_from_dataset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.save_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.save_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.load_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.load_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.create_umap_plot"><code class="docutils literal notranslate"><span class="pre">Embeddings.create_umap_plot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.create_violin_plot"><code class="docutils literal notranslate"><span class="pre">Embeddings.create_violin_plot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.calculate_embeddings_distances"><code class="docutils literal notranslate"><span class="pre">Embeddings.calculate_embeddings_distances()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.embeddings.Embeddings.calculate_cosine_similarity"><code class="docutils literal notranslate"><span class="pre">Embeddings.calculate_cosine_similarity()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#validation-fid-module">validation.fid module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#module-validation">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="validation.html#validation.Embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.image_to_embedding"><code class="docutils literal notranslate"><span class="pre">Embeddings.image_to_embedding()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.get_images_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.get_images_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.get_images_embeddings_from_dataset"><code class="docutils literal notranslate"><span class="pre">Embeddings.get_images_embeddings_from_dataset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.save_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.save_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.load_embeddings"><code class="docutils literal notranslate"><span class="pre">Embeddings.load_embeddings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.create_umap_plot"><code class="docutils literal notranslate"><span class="pre">Embeddings.create_umap_plot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.create_violin_plot"><code class="docutils literal notranslate"><span class="pre">Embeddings.create_violin_plot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.calculate_embeddings_distances"><code class="docutils literal notranslate"><span class="pre">Embeddings.calculate_embeddings_distances()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="validation.html#validation.Embeddings.calculate_cosine_similarity"><code class="docutils literal notranslate"><span class="pre">Embeddings.calculate_cosine_similarity()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">Medicraft Contribution Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html#further-improvements-contribution-guidelines">Further Improvements &amp; Contribution Guidelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html#contribution-process">Contribution Process</a></li>
 </ul>
 
         </div>
@@ -387,88 +282,64 @@
 <li><p>Git (for cloning the repository)</p></li>
 <li><p>Virtual environment tools (optional but recommended)</p></li>
 </ul>
+<p>This guide will walk you through the steps required to install Medicraft. You have multiple options for installation: cloning the repository, installing as a package, using Conda, or using pip.</p>
 </section>
-<section id="step-by-step-installation">
-<h2>Step-by-Step Installation<a class="headerlink" href="#step-by-step-installation" title="Link to this heading"></a></h2>
-<p>Follow these steps to install Medicraft:</p>
-<ol class="arabic">
-<li><p><strong>Clone the Repository</strong></p>
-<dl class="simple">
-<dt>Open a terminal and clone the Medicraft repository from GitHub:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/yourusername/medicraft.git</span>
-<span class="pre">`</span></code></p>
-</dd>
-<dt>Navigate to the project directory:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">cd</span> <span class="pre">medicraft</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
-</li>
-<li><p><strong>Installing as a Package</strong></p>
-<dl class="simple">
-<dt>You can also install Medicraft directly as a package using pip. Run the following command in your terminal:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/yourusername/medicraft.git</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
-</li>
-</ol>
-<blockquote>
-<div><p><strong>Verify the Installation</strong></p>
-<blockquote>
-<div><dl class="simple">
-<dt>Ensure everything is installed correctly by running:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">python</span> <span class="pre">-m</span> <span class="pre">medicraft</span> <span class="pre">--version</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
-</div></blockquote>
-</div></blockquote>
-<ol class="arabic" start="3">
-<li><p><strong>Using Conda (Recommended)</strong></p>
-<dl class="simple">
-<dt>Create a new conda environment:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">medicraft</span> <span class="pre">python=3.10</span>
-<span class="pre">`</span></code></p>
-</dd>
-<dt>Activate the conda environment:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">medicraft</span>
-<span class="pre">`</span></code></p>
-</dd>
-<dt>Install the required dependencies:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">conda</span> <span class="pre">install</span> <span class="pre">--file</span> <span class="pre">requirements.txt</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
-</li>
-<li><p><strong>Using pip</strong></p>
+<section id="clone-the-repository">
+<h2>1. Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h2>
+<p>To get started, clone the Medicraft repository from GitHub and navigate to the project directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/yourusername/medicraft.git
+<span class="nb">cd</span><span class="w"> </span>medicraft
+</pre></div>
+</div>
+</section>
+<section id="installing-as-a-package">
+<h2>2. Installing as a Package<a class="headerlink" href="#installing-as-a-package" title="Link to this heading"></a></h2>
+<p>If you prefer to install Medicraft directly as a package, use the following pip command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/yourusername/medicraft.git
+</pre></div>
+</div>
+<p>Verify the installation by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>medicraft<span class="w"> </span>--version
+</pre></div>
+</div>
+</section>
+<section id="using-conda-recommended">
+<h2>3. Using Conda (Recommended)<a class="headerlink" href="#using-conda-recommended" title="Link to this heading"></a></h2>
+<p>Creating and activating a new Conda environment is recommended. Follow these steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>medicraft<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>medicraft
+conda<span class="w"> </span>install<span class="w"> </span>--file<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Alternatively, if use <cite>environment.yml</cite> file by creating the environment with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+</pre></div>
+</div>
+</section>
+<section id="using-pip">
+<h2>4. Using pip<a class="headerlink" href="#using-pip" title="Link to this heading"></a></h2>
 <p>If you prefer to use pip and virtual environments, follow these steps:</p>
-<dl class="simple">
-<dt>Create a virtual environment (optional but recommended):</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">python</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">venv</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
+<p>Create and activate a virtual environment (optional but recommended):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</pre></div>
+</div>
 <p>Activate the virtual environment:</p>
-<ul class="simple">
-<li><p>On Windows:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">venv\Scripts\activate</span>
-<span class="pre">`</span></code></p></li>
-<li><p>On macOS/Linux:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">source</span> <span class="pre">venv/bin/activate</span>
-<span class="pre">`</span></code></p></li>
-</ul>
-<dl class="simple">
-<dt>Install the required Python packages using pip:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span>
-<span class="pre">`</span></code></p>
-</dd>
-</dl>
-<p>You should see the version number of Medicraft, indicating that the installation was successful.</p>
+<ul>
+<li><p>On Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
 </li>
-</ol>
+<li><p>On macOS/Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Install the required Python packages using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
 </section>
 <section id="post-installation-steps">
 <h2>Post-Installation Steps<a class="headerlink" href="#post-installation-steps" title="Link to this heading"></a></h2>
@@ -491,7 +362,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

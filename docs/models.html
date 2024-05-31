@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>models package &mdash; medicraft 0.1.0 documentation</title>
+  <title>models package &mdash; medicraft 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -16,7 +16,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/documentation_options.js?v=39bb1c6d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -38,7 +38,7 @@
             medicraft
           </a>
               <div class="version">
-                0.1
+                0.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -60,14 +60,33 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step-installation">Step-by-Step Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#clone-the-repository">1. Clone the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-as-a-package">2. Installing as a Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#using-conda-recommended">3. Using Conda (Recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#using-pip">4. Using pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#post-installation-steps">Post-Installation Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets 1package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#running-medicraft-project">Running Medicraft Project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#id1">Usage Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#example-configuration-structure">Example Configuration Structure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Project architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DATASET_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">DATASET_FILE_PATH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEV_DEBUG"><code class="docutils literal notranslate"><span class="pre">DEV_DEBUG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.DEVICE"><code class="docutils literal notranslate"><span class="pre">DEVICE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_GENERATE_SAMPLES"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_GENERATE_SAMPLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_CLASSIFICATION"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_CLASSIFICATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#config.WANDB_PRJ_NAME_TRAIN_GENERATOR"><code class="docutils literal notranslate"><span class="pre">WANDB_PRJ_NAME_TRAIN_GENERATOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html">datasets package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#datasets-eye-fundus-module">datasets.eye_fundus module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets.html#module-datasets.eye_scans">datasets.eye_scans module</a><ul>
@@ -107,10 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generate_samples.html#generate_samples.generate_samples"><code class="docutils literal notranslate"><span class="pre">generate_samples()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="main.html#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">models package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-models.classifier">models.classifier module</a><ul>
@@ -137,21 +153,12 @@
 <li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.parser">pipeline.parser module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.j_print"><code class="docutils literal notranslate"><span class="pre">j_print()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.parse_config"><code class="docutils literal notranslate"><span class="pre">parse_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.parser.get_experiment_configs"><code class="docutils literal notranslate"><span class="pre">get_experiment_configs()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline.pipeline">pipeline.pipeline module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.pipeline.PipelineBlocks"><code class="docutils literal notranslate"><span class="pre">PipelineBlocks</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-pipeline">Module contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipeline.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#pipeline-pipeline-module">pipeline.pipeline module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="run_classification_experiment.html">run_classification_experiment module</a><ul>
@@ -230,7 +237,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">Further improvments &amp; contribution guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Further Improvements &amp; Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#medicraft-further-improvements">Medicraft Further Improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#contribution-process">Contribution Process</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -247,7 +258,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Project architecture</a></li>
       <li class="breadcrumb-item active">models package</li>
       <li class="wy-breadcrumbs-aside">
       </li>

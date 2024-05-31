@@ -30,8 +30,15 @@ pip install medicraft
 ## Post-Installation Steps
 After successfully installing Medicraft, it is highly recommended to familiarize yourself with the documentation. You can find the detailed documentation [here](https://drfifonz.github.io/medicraft/index.html).
 
-
+## Usage
 To learn how to run the project, refer to the usage instructions provided in the documentation [here](https://drfifonz.github.io/medicraft/usage.html).
+
+For running a project create `config.yml` file and run the following command:
+```bash
+python src/main.py -f config.yml
+```
+See config examples here: [configs](https://drfifonz.github.io/medicraft/examples.html#example-section)
+
 
 
 

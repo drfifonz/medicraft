@@ -11,7 +11,12 @@ The documentation for the project can be found [here](https://drfifonz.github.io
 
 ## Installation
 
-###  Using conda (recommended)
+### As a package 
+To install the project as a package, run the following command:
+```bash
+pip install medicraft
+```
+###  Using conda 
  Create an environment from the `environment.yml` file:
  ```bash
  conda env create -f environment.yml
@@ -20,11 +25,6 @@ The documentation for the project can be found [here](https://drfifonz.github.io
 Install the required packages using pip:
 ```bash
 pip install -r requirements.txt
-```
-### As a package (not implemented yet)
-To install the project as a package, run the following command:
-```bash
-pip install medicraft
 ```
 
 ## Post-Installation Steps

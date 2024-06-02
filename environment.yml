@@ -29,3 +29,4 @@ dependencies:
     - wandb
     - PyYAML
     - pydantic
+    - umap_learn

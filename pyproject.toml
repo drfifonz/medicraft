@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "medicraft"
+version = "0.9.1"
+description = "Medicraft synthetic dataset generator"
+authors = ["Filip Patyk <fp.patyk@gmail.com>"]
+repository = "https://github.com/drfifonz/medicraft"
+documentation  = "https://drfifonz.github.io/medicraft/"
+keywords = ["diffusion", "generating","medical","images","synthetic dataset","pytorch","torch","diffusion","denoising"]
+readme = "README.md"
+license = "MIT"
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: GPU :: NVIDIA CUDA :: 12",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+
+]
+
+packages = [
+    { include = "medicraft", from = "src" }
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+torch = "2.3.0"
+denoising-diffusion-pytorch = "1.9.4"
+ema-pytorch = "0.3.1"
+lightning = "2.2.1"
+matplotlib = "3.8.4"
+pandas = "2.2.2"
+pillow = "10.3.0"
+pydantic = "2.7.2"
+PyYAML = "6.0.1"
+scikit-learn = "1.4.2"
+seaborn = "0.13.2"
+torchmetrics = "1.3.1"
+torchvision = "0.18.0"
+tqdm = "4.66.2"
+umap-learn = "0.5.5"
+wandb = "0.16.3"
+
+[tool.poetry.dev-dependencies]
+black = "^24.4.2"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+exclude ='''(/venv/|/\.venv/|/\.tox/|/\.nox/|/\.eggs/|/\.git/|/\.mypy_cache/|/\.pytest_cache/|/\.vscode/|/__pycache__/|/\.mypy/|/\.pytest)'''
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 120
+skip_glob = ["*/venv/*", "*/.venv/*", "*/.tox/*", "*/.nox/*", "*/.eggs/*", "*/.git/*", "*/.mypy_cache/*", "*/.pytest_cache/*", "*/.vscode/*", "*/__pycache__/*", "*/.mypy/*", "*/.pytest"]

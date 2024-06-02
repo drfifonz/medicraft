@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 
 import torch
+import wandb
 from denoising_diffusion_pytorch import Unet
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import num_to_groups
 from ema_pytorch import EMA
@@ -9,7 +10,6 @@ from PIL import Image
 from torchvision import utils
 from tqdm import tqdm
 
-import wandb
 from models import GaussianDiffusion
 from utils import copy_results_directory
 
@@ -105,7 +105,7 @@ def save_image(image: Image, path) -> None:
         image.save(f, format="png")
 
 
-raiserif __name__ == "__main__":
+if __name__ == "__main__":
     DATASET_PATH = "datasets/05.2024/0001"
 
     ONEDRIVE_DATASETS_DIR = "/home/wmi/OneDrive/General/results/datasets/ophtal_anonym/"

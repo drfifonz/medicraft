@@ -14,6 +14,7 @@ Example usage:
     # Use the pipeline
     pipeline.run()
 """
-__all__ = ["Pipeline", "create_pipeline"]
-from .parser import create_pipeline
+__all__ = [
+    "Pipeline",
+]
 from .pipeline import Pipeline

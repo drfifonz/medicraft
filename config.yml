@@ -45,6 +45,7 @@ experiment:
     #   relative_dataset_results_dir: datasets/0002
     #   num_samples: 1023
     #   batch_size: 102345
+    #   checkpoint: model.pt
     #   base_on: reference
     #   model_version: latest
     #   wandb: false

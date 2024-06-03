@@ -17,7 +17,7 @@ from torch import cuda, device
 
 DATASET_FILE_PATH = Path("datasets/ophthal_anonym/dataset.csv")
 
-DEV_DEBUG = False
+DEV_DEBUG = True
 
 DEVICE = device("cuda" if cuda.is_available() else "cpu")
 

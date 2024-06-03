@@ -1,9 +1,8 @@
 from pathlib import Path
 from typing import Literal, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, computed_field, field_validator
-
 from pipeline.blocks.models_dto import ModelsDTO
+from pydantic import BaseModel, ConfigDict, computed_field, field_validator
 
 TRAIN_GENERATOR = "train_generator"
 GENERATE_SAMPLES = "generate_samples"
@@ -33,7 +32,7 @@ class TrainGeneratorDTO(LoopObjectDTO):
 
     experiment_id: Optional[str] = None
     copy_results_to: Optional[str] = None
-    start_from_checkpoint: Optional[str] = None  # TODO implement
+    start_from_checkpoint: Optional[str] = None
     dataset_split_type: Literal["train", "val", "test"] = "train"
     diagnosis: Literal["precancerous", "fluid", "benign", "reference"]
 
@@ -53,11 +52,14 @@ class GenerateSamplesDTO(LoopObjectDTO):
     base_on: str
     results_dir: str
     copy_results_to: Optional[str] = None
+    checkpoint: Optional[str] = None
     relative_dataset_results_dir: str = "dataset"
 
     @computed_field
     @property
     def checkpoint_path(self) -> str:
+        if self.checkpoint:
+            return self.checkpoint
         return str(Path(self.results_dir) / self.base_on / f"{self.model_version}.pt")
 
     @computed_field

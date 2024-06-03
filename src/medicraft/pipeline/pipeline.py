@@ -4,22 +4,21 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
+import config as cfg
 import lightning as pl
 import pandas as pd
+import pipeline.blocks as pipeline_blocks
 import torch
 import torch.nn as nn
 import wandb
+from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from denoising_diffusion_pytorch import Unet
+from generate_samples import generate_samples as generate
 from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
-from torchvision import transforms as T
-
-import config as cfg
-import pipeline.blocks as pipeline_blocks
-from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
-from generate_samples import generate_samples as generate
 from models import GaussianDiffusion, ResNetClassifier
 from pipeline.parser import parse_config, read_config_file
+from torchvision import transforms as T
 from trackers import ImagePredictionLogger
 from trainers import Trainer
 from utils import copy_results_directory
@@ -104,7 +103,6 @@ class Pipeline:
         else:
             results_folder = Path(config.results_dir) / config.diagnosis
 
-        # raise NotImplementedError("dataset loaded")
         trainer = Trainer(  # noqa : F841
             diffusion_model=diffusion,
             folder=self.images_directory,
@@ -126,6 +124,9 @@ class Pipeline:
                 "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,
             },
         )
+        if config.start_from_checkpoint:
+            trainer.load(config.start_from_checkpoint)
+            logging.info(f"Model loaded from {config.start_from_checkpoint}.")
         trainer.train()
         logging.info("Training completed successfully.")
         self.runned_steps += config.num_steps

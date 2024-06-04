@@ -27,7 +27,7 @@ def main():
     pipeline = Pipeline()
 
     pipeline.load_config(args.file)
-    # pipeline.run(verbose=args.verbose)
+    pipeline.run(verbose=args.verbose)
 
 
 if __name__ == "__main__":

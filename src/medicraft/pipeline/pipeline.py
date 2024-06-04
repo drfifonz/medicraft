@@ -269,7 +269,6 @@ class Pipeline:
             None
         """
         classifier_config = models_config.classifier
-        print(f"{classifier_config=}")
         match config.train_data_type:
             case "real":
                 is_real_train_data = True
@@ -310,6 +309,7 @@ class Pipeline:
         val_samples = next(iter(data_module.val_dataloader()))
 
         trainer = pl.Trainer(
+            min_epochs=config.min_epochs,
             max_epochs=config.epochs,
             logger=wandb_logger,
             callbacks=[early_stop_callback, ImagePredictionLogger(val_samples), progressbar_callback],

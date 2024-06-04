@@ -100,7 +100,7 @@ class ClassificationDTO(BaseModel):
     loss_fn: str = "cross_entropy"
     num_workers: int = 4
     batch_size: int = 32
-
+    min_epochs: int = 5
     log_every_n_steps: int = 10
     logger_tags: Optional[list[str]] = None
     logger_experiment_name: Optional[str] = None

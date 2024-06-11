@@ -301,6 +301,7 @@ class Pipeline:
             save_dir=Path(config.results_dir) / "classification-wandb",
             job_type="train",
             tags=config.logger_tags,
+            group=config.logger_group,
         )
 
         early_stop_callback = EarlyStopping(monitor="val_loss")

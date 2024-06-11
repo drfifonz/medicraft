@@ -105,8 +105,7 @@ class EyeScans(pl.LightningDataModule):
         """
         dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
         train_size = int(self.ratio[0] * len(dataset))
-        val_size = int(self.ratio[1] * len(dataset))
-
+        val_size = len(dataset) - train_size
         train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
         test_dataset = datasets.ImageFolder(root=self.test_dataset_dir, transform=self.transforms)
 

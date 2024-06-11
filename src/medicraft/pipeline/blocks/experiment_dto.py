@@ -102,6 +102,7 @@ class ClassificationDTO(BaseModel):
     batch_size: int = 32
     min_epochs: int = 5
     log_every_n_steps: int = 10
+    logger_group: Optional[str] = None
     logger_tags: Optional[list[str]] = None
     logger_experiment_name: Optional[str] = None
     offline: bool = False

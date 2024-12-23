@@ -1,0 +1,35 @@
+general:
+  image_size: [256,512]
+  experiment_id: 0003
+  models:
+    unet:
+      dim: 64
+      dim_mults: [1, 2, 4, 8]
+      channels: 1
+
+    diffusion:
+      timesteps: 1000
+
+      
+
+data:
+  validation_split: 0.1 / 0.9
+  csv_file_path: <dataset-csv-file-path>
+  split_seed: 42
+
+
+experiment:
+  loop:
+    - name: train_generator
+      diagnosis: reference
+      batch_size: 4
+      lr: 2e-4
+      save_and_sample_every: 2000
+      num_steps: 150_000
+      gradient_accumulate_every: 4
+      start_from_checkpoint: .results/0003/reference/model-50.pt
+
+
+output:
+  results_dir : .results
+  copy_results_to: <path-to-external-storage>

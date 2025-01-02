@@ -154,6 +154,7 @@ class Pipeline:
         models_config = config.models
         image_size = config.image_size
 
+        flush_models = config.flush_models
         if total_steps == 0 and self.runned_steps == 0:
             logging.info("Running 1 iteration of the pipeline")
             self.runned_steps = -1
@@ -173,6 +174,11 @@ class Pipeline:
                     self.foo(block)
                 if not block.repeat:
                     only_once_blocks.remove(block)
+
+                if flush_models:
+                    logging.info("Flushing cuda cache...")
+                    torch.cuda.empty_cache()
+
             if total_steps == 0:
                 break
 

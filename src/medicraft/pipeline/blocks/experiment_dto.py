@@ -142,6 +142,7 @@ class ExperimentDTO(BaseModel):
     results_dir: str
     copy_results_to: Optional[str] = None
     loop: list[Union[TrainGeneratorDTO, GenerateSamplesDTO, ValidateDTO, FooDTO]]
+    flush_models: bool = False
 
     @field_validator("loop", mode="before")
     @classmethod

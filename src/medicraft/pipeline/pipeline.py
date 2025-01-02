@@ -10,7 +10,6 @@ import pandas as pd
 import pipeline.blocks as pipeline_blocks
 import torch
 import torch.nn as nn
-import wandb
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from denoising_diffusion_pytorch import Unet
 from generate_samples import generate_samples as generate
@@ -23,6 +22,8 @@ from trackers import ImagePredictionLogger
 from trainers import Trainer
 from utils import copy_results_directory
 from utils.transforms import HorizontalCenterCrop
+
+import wandb
 
 
 class PipelineBlocks(Enum):
@@ -122,6 +123,7 @@ class Pipeline:
             tracker_kwargs={
                 "tags": [config.diagnosis, "opthal_anonymized"],
                 "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,
+                "mode": config.wandb_mode,
             },
         )
         if config.start_from_checkpoint:

@@ -41,12 +41,6 @@ class GaussianDiffusion(GausianDiffusionModel):
     def sample(self, batch_size=16, return_all_timesteps=False):
         image_size, channels = self.image_size, self.channels
         sample_fn = self.p_sample_loop if not self.is_ddim_sampling else self.ddim_sample
-        if isinstance(image_size, tuple):
-            return sample_fn(
-                (batch_size, channels, *image_size),
-                return_all_timesteps=return_all_timesteps,
-            )
         return sample_fn(
-            (batch_size, channels, image_size, image_size),
-            return_all_timesteps=return_all_timesteps,
+            (batch_size, channels, image_size[0], image_size[1]), return_all_timesteps=return_all_timesteps
         )

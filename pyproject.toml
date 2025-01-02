@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "medicraft-dev"
+name = "medicraft"
 version = "0.9.3"
 description = "Medicraft synthetic dataset generator"
 authors = ["Filip Patyk <fp.patyk@gmail.com>"]

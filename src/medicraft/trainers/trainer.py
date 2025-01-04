@@ -35,6 +35,7 @@ class Trainer(DiffusionTrainer):
         augment_horizontal_flip: int = True,
         train_lr: float = 1e-4,
         train_num_steps: int = 100_000,
+        dataset_num_workers: int | None = None,
         break_every_steps: int | None = None,
         ema_update_every: int = 10,
         ema_decay: float = 0.995,
@@ -161,7 +162,17 @@ class Trainer(DiffusionTrainer):
             len(self.ds) >= 100
         ), "you should have at least 100 images in your folder. at least 10k images recommended"
 
-        dl = DataLoader(self.ds, batch_size=train_batch_size, shuffle=True, pin_memory=True, num_workers=cpu_count())
+        logging.debug(f"Dataset length: {len(self.ds)}")
+        logging.debug(f"num of workers: {dataset_num_workers}")
+        logging.debug(f"cpu available: {cpu_count()}")
+        raise
+        dl = DataLoader(
+            self.ds,
+            batch_size=train_batch_size,
+            shuffle=True,
+            pin_memory=True,
+            num_workers=dataset_num_workers if dataset_num_workers else cpu_count(),
+        )
 
         dl = self.accelerator.prepare(dl)
         self.dl = cycle(dl)

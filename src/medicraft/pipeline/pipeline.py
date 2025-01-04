@@ -109,6 +109,7 @@ class Pipeline:
             diffusion_model=diffusion,
             folder=self.images_directory,
             dataset=dataset,
+            dataset_num_workers=config.num_workers,
             train_batch_size=config.batch_size,
             train_lr=config.lr,
             save_and_sample_every=config.save_and_sample_every,
@@ -253,7 +254,7 @@ class Pipeline:
         """
         if verbose:
             self.__set_logging_level(
-                level=20,
+                level=5,
                 save_to_file=False,
             )
 

@@ -297,12 +297,12 @@ class Trainer(DiffusionTrainer):
                 self.step += 1
                 if accelerator.is_main_process:
                     self.ema.update()
-
-                    if self.step != 0 and divisible_by(self.step, self.spot_save_every):
-                        self.ema.ema_model.eval()
-                        with torch.inference_mode():
-                            logging.info(f"Saving spot checkpoint at {self.step} steps")
-                            self.save_spot_checkpoint()
+                    if self.spot_save_every:
+                        if self.step != 0 and divisible_by(self.step, self.spot_save_every):
+                            self.ema.ema_model.eval()
+                            with torch.inference_mode():
+                                logging.info(f"Saving spot checkpoint at {self.step} steps")
+                                self.save_spot_checkpoint()
 
                     if self.step != 0 and divisible_by(self.step, self.save_and_sample_every):
                         self.ema.ema_model.eval()

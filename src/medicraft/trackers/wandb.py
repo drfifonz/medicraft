@@ -2,10 +2,11 @@ import logging
 import math
 
 import torch
-import wandb
 from torch import nn
 from torchvision import transforms
 from torchvision.utils import make_grid
+
+import wandb
 
 
 def is_square(num: int) -> bool:
@@ -49,6 +50,7 @@ class WandbTracker:
             id=kwargs.get("id", None),
             resume=kwargs.get("resume", None),
             mode=kwargs.get("mode", "online"),
+            name=kwargs.get("run_name", None),
         )
         assert wandb.run is not None
         wandb.define_metric("*", step_metric="global_step")
@@ -105,11 +107,22 @@ class WandbTracker:
         """
         self.run.finish()
 
-    def get_experiment_name(self) -> str:
+    @staticmethod
+    def get_experiment_name() -> str:
         """
         Get the name of the current experiment.
 
         :return: The name of the experiment.
+        :rtype: str
+        """
+        return wandb.run.name
+
+    @staticmethod
+    def get_experiment_id() -> str:
+        """
+        Get the id of the current experiment.
+
+        :return: The id of the experiment.
         :rtype: str
         """
         return wandb.run.id

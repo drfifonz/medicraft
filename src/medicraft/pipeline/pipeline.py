@@ -21,6 +21,7 @@ from torchvision import transforms as T
 from trackers import ImagePredictionLogger
 from trainers import Trainer
 from utils import copy_results_directory
+from utils.checkpointer import SpotCheckpointer
 from utils.transforms import HorizontalCenterCrop
 
 import wandb
@@ -111,6 +112,7 @@ class Pipeline:
             train_batch_size=config.batch_size,
             train_lr=config.lr,
             save_and_sample_every=config.save_and_sample_every,
+            spot_save_every=config.spot_save_every,
             # save_and_sample_every=10,
             results_folder=results_folder,
             train_num_steps=config.num_steps,
@@ -124,9 +126,10 @@ class Pipeline:
                 "tags": [config.diagnosis, "opthal_anonymized"],
                 "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,
                 "mode": config.wandb_mode,
+                "resume": True,
             },
         )
-        if config.start_from_checkpoint:
+        if config.start_from_checkpoint and Path(config.start_from_checkpoint).exists():
             trainer.load(config.start_from_checkpoint)
             logging.info(f"Model loaded from {config.start_from_checkpoint}.")
         trainer.train()
@@ -345,6 +348,12 @@ class Pipeline:
         self.__image_size = self.config.get(PipelineBlocks.general.name).image_size
         logging.info("Configuration parsed successfully.")
 
+    def after_run(self) -> None:
+        """
+        Executes after the pipeline run
+        """
+        SpotCheckpointer.remove_checkpoints()
+
     @property
     def transform(self) -> T.Compose:
         return T.Compose(
@@ -395,7 +404,7 @@ class Pipeline:
         diffusion = GaussianDiffusion(
             model,
             image_size=image_size,
-            **diffusion_config
+            **diffusion_config,
             # loss_type = 'l1'    # L1 or L2
         )
         diffusion.to(device=cfg.DEVICE)
@@ -487,7 +496,7 @@ class Pipeline:
 
         logging.basicConfig(
             level=level,
-            format="%(asctime)s - %(levelname)s - %(message)s",
+            format="[%(levelname)s] %(asctime)s | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
             force=True,
             handlers=handlers,

@@ -1,8 +1,7 @@
 from typing import Optional
 
-from pydantic import BaseModel
-
 from pipeline.blocks.models_dto import ModelsDTO
+from pydantic import BaseModel
 
 
 class GeneralDTO(BaseModel):
@@ -10,4 +9,5 @@ class GeneralDTO(BaseModel):
     image_size: list[int]
     experiment_id: Optional[str] = None
 
+    spot_checkpointing: bool = False
     models: ModelsDTO

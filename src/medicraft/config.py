@@ -11,6 +11,7 @@ Attributes:
     WANDB_PRJ_NAME_CLASSIFICATION (str): The project name for classification.
     WANDB_PRJ_NAME_TRAIN_GENERATOR (str): The project name for training the generator.
 """
+
 from pathlib import Path
 
 from torch import cuda, device
@@ -23,4 +24,6 @@ DEVICE = device("cuda" if cuda.is_available() else "cpu")
 
 WANDB_PRJ_NAME_GENERATE_SAMPLES = "opthal_anonymized_datasets"
 WANDB_PRJ_NAME_CLASSIFICATION = "medicraft-classification-tests"
-WANDB_PRJ_NAME_TRAIN_GENERATOR = "medicraft"
+WANDB_PRJ_NAME_TRAIN_GENERATOR = "phd-test-medicraft"
+
+SPOT_CHECKPOINT_DIR = Path(".spot_checkpoint")

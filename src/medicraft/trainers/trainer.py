@@ -1,9 +1,11 @@
+import logging
 import math
 import os
 from pathlib import Path
 from typing import Literal
 
 import torch
+from config import SPOT_CHECKPOINT_DIR
 from denoising_diffusion_pytorch import Trainer as DiffusionTrainer
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import Dataset as _Dataset
 from denoising_diffusion_pytorch.denoising_diffusion_pytorch import (
@@ -18,7 +20,6 @@ from torch import nn
 from torch.utils.data import DataLoader, Dataset
 from torchvision import utils
 from tqdm.auto import tqdm
-
 from trackers.wandb import WandbTracker
 
 
@@ -39,6 +40,7 @@ class Trainer(DiffusionTrainer):
         ema_decay: float = 0.995,
         adam_betas: tuple[float, float] = (0.9, 0.99),
         save_and_sample_every: int = 1000,
+        spot_save_every: int | None = None,
         num_samples: int = 25,
         results_folder: str = "./results",
         amp: bool = False,
@@ -51,6 +53,7 @@ class Trainer(DiffusionTrainer):
         num_fid_samples: int = 50000,
         save_best_and_latest_only: bool = False,
         tracker: str | None = None,
+        tracker_experiment_name: str | None = None,
         tracker_kwargs: dict | None = None,
     ):
         """
@@ -84,8 +87,11 @@ class Trainer(DiffusionTrainer):
             tracker (str | None, optional): The tracker name for experiment tracking. Defaults to None.
             tracker_kwargs (dict | None, optional): Additional keyword arguments for the tracker. Defaults to None.
         """
+        self.spot_save_every = spot_save_every
 
         self.tracker = None  # TODO try if is it necessary then remove this line
+        self.tracker_experiment_name = tracker_experiment_name
+
         if tracker:
             parameters = {k: v for k, v in locals().items() if k != "self"}
             [
@@ -110,6 +116,7 @@ class Trainer(DiffusionTrainer):
                 group=tracker_kwargs.get("group", "diffusion"),
                 resume=tracker_kwargs.get("resume", None),
                 id=tracker_kwargs.get("id", None),
+                run_name=self.tracker_experiment_name,
                 mode=tracker_kwargs.get("mode", "online"),
             )
 
@@ -172,18 +179,27 @@ class Trainer(DiffusionTrainer):
         if not self.accelerator.is_local_main_process:
             return
 
-        data = {
+        data = self.__get_training_state_data()
+        model_path = str(self.results_folder / f"model-{milestone}.pt")
+        torch.save(data, model_path)
+        torch.save(data, str(self.results_folder / "latest.pt"))
+        self.keep_last_models(keep_last_models)
+
+    def save_spot_checkpoint(self, checkpoint_dir: Path = SPOT_CHECKPOINT_DIR) -> None:
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        data = self.__get_training_state_data()
+        torch.save(data, str(checkpoint_dir / "checkpoint.pt"))
+
+    def __get_training_state_data(self) -> dict:
+        return {
             "step": self.step,
             "model": self.accelerator.get_state_dict(self.model),
             "opt": self.opt.state_dict(),
             "ema": self.ema.state_dict(),
             "scaler": self.accelerator.scaler.state_dict() if exists(self.accelerator.scaler) else None,
             "version": __version__,
+            "wandb_run_name": self.tracker.get_experiment_name() if self.tracker else None,
         }
-        model_path = str(self.results_folder / f"model-{milestone}.pt")
-        torch.save(data, model_path)
-        torch.save(data, str(self.results_folder / "latest.pt"))
-        self.keep_last_models(keep_last_models)
 
     def keep_last_models(self, num_models: int = 10) -> None:
         """
@@ -225,6 +241,8 @@ class Trainer(DiffusionTrainer):
 
         if exists(self.accelerator.scaler) and exists(data["scaler"]):
             self.accelerator.scaler.load_state_dict(data["scaler"])
+
+        self.tracker_experiment_name = data.get("wandb_run_name", None)
 
     def train(self):
         """
@@ -269,6 +287,12 @@ class Trainer(DiffusionTrainer):
                 self.step += 1
                 if accelerator.is_main_process:
                     self.ema.update()
+
+                    if self.step != 0 and divisible_by(self.step, self.spot_save_every):
+                        self.ema.ema_model.eval()
+                        with torch.inference_mode():
+                            logging.info(f"Saving spot checkpoint at {self.step} steps")
+                            self.save_spot_checkpoint()
 
                     if self.step != 0 and divisible_by(self.step, self.save_and_sample_every):
                         self.ema.ema_model.eval()

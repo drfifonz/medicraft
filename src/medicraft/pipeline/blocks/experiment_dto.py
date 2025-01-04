@@ -30,6 +30,7 @@ class TrainGeneratorDTO(LoopObjectDTO):
     results_dir: str
     gradient_accumulate_every: int = 4
 
+    spot_save_every: Optional[int] = None
     experiment_id: Optional[str] = None
     copy_results_to: Optional[str] = None
     start_from_checkpoint: Optional[str] = None
@@ -143,6 +144,7 @@ class ExperimentDTO(BaseModel):
     copy_results_to: Optional[str] = None
     loop: list[Union[TrainGeneratorDTO, GenerateSamplesDTO, ValidateDTO, FooDTO]]
     flush_models: bool = False
+    spot_checkpointing: bool = False
 
     @field_validator("loop", mode="before")
     @classmethod

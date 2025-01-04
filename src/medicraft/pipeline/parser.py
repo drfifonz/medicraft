@@ -2,11 +2,10 @@ import json
 import logging
 import sys
 
-import yaml
-from pydantic import BaseModel, ValidationError
-
 import config as cfg
+import yaml
 from pipeline.blocks import ConfigBlocks
+from pydantic import BaseModel, ValidationError
 
 
 def j_print(data, *args, **kwargs):
@@ -123,6 +122,7 @@ def get_experiment_configs(config: dict) -> dict:
         "image_size": general_config.get("image_size"),
         "experiment_id": general_config.get("experiment_id"),
         "models": general_config.get("models"),
+        "spot_checkpointing": general_config.get("spot_checkpointing", False),
         "results_dir": output_config.get("results_dir"),
         "copy_results_to": output_config.get("copy_results_to"),
         **experiment_config,

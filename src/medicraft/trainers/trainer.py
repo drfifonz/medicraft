@@ -165,7 +165,6 @@ class Trainer(DiffusionTrainer):
         logging.debug(f"Dataset length: {len(self.ds)}")
         logging.debug(f"num of workers: {dataset_num_workers}")
         logging.debug(f"cpu available: {cpu_count()}")
-        raise
         dl = DataLoader(
             self.ds,
             batch_size=train_batch_size,

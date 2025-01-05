@@ -1,0 +1,44 @@
+general:
+  experiment_id: phd000-test
+  total_steps: 1
+  image_size: [256,512]
+  models:
+    unet:
+      dim: 64
+      dim_mults: [1, 2, 4, 8]
+      channels: 1
+
+    diffusion:
+      timesteps: 1000
+
+
+
+
+data:
+  validation_split: 0.1 / 0.9
+  csv_file_path: data/datasets/ophthal_anonym/dataset-splitted.csv
+  split_seed: 43
+
+experiment:
+  loop:
+    - name: train_generator
+      repeat: false
+      diagnosis: reference
+      batch_size: 4
+      num_workers: 8
+      lr: 2e-4
+      num_steps: 75000
+      gradient_accumulate_every: 4
+      save_and_sample_every: 4000
+      spot_save_every: 1000
+      start_from_checkpoint: .spot_checkpoint/checkpoint.pt
+      # wandb_mode: offline
+
+
+    - name: foo
+      foo: foo
+
+
+output:
+  results_dir : .results
+  # copy_results_to: '~OneDrive/.......'

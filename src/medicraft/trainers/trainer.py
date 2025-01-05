@@ -42,6 +42,7 @@ class Trainer(DiffusionTrainer):
         adam_betas: tuple[float, float] = (0.9, 0.99),
         save_and_sample_every: int = 1000,
         spot_save_every: int | None = None,
+        checkpoint_path: Path = SPOT_CHECKPOINT_DIR,
         num_samples: int = 25,
         results_folder: str = "./results",
         amp: bool = False,
@@ -92,7 +93,7 @@ class Trainer(DiffusionTrainer):
 
         self.tracker = None  # TODO try if is it necessary then remove this line
         self.tracker_experiment_name = tracker_experiment_name
-
+        self.checkpoint_path = checkpoint_path
         if tracker:
             parameters = {k: v for k, v in locals().items() if k != "self"}
             [
@@ -301,8 +302,8 @@ class Trainer(DiffusionTrainer):
                         if self.step != 0 and divisible_by(self.step, self.spot_save_every):
                             self.ema.ema_model.eval()
                             with torch.inference_mode():
-                                logging.info(f"Saving spot checkpoint at {self.step} steps")
-                                self.save_spot_checkpoint()
+                                logging.info(f"Saving spot checkpoint with {self.step} steps at {self.checkpoint_path}")
+                                self.save_spot_checkpoint(self.checkpoint_path)
 
                     if self.step != 0 and divisible_by(self.step, self.save_and_sample_every):
                         self.ema.ema_model.eval()

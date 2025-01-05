@@ -28,7 +28,6 @@ def main():
 
     pipeline.load_config(args.file)
     pipeline.run(verbose=args.verbose)
-    pipeline.after_run()
 
 
 if __name__ == "__main__":

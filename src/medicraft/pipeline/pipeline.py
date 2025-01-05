@@ -10,6 +10,7 @@ import pandas as pd
 import pipeline.blocks as pipeline_blocks
 import torch
 import torch.nn as nn
+from config import SPOT_CHECKPOINT_DIR
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from denoising_diffusion_pytorch import Unet
 from generate_samples import generate_samples as generate
@@ -85,6 +86,7 @@ class Pipeline:
         :param image_size: Size of the input images
         :type image_size: list[int]
         """
+        spot_checkpoint_path = SPOT_CHECKPOINT_DIR / config.diagnosis
         unet_config = models_config.unet
         diffusion_config = models_config.diffusion
 
@@ -114,7 +116,7 @@ class Pipeline:
             train_lr=config.lr,
             save_and_sample_every=config.save_and_sample_every,
             spot_save_every=config.spot_save_every,
-            # save_and_sample_every=10,
+            checkpoint_path=spot_checkpoint_path,
             results_folder=results_folder,
             train_num_steps=config.num_steps,
             gradient_accumulate_every=config.gradient_accumulate_every,  # gradient accumulation steps
@@ -144,6 +146,8 @@ class Pipeline:
                 Path(config.copy_results_to) / config.experiment_id if config.experiment_id else config.copy_results_to,
             )
             logging.info("Results copied successfully.")
+
+        self.__remove_checkpoints(spot_checkpoint_path)
 
     def train(self, config) -> None:
         """
@@ -349,11 +353,14 @@ class Pipeline:
         self.__image_size = self.config.get(PipelineBlocks.general.name).image_size
         logging.info("Configuration parsed successfully.")
 
-    def after_run(self) -> None:
+    def __remove_checkpoints(self, path: str | Path = SPOT_CHECKPOINT_DIR) -> None:
         """
         Executes after the pipeline run
         """
-        SpotCheckpointer.remove_checkpoints()
+        if isinstance(path, str):
+            path = Path(path)
+        if self.config.get(PipelineBlocks.general.name).spot_checkpointing:
+            SpotCheckpointer.remove_checkpoints(path)
 
     @property
     def transform(self) -> T.Compose:

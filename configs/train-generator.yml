@@ -2,6 +2,7 @@ general:
   experiment_id: phd000-test
   total_steps: 1
   image_size: [256,512]
+  spot_checkpointing: True
   models:
     unet:
       dim: 64

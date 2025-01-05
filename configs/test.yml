@@ -2,6 +2,8 @@ general:
   total_steps: 20
   # total_steps: 200_000
   # image_size: [256,512]
+  spot_checkpointing: True
+
   image_size: [128,256]
   models:
     unet:
@@ -36,8 +38,8 @@ experiment:
       num_workers: 8
       gradient_accumulate_every: 8
       save_and_sample_every: 10
-      # spot_save_every: 5
-      # start_from_checkpoint: .spot_checkpoint1/checkpoint.pt
+      spot_save_every: 5
+      start_from_checkpoint: .spot_checkpoint/reference/checkpoint.pt
       wandb_mode: disabled
       # wandb_mode: offline
 

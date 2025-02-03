@@ -41,14 +41,14 @@ class WandbTracker:
 
         self.step = 0
         logging.info("WandbTracker initialized")
-        print(f"Project name: {project_name}")
+        loggig.info(f"wandb project name: {project_name} in group: {group}")
         wandb.init(
             project=project_name,
             config=hyperparameters,
             group=group,
             tags=tags if tags else None,
             id=kwargs.get("id", None),
-            resume=kwargs.get("resume", None),
+            resume="allow" if kwargs.get("resume", False) else None,
             mode=kwargs.get("mode", "online"),
             name=kwargs.get("run_name", None),
         )

@@ -41,7 +41,7 @@ class WandbTracker:
 
         self.step = 0
         logging.info("WandbTracker initialized")
-        loggig.info(f"wandb project name: {project_name} in group: {group}")
+        logging.info(f"wandb project name: {project_name} in group: {group}")
         wandb.init(
             project=project_name,
             config=hyperparameters,

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=gen-medicraft-stepped
 #SBATCH --partition=gpu_spot
-#SBATCH --array=1-2
+#SBATCH --array=1-3
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --time=12:00:00

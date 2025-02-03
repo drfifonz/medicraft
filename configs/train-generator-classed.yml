@@ -31,7 +31,7 @@ experiment:
       batch_size: 4
       num_workers: 8
       lr: 2e-4
-      num_steps: 104000
+      num_steps: 150000
       gradient_accumulate_every: 4
       save_and_sample_every: 4000
       spot_save_every: 1000
@@ -46,12 +46,27 @@ experiment:
       batch_size: 4
       num_workers: 8
       lr: 2e-4
-      num_steps: 104000
+      num_steps: 150000
       gradient_accumulate_every: 4
       save_and_sample_every: 4000
       spot_save_every: 1000
       start_from_checkpoint: .results/reference/model-25.pt
       step_job_id: 2
+      # wandb_mode: offline
+      
+  ### benign ###
+    - name: train_generator
+      repeat: false
+      diagnosis: benign
+      batch_size: 4
+      num_workers: 8
+      lr: 2e-4
+      num_steps: 150000
+      gradient_accumulate_every: 4
+      save_and_sample_every: 4000
+      spot_save_every: 1000
+      start_from_checkpoint: .results/reference/model-25.pt
+      step_job_id: 3
       # wandb_mode: offline
 
 

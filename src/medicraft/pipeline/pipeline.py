@@ -149,7 +149,7 @@ class Pipeline:
 
         self.__remove_checkpoints(spot_checkpoint_path)
 
-    def train(self, config) -> None:
+    def train(self, config, force_step: int | None) -> None:
         """
         Train the pipeline with specified configuration
         """
@@ -166,6 +166,15 @@ class Pipeline:
         if total_steps == 0 and self.runned_steps == 0:
             logging.info("Running 1 iteration of the pipeline")
             self.runned_steps = -1
+        if force_step:
+            block_to_run = next((block for block in loop_blocks if block.step == force_step), None)
+            logging.info(f"Found block to run: for step {force_step}")
+            if block_to_run.name.lower() == pipeline_blocks.TRAIN_GENERATOR:
+                logging.info(f"Running pipeline for step {force_step}")
+                raise
+                self.train_generator(block_to_run, models_config, image_size)
+                return
+
         while total_steps > self.runned_steps:
             print(f"Step {self.runned_steps}")
             for block in loop_blocks:
@@ -248,7 +257,7 @@ class Pipeline:
         if config.classification:
             self.__run_classification_experiment(config.classification, models_config)
 
-    def run(self, verbose: bool = False):
+    def run(self, verbose: bool = False, step_job_id: int | None = None) -> None:
         """
         Run the pipeline.
 
@@ -271,7 +280,10 @@ class Pipeline:
         logging.info("Data loaded successfully.")
 
         logging.info("Training...")
-        self.train(self.config.get(PipelineBlocks.experiment.name))
+        self.train(
+            config=self.config.get(PipelineBlocks.experiment.name),
+            force_step=step_job_id,
+        )
 
     def __run_classification_experiment(self, config: pipeline_blocks.ClassificationDTO, models_config: dict) -> None:
         """

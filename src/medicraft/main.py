@@ -1,4 +1,5 @@
 import argparse
+import logging
 
 from pipeline import Pipeline
 
@@ -6,6 +7,7 @@ parser = argparse.ArgumentParser(description="Run medicraft pipeline.")
 
 parser.add_argument("--file", "-f", type=str, help="Path to the configuration file.", default="config.yml")
 parser.add_argument("--verbose", "-v", action="store_true", help="Print verbose output.")
+parser.add_argument("--step_job_id", type=int, help="Step job id to run.", default=None)
 
 
 def main():
@@ -22,12 +24,14 @@ def main():
         None
     """
     args = parser.parse_args()
-    print(args.file, args.verbose)
+    logging.info(args)
 
     pipeline = Pipeline()
 
     pipeline.load_config(args.file)
-    pipeline.run(verbose=args.verbose)
+
+    raise
+    pipeline.run(verbose=args.verbose, step_job_id=args.step_job_id)
 
 
 if __name__ == "__main__":

@@ -38,6 +38,7 @@ class TrainGeneratorDTO(LoopObjectDTO):
     dataset_split_type: Literal["train", "val", "test"] = "train"
     diagnosis: Literal["precancerous", "fluid", "benign", "reference"]
     wandb_mode: Literal["disabled", "online", "offline"] = "online"
+    step_job_id: Optional[int] = None
 
     @field_validator("name")
     def name_validator(cls, v):

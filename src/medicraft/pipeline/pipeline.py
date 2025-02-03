@@ -167,11 +167,11 @@ class Pipeline:
             logging.info("Running 1 iteration of the pipeline")
             self.runned_steps = -1
         if force_step:
-            block_to_run = next((block for block in loop_blocks if block.step == force_step), None)
-            logging.info(f"Found block to run: for step {force_step}")
+            block_to_run = next((block for block in loop_blocks if block.step_job_id == force_step), None)
+            logging.info(f"Found block to run: for step {force_step}. Forcing block to run.")
             if block_to_run.name.lower() == pipeline_blocks.TRAIN_GENERATOR:
-                logging.info(f"Running pipeline for step {force_step}")
-                raise
+                logging.info(f"Running pipeline for step {block_to_run.diagnosis}")
+                # raise
                 self.train_generator(block_to_run, models_config, image_size)
                 return
 
@@ -265,12 +265,11 @@ class Pipeline:
         :type verbose: bool
         :raises ValueError: If configuration is not loaded
         """
-        if verbose:
-            self.__set_logging_level(
-                level=5,
-                save_to_file=False,
-            )
 
+        self.__set_logging_level(
+            level=10 if verbose else 20,  # 10 for DEBUG, 20 for INFO
+            save_to_file=True if verbose else False,
+        )
         if self.config is None:
             raise ValueError("Configuration not loaded")
 
@@ -284,6 +283,7 @@ class Pipeline:
             config=self.config.get(PipelineBlocks.experiment.name),
             force_step=step_job_id,
         )
+        logging.info("Training completed successfully.")
 
     def __run_classification_experiment(self, config: pipeline_blocks.ClassificationDTO, models_config: dict) -> None:
         """

@@ -29,8 +29,6 @@ def main():
     pipeline = Pipeline()
 
     pipeline.load_config(args.file)
-
-    raise
     pipeline.run(verbose=args.verbose, step_job_id=args.step_job_id)
 
 

@@ -22,6 +22,8 @@ data:
 
 experiment:
   loop:
+    - name: foo
+      foo: foo
     - name: generate_samples
       repeat: false
       relative_dataset_results_dir: datasets/phd/0000
@@ -31,3 +33,9 @@ experiment:
       checkpoint: .results/reference/model-25.pt
       use_wandb: false
       step_job_id: 1
+
+
+
+output:
+  results_dir : .results
+  # copy_results_to: '~OneDrive/.......'

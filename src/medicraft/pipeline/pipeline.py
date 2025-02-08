@@ -16,16 +16,16 @@ from denoising_diffusion_pytorch import Unet
 from generate_samples import generate_samples as generate
 from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
-from models import GaussianDiffusion, ResNetClassifier
 from pipeline.parser import parse_config, read_config_file
 from torchvision import transforms as T
 from trackers import ImagePredictionLogger
 from trainers import Trainer
-from utils import copy_results_directory
 from utils.checkpointer import SpotCheckpointer
 from utils.transforms import HorizontalCenterCrop
 
 import wandb
+from models import GaussianDiffusion, ResNetClassifier
+from utils import copy_results_directory
 
 
 class PipelineBlocks(Enum):
@@ -173,6 +173,11 @@ class Pipeline:
                 logging.info(f"Running pipeline for step {block_to_run.diagnosis}")
                 # raise
                 self.train_generator(block_to_run, models_config, image_size)
+                return
+            elif block_to_run.name.lower() == pipeline_blocks.GENERATE_SAMPLES:
+                # TODO unify with lower
+                logging.info(f"Running generating pipeline for {block_to_run.class_name} class")
+                self.generate_samples(block_to_run, models_config, image_size)
                 return
 
         while total_steps > self.runned_steps:

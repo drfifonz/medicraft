@@ -24,16 +24,46 @@ experiment:
   loop:
     - name: foo
       foo: foo
+    ### reference ###
     - name: generate_samples
       repeat: false
       relative_dataset_results_dir: datasets/phd/0000
       class_name: reference
-      num_samples: 1000
+      num_samples: 2500
       batch_size: 10
       checkpoint: .results/reference/model-25.pt
-      use_wandb: false
+      # use_wandb: false
       step_job_id: 1
-
+    ### fluid ###
+    - name: generate_samples
+      repeat: false
+      relative_dataset_results_dir: datasets/phd/0000
+      class_name: fluid
+      num_samples: 2500
+      batch_size: 10
+      checkpoint: .results/fluid/latest.pt
+      # use_wandb: false
+      step_job_id: 2
+    ### benign ###
+    - name: generate_samples
+      repeat: false
+      relative_dataset_results_dir: datasets/phd/0000
+      class_name: benign
+      num_samples: 2500
+      batch_size: 10
+      checkpoint: .results/benign/latest.pt
+      # use_wandb: false
+      step_job_id: 3
+    ### precancerous ###
+    - name: generate_samples
+      repeat: false
+      relative_dataset_results_dir: datasets/phd/0000
+      class_name: precancerous
+      num_samples: 2500
+      batch_size: 10
+      checkpoint: .results/precancerous/latest.pt
+      # use_wandb: false
+      step_job_id: 4
 
 
 output:

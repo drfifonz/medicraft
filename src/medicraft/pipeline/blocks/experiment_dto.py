@@ -14,6 +14,7 @@ class LoopObjectDTO(BaseModel):
     model_config = ConfigDict(protected_namespaces=())
     name: str
     repeat: bool = True
+    step_job_id: Optional[int] = None
 
     @field_validator("name")
     def name_validator(cls, v):
@@ -38,7 +39,6 @@ class TrainGeneratorDTO(LoopObjectDTO):
     dataset_split_type: Literal["train", "val", "test"] = "train"
     diagnosis: Literal["precancerous", "fluid", "benign", "reference"]
     wandb_mode: Literal["disabled", "online", "offline"] = "online"
-    step_job_id: Optional[int] = None
 
     @field_validator("name")
     def name_validator(cls, v):
@@ -50,10 +50,10 @@ class TrainGeneratorDTO(LoopObjectDTO):
 class GenerateSamplesDTO(LoopObjectDTO):
     num_samples: int
     batch_size: int
-    wandb: bool = True
+    use_wandb: bool = True
 
-    model_version: str
-    base_on: str
+    model_version: Optional[str] = None
+    class_name: Optional[str] = None
     results_dir: str
     copy_results_to: Optional[str] = None
     checkpoint: Optional[str] = None
@@ -64,12 +64,12 @@ class GenerateSamplesDTO(LoopObjectDTO):
     def checkpoint_path(self) -> str:
         if self.checkpoint:
             return self.checkpoint
-        return str(Path(self.results_dir) / self.base_on / f"{self.model_version}.pt")
+        return str(Path(self.results_dir) / self.class_name / f"{self.model_version}.pt")
 
     @computed_field
     @property
     def generete_samples_dir(self) -> str:
-        return str(Path(self.results_dir) / self.relative_dataset_results_dir / self.base_on)
+        return str(Path(self.results_dir) / self.relative_dataset_results_dir / self.class_name)
 
     @field_validator("name")
     def name_validator(cls, v):

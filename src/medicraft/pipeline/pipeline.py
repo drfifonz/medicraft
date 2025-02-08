@@ -218,11 +218,13 @@ class Pipeline:
         diffusion = self.__get_diffusion_model(image_size, diffusion_config, unet_config)
         print("Diffusion loaded")
 
-        if config.wandb:
-            wandb.init(
-                project=cfg.WANDB_PRJ_NAME_GENERATE_SAMPLES,
-                tags=["opthal_anonymized", "generate_dataset"],
-            )
+        # if config.use_wandb:
+        wandb.init(
+            project=cfg.WANDB_PRJ_NAME_GENERATE_SAMPLES,
+            tags=["opthal_anonymized", "generate_dataset"],
+            group=config.class_name,
+            mode="online" if config.use_wandb else "disabled",
+        )
 
         diffusion.load_state_dict(torch.load(config.checkpoint_path)["model"])
         # checkpoint = torch.load(config.checkpoint_path)
@@ -239,7 +241,7 @@ class Pipeline:
             logging.info("Copying results...")
             copy_results_directory(
                 config.generete_samples_dir,
-                str(Path(config.copy_results_to) / config.relative_dataset_results_dir / config.base_on),
+                str(Path(config.copy_results_to) / config.relative_dataset_results_dir / config.class_name),
             )
             logging.info("Results copied successfully.")
 

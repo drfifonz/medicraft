@@ -1,0 +1,33 @@
+general:
+  experiment_id: phd000-test
+  total_steps: 1
+  image_size: [256,512]
+  spot_checkpointing: True
+  models:
+    unet:
+      dim: 64
+      dim_mults: [1, 2, 4, 8]
+      channels: 1
+
+    diffusion:
+      timesteps: 1000
+
+
+
+
+data:
+  validation_split: 0.1 / 0.9
+  csv_file_path: data/datasets/ophthal_anonym/dataset-splitted.csv
+  split_seed: 43
+
+experiment:
+  loop:
+    - name: generate_samples
+      repeat: false
+      relative_dataset_results_dir: datasets/phd/0000
+      class_name: reference
+      num_samples: 1000
+      batch_size: 10
+      checkpoint: .results/reference/model-25.pt
+      use_wandb: false
+      step_job_id: 1

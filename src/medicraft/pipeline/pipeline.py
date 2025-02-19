@@ -10,6 +10,7 @@ import pandas as pd
 import pipeline.blocks as pipeline_blocks
 import torch
 import torch.nn as nn
+import wandb
 from config import SPOT_CHECKPOINT_DIR
 from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
 from denoising_diffusion_pytorch import Unet
@@ -18,14 +19,13 @@ from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
 from pipeline.parser import parse_config, read_config_file
 from torchvision import transforms as T
-from trackers import ImagePredictionLogger
 from trainers import Trainer
+from utils import copy_results_directory
 from utils.checkpointer import SpotCheckpointer
 from utils.transforms import HorizontalCenterCrop
 
-import wandb
 from models import GaussianDiffusion, ResNetClassifier
-from utils import copy_results_directory
+from trackers import ImagePredictionLogger
 
 
 class PipelineBlocks(Enum):
@@ -249,8 +249,6 @@ class Pipeline:
                 str(Path(config.copy_results_to) / config.relative_dataset_results_dir / config.class_name),
             )
             logging.info("Results copied successfully.")
-
-        raise NotImplementedError("Generating samples")
 
     def validate(self, config: pipeline_blocks.ValidateDTO, models_config: dict):
         """

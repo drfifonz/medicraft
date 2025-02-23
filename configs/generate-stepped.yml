@@ -27,9 +27,9 @@ experiment:
     ### reference ###
     - name: generate_samples
       repeat: false
-      relative_dataset_results_dir: datasets/phd/0000
+      relative_dataset_results_dir: datasets/phd/0000p2
       class_name: reference
-      num_samples: 2500
+      num_samples: 5000
       batch_size: 10
       checkpoint: .results/reference/model-25.pt
       # use_wandb: false
@@ -37,9 +37,9 @@ experiment:
     ### fluid ###
     - name: generate_samples
       repeat: false
-      relative_dataset_results_dir: datasets/phd/0000
+      relative_dataset_results_dir: datasets/phd/0000p2
       class_name: fluid
-      num_samples: 2500
+      num_samples: 5000
       batch_size: 10
       checkpoint: .results/fluid/latest.pt
       # use_wandb: false
@@ -47,9 +47,9 @@ experiment:
     ### benign ###
     - name: generate_samples
       repeat: false
-      relative_dataset_results_dir: datasets/phd/0000
+      relative_dataset_results_dir: datasets/phd/0000p2
       class_name: benign
-      num_samples: 2500
+      num_samples: 5000
       batch_size: 10
       checkpoint: .results/benign/latest.pt
       # use_wandb: false
@@ -57,9 +57,9 @@ experiment:
     ### precancerous ###
     - name: generate_samples
       repeat: false
-      relative_dataset_results_dir: datasets/phd/0000
+      relative_dataset_results_dir: datasets/phd/0000p2
       class_name: precancerous
-      num_samples: 2500
+      num_samples: 5000
       batch_size: 10
       checkpoint: .results/precancerous/latest.pt
       # use_wandb: false

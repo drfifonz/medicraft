@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
@@ -5,39 +6,41 @@ import pandas as pd
 
 
 class GeneratedDataset:
-    def __init__(self, dir_path: str | Path):
-        self.path = Path(dir_path) if isinstance(dir_path, str) else dir_path
 
-    @classmethod
-    def get_generated_labels_distibution(cls) -> dict:
-        # get num of image files in each subdirectory
-        return {dir.name: len(list(dir.iterdir())) for dir in cls.path.iterdir() if dir.is_dir()}
+    def __init__(self, synth_dir_path: str | Path, real_dataset_csv_path: str | Path):
+        self.synth_dir_pathpath = Path(synth_dir_path) if isinstance(synth_dir_path, str) else synth_dir_path
+        self.real_dataset_csv_path = real_dataset_csv_path
 
-    @classmethod
-    def get_real_labels_distibution(self, csv_file_path: str | Path) -> dict:
-        df = pd.read_csv(csv_file_path)
+    def get_generated_labels_distibution(self) -> OrderedDict:
+        # get dataset distibution by files in directories
+        distribution = {dir.name: len(list(dir.iterdir())) for dir in self.synth_dir_pathpath.iterdir() if dir.is_dir()}
+        return OrderedDict(sorted(distribution.items()))
+
+    def get_real_labels_distibution(self) -> OrderedDict:
+        df = pd.read_csv(self.real_dataset_csv_path)
         df = df[df["image_type"] == "OCT"]
 
         distribution = {
             "reference": len(df[df["reference_eye"] == True]),  # noqa:E712
         }
         for diagnosis in df["diagnosis"].unique():
-            distribution[diagnosis] = len(df[df["reference_eye"] == True][df["diagnosis"] == diagnosis])  # noqa:E712
-        return distribution
+            x = df.loc[df["reference_eye"] == False]  # noqa:E712
+            distribution[diagnosis] = len(x.loc[df["diagnosis"] == diagnosis])
 
-    @classmethod
-    def get_max_generated_stratified_distribution(cls):
-        # get ratio to biggest class
-        real_distribution = cls.get_real_labels_distibution()
-        generated_distribution = cls.get_generated_labels_distibution()
-        # ensure dicts are same key sorted
+        return OrderedDict(sorted(distribution.items()))
+
+    def get_max_generated_stratified_distribution(self) -> dict:
+
+        real_distribution = self.get_real_labels_distibution()
+        generated_distribution = self.get_generated_labels_distibution()
+
         assert real_distribution.keys() == generated_distribution.keys()
-        real_distribution = dict(sorted(real_distribution.items()))
-        generated_distribution = dict(sorted(generated_distribution.items()))
-        multiplier = cls.max_scalar(
+
+        multiplier = self.max_scalar(
             np.array(list(real_distribution.values())), np.array(list(generated_distribution.values()))
         )
-        return {k: int(v * multiplier) for k, v in generated_distribution.items()}
+
+        return {k: int(v * multiplier) for k, v in real_distribution.items()}
 
     @staticmethod
     def max_scalar(A, B):
@@ -55,7 +58,7 @@ class GeneratedDataset:
         for diagnosis, num in distribution.items():
             for i in range(num):
                 # get list of files in directory
-                files = list(cls.path / diagnosis.iterdir())
+                files = list(cls.synth_dir_pathpath / diagnosis.iterdir())
                 if diagnosis == "reference":
                     df = df.append(
                         {"file_path": str(files[num]), "diagnosis": diagnosis, "reference_eye": True},
@@ -66,4 +69,13 @@ class GeneratedDataset:
                         {"file_path": str(files[num]), "diagnosis": diagnosis, "reference_eye": False},
                         ignore_index=True,
                     )
-        df.to_csv(cls.path / "generated_dataset.csv", index=False)
+        df.to_csv(cls.synth_dir_pathpath / "generated_dataset.csv", index=False)
+
+
+if __name__ == "__main__":
+    dataset = GeneratedDataset(
+        synth_dir_path="data/datasets/ophthal_anonym_classed/train",
+        real_dataset_csv_path="data/datasets/ophthal_anonym/dataset.csv",
+    )
+    max_stratification = dataset.get_max_generated_stratified_distribution()
+    print(max_stratification)

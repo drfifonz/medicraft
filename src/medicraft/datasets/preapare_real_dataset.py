@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
-from prepare_generated_dataset import add_split_column
+from prepare_generated_dataset import add_split_type_column
 
 
 def create_df_for_real_dataset(real_dataset_csv_path: Path | str, images_dir: str | Path) -> pd.DataFrame:
@@ -37,7 +37,7 @@ if __name__ == "__main__":
         real_dataset_csv_path=REAL_DATASET_CSV_FILE,
         images_dir=REAL_DATASET_CSV_FILE.parent / "images",
     )
-    df = add_split_column(df)
+    df = add_split_type_column(df)
     df.to_csv(SAVE_PATH, index=False)
     print("Saved to", SAVE_PATH)
     print("done")

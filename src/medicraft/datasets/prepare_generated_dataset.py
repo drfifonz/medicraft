@@ -55,23 +55,33 @@ class GeneratedDataset:
         alpha = np.min(B[mask] / A[mask]) if np.any(mask) else float("inf")
         return alpha
 
-    def create_csv_file(self, distribution: OrderedDict, file_name: str, dataset_path=str | Path | list[str | Path]):
+    def create_csv_files(self, distribution: OrderedDict, file_name: str, dataset_path=str | Path | list[str | Path]):
 
         # TODO consider if pass both distributions and add extra column in dataset that could be used in loader
         # might be a good idea ^^
         dataset_files_map = self.get_dataset_files_map(dataset_path)
 
-        trimmed_dataset_files_map = {}
+        file_name = Path(file_name) if isinstance(file_name, str) else file_name
+        all_file_name = file_name.parent / (file_name.stem + "_all.csv")
+        trimmed_file_name = file_name.parent / (file_name.stem + "_trimmed.csv")
 
+        df_all = pd.DataFrame(
+            [(k, v) for k, values in dataset_files_map.items() for v in values],
+            columns=["diagnosis", "filepath"],
+        )
+        df_all = add_split_type_column(df_all)
+        df_all.to_csv(all_file_name, index=False)
+
+        trimmed_dataset_files_map = {}
         for diagnosis, file_list in dataset_files_map.items():
             if diagnosis in distribution:
                 trimmed_dataset_files_map[diagnosis] = file_list[: distribution[diagnosis]]
-        df = pd.DataFrame(
+        df_trimmed = pd.DataFrame(
             [(k, v) for k, values in trimmed_dataset_files_map.items() for v in values],
             columns=["diagnosis", "filepath"],
         )
-        df = add_split_column(df)
-        df.to_csv(file_name, index=False)
+        df_trimmed = add_split_type_column(df_trimmed)
+        df_trimmed.to_csv(trimmed_file_name, index=False)
 
     def get_dataset_files_map(self, dataset_path: str | Path | list[str | Path]) -> dict:
         if isinstance(dataset_path, (str, Path)):
@@ -106,27 +116,9 @@ class GeneratedDataset:
         return OrderedDict(sorted(combined.items()))
 
 
-def add_split_column(df, train_ratio=0.6, val_ratio=0.2, test_ratio=0.2, random_state=42):
+def add_split_type_column(df, train_ratio=0.6, val_ratio=0.2, test_ratio=0.2, random_state=42):
     """
-    Add a 'split_type' column to the dataframe that defines the dataset split type (train, val, test).
-
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        Input dataframe with at least 'label' and 'filepath' columns
-    train_ratio : float, default=0.6
-        Ratio of data to be used for training
-    val_ratio : float, default=0.2
-        Ratio of data to be used for validation
-    test_ratio : float, default=0.2
-        Ratio of data to be used for testing
-    random_state : int, default=42
-        Random seed for reproducibility
-
-    Returns:
-    --------
-    pandas.DataFrame
-        The dataframe with an additional 'split_type' column
+    #TODO consider changing splitting to don not use test_ratio and do 2 splits
     """
     # Check if ratios sum to 1
     if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-10:
@@ -180,8 +172,7 @@ if __name__ == "__main__":
 
     print("Total combined distribution:\t", dict(combined_dist))
     print("Max stratified distribution:\t", maximal_stratified_distribution)
-
-    dataset.create_csv_file(
+    dataset.create_csv_files(
         distribution=maximal_stratified_distribution,
         file_name=real_dataset_csv_path.parent / "v2" / "test_stratification.csv",
         dataset_path=distribution_paths,

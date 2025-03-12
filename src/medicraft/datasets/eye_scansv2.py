@@ -4,20 +4,14 @@ import lightning as pl
 import torch
 import torchvision.transforms as T
 from datasets.generated_dataset import GeneratedOCTDataset
-from torchvision import datasets
 
 
 class EyeScansV2(pl.LightningDataModule):
     def __init__(
         self,
         batch_size: int,
-        # real_word_data: bool,
         dataset_csv_file: str | Path,
-        ratio: list[float] = [0.8, 0.1],
-        seed: int = 42,
-        train_data_dir: str | None = None,
-        val_data_dir: str | None = None,
-        test_dataset_dir: str | None = None,
+        test_dataset_csv_file: str | Path | None = None,
         num_workers: int = 4,
         transforms: T.Compose = None,
     ) -> None:
@@ -27,17 +21,11 @@ class EyeScansV2(pl.LightningDataModule):
         self.train_dataset = None
         self.val_dataset = None
         self.test_dataset = None
-        # self.real_word_data = real_word_data
-
-        # self.train_data_dir = train_data_dir
-        # self.val_data_dir = val_data_dir
-        # self.test_dataset_dir = test_dataset_dir
 
         self.dataset_csv_file = dataset_csv_file
+        self.test_dataset_csv_file = test_dataset_csv_file
 
         self.batch_size = batch_size
-        self.ratio = ratio
-        self.seed = seed
 
         self.transforms = (
             T.Compose(
@@ -62,14 +50,7 @@ class EyeScansV2(pl.LightningDataModule):
                 or None for both. Defaults to None.
         """
 
-        torch.manual_seed(self.seed)
-
-        # if self.real_word_data:
-        #     datasets = self._prepare_real_world_datasets()
-        # else:
-        #     if self.val_data_dir is not None:
-        #         raise ValueError("Validation data directory can't be defined for synthetic data")
-        #     datasets = self.__prepare_synthetic_datasets()
+        datasets = self.__prepare_datasets()
 
         self.train_dataset = datasets["train"]
         self.val_dataset = datasets["val"]
@@ -85,21 +66,27 @@ class EyeScansV2(pl.LightningDataModule):
         """
         Prepare the synthetic dataset with real world data test set.
         """
-        dataset = datasets.ImageFolder(root=self.train_data_dir, transform=self.transforms)
-        dataset = GeneratedOCTDataset(csv_file=self.dataset_csv_file, transform=self.transform)
-        if len(self.ratio) == 2:
-            train_size = int(self.ratio[0] * len(dataset))
-            val_size = len(dataset) - train_size
-            train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
-            test_dataset = datasets.ImageFolder(root=self.test_dataset_dir, transform=self.transforms)
+        train_dataset = GeneratedOCTDataset(
+            csv_file=self.dataset_csv_file,
+            transform=self.transform,
+            split="train",
+        )
+        val_dataset = GeneratedOCTDataset(
+            csv_file=self.dataset_csv_file,
+            transform=self.transform,
+            split="train",
+        )
+        test_dataset = GeneratedOCTDataset(
+            csv_file=(self.test_dataset_csv_file if self.test_dataset_csv_file else self.dataset_csv_file),
+            transform=self.transform,
+            split="test",
+        )
+
         return {
             "train": train_dataset,
             "val": val_dataset,
-            "test": self.__prepare_real_test_dataset(),
+            "test": test_dataset,
         }
-
-    def __prepare_real_test_dataset(self) -> torch.utils.data.Dataset:
-        return
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(

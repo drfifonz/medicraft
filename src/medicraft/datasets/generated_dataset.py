@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from typing import Literal
 
@@ -148,7 +147,7 @@ if __name__ == "__main__":
     generator = torch.Generator().manual_seed(42)
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size], generator=generator)
 
-    print(f"\nSplit dataset:")
+    print("\nSplit dataset:")
     print(f"  Training: {len(train_dataset)} images")
     print(f"  Validation: {len(val_dataset)} images")
 

@@ -10,7 +10,7 @@ def create_df_for_real_dataset(real_dataset_csv_path: Path | str, images_dir: st
     df = pd.read_csv(real_dataset_csv_path)
     df = df[df["image_type"] == "OCT"]
 
-    data["reference"] = df[df["reference_eye"] == True]["filename"].tolist()
+    data["reference"] = df[df["reference_eye"] == True]["filename"].tolist()  # noqa:E712
     for diagnosis in df["diagnosis"].unique():
         x = df.loc[df["reference_eye"] == False]  # noqa:E712
         data[diagnosis] = x.loc[df["diagnosis"] == diagnosis]["filename"].tolist()

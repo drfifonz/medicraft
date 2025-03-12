@@ -4,11 +4,9 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 sys.path.append("src")
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
 
 from medicraft.const import PROJECT_DIR  # noqa: E402
 

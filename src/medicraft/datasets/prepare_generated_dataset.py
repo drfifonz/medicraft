@@ -6,6 +6,10 @@ import numpy as np
 import pandas as pd
 
 sys.path.append("src")
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
 from medicraft.const import PROJECT_DIR  # noqa: E402
 
 
@@ -68,6 +72,7 @@ class GeneratedDataset:
             [(k, v) for k, values in trimmed_dataset_files_map.items() for v in values],
             columns=["diagnosis", "filepath"],
         )
+        df = add_split_column(df)
         df.to_csv(file_name, index=False)
 
     def get_dataset_files_map(self, dataset_path: str | Path | list[str | Path]) -> dict:
@@ -103,9 +108,67 @@ class GeneratedDataset:
         return OrderedDict(sorted(combined.items()))
 
 
+def add_split_column(df, train_ratio=0.6, val_ratio=0.2, test_ratio=0.2, random_state=42):
+    """
+    Add a 'split_type' column to the dataframe that defines the dataset split type (train, val, test).
+
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        Input dataframe with at least 'label' and 'filepath' columns
+    train_ratio : float, default=0.6
+        Ratio of data to be used for training
+    val_ratio : float, default=0.2
+        Ratio of data to be used for validation
+    test_ratio : float, default=0.2
+        Ratio of data to be used for testing
+    random_state : int, default=42
+        Random seed for reproducibility
+
+    Returns:
+    --------
+    pandas.DataFrame
+        The dataframe with an additional 'split_type' column
+    """
+    # Check if ratios sum to 1
+    if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-10:
+        raise ValueError("The sum of train, validation, and test ratios must be 1.0")
+
+    # Create a copy of the dataframe to avoid modifying the original
+    df_with_split = df.copy()
+
+    # Calculate relative ratio for first split (train vs. rest)
+    rest_ratio = val_ratio + test_ratio
+    train_vs_rest_ratio = train_ratio / (train_ratio + rest_ratio)
+
+    # Calculate relative ratio for second split (val vs. test)
+    val_vs_test_ratio = val_ratio / rest_ratio
+    print("CREATING SPLITTING RATIO")
+    print(f"{train_vs_rest_ratio=}, {val_vs_test_ratio=}")
+    # Initialize split_type column with 'test' values
+    df_with_split["split_type"] = "test"
+
+    # First split: train vs. rest (val+test)
+    train_indices, rest_indices = train_test_split(
+        np.arange(len(df_with_split)), train_size=train_ratio, random_state=random_state
+    )
+
+    # Mark train samples
+    df_with_split.loc[train_indices, "split_type"] = "train"
+
+    # Second split: val vs. test
+    val_indices, test_indices = train_test_split(
+        rest_indices, train_size=val_ratio / (val_ratio + test_ratio), random_state=random_state
+    )
+
+    # Mark validation samples
+    df_with_split.loc[val_indices, "split_type"] = "val"
+
+    return df_with_split
+
+
 if __name__ == "__main__":
     real_dataset_csv_path = Path("data/datasets/ophthal_anonym/dataset.csv")
-
     distribution_paths = [
         "data/datasets/ophthal_anonym_classed/train",
         "data/datasets/ophthal_anonym_classed/val",
@@ -122,7 +185,7 @@ if __name__ == "__main__":
 
     dataset.create_csv_file(
         distribution=maximal_stratified_distribution,
-        file_name=real_dataset_csv_path.parent / "test_stratification.csv",
+        file_name=real_dataset_csv_path.parent / "v2" / "test_stratification.csv",
         dataset_path=distribution_paths,
     )
     print("Done")

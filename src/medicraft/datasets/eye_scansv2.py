@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 import lightning as pl
@@ -66,20 +67,21 @@ class EyeScansV2(pl.LightningDataModule):
         """
         Prepare the synthetic dataset with real world data test set.
         """
+        logging.info("Loading OCT dataset...")
         train_dataset = GeneratedOCTDataset(
             csv_file=self.dataset_csv_file,
-            transform=self.transform,
-            split="train",
+            transforms=self.transforms,
+            split_type="train",
         )
         val_dataset = GeneratedOCTDataset(
             csv_file=self.dataset_csv_file,
-            transform=self.transform,
-            split="train",
+            transforms=self.transforms,
+            split_type="train",
         )
         test_dataset = GeneratedOCTDataset(
             csv_file=(self.test_dataset_csv_file if self.test_dataset_csv_file else self.dataset_csv_file),
-            transform=self.transform,
-            split="test",
+            transforms=self.transforms,
+            split_type="test",
         )
 
         return {

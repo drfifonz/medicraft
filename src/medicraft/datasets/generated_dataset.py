@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Literal
 
@@ -15,13 +16,14 @@ class GeneratedOCTDataset(Dataset):
     def __init__(
         self,
         csv_file: str | Path,
-        transform=None,
-        type: Literal["train", "val", "test"] | None = None,
+        transforms=None,
+        split_type: Literal["train", "val", "test"] | None = None,
     ):
 
-        self.df = pd.read_csv(csv_file)["split_type" == type] if type else pd.read_csv(csv_file)
+        df = pd.read_csv(csv_file)
+        self.df = df[df["split_type"] == "train"] if split_type else pd.read_csv(csv_file)
 
-        self.transform = transform
+        self.transforms = transforms
 
         # Create a mapping from labels to class indices (similar to ImageFolder)
         self.labels = sorted(self.df["diagnosis"].unique())
@@ -37,6 +39,7 @@ class GeneratedOCTDataset(Dataset):
         # For compatibility with ImageFolder
         self.imgs = self.samples
         self.targets = [sample[1] for sample in self.samples]
+        logging.info(f"Dataset {split_type+' '}loaded")
 
     def __getitem__(self, idx):
 
@@ -47,8 +50,8 @@ class GeneratedOCTDataset(Dataset):
 
         image = Image.open(img_path).convert("RGB")
 
-        if self.transform:
-            image = self.transform(image)
+        if self.transforms:
+            image = self.transforms(image)
 
         return image, target
 
@@ -95,7 +98,7 @@ if __name__ == "__main__":
 
     # Create the dataset
     print("Loading OCT dataset...")
-    dataset = GeneratedOCTDataset(csv_file=csv_file, transform=transform)
+    dataset = GeneratedOCTDataset(csv_file=csv_file, transforms=transform)
 
     # Print dataset information
     print(f"Dataset loaded with {len(dataset)} images")

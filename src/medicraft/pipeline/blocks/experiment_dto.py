@@ -88,6 +88,33 @@ class FooDTO(LoopObjectDTO):
         return v.title()
 
 
+class ClassificationV2DTO(BaseModel):
+    epochs: int
+    lr: float
+    loss_multiply: float = 1.0
+    class_names: list[str] = ["fluid", "benign", "precancerous", "reference"]
+
+    dataset_csv_file: str
+    test_dataset_csv_file: Optional[str] = None
+
+    loss_fn: str = "cross_entropy"
+    num_workers: int = 4
+    batch_size: int = 32
+    min_epochs: int = 5
+    log_every_n_steps: int = 10
+    logger_group: Optional[str] = None
+    logger_tags: Optional[list[str]] = None
+    logger_experiment_name: Optional[str] = None
+    offline: bool = False
+
+    results_dir: str
+
+    @computed_field
+    @property
+    def num_classes(self) -> int:
+        return len(self.class_names)
+
+
 class ClassificationDTO(BaseModel):
     epochs: int
     lr: float
@@ -124,6 +151,7 @@ class ValidateDTO(LoopObjectDTO):
     copy_results_to: Optional[str] = None
 
     classification: Optional[ClassificationDTO] = None
+    classificationV2: Optional[ClassificationV2DTO] = None
 
     @field_validator("name")
     def name_validator(cls, v):
@@ -136,6 +164,12 @@ class ValidateDTO(LoopObjectDTO):
     def classification_validator(cls, v, values):
         v["results_dir"] = values.data.get("results_dir", ".results")
         return ClassificationDTO(**v)
+
+    @field_validator("classificationV2", mode="before")
+    @classmethod
+    def classificationV2_validator(cls, v, values):
+        v["results_dir"] = values.data.get("results_dir", ".results")
+        return ClassificationV2DTO(**v)
 
 
 class ExperimentDTO(BaseModel):

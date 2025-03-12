@@ -10,22 +10,22 @@ import pandas as pd
 import pipeline.blocks as pipeline_blocks
 import torch
 import torch.nn as nn
-import wandb
 from config import SPOT_CHECKPOINT_DIR
-from datasets import EyeScans, OpthalAnonymizedDataset, get_csv_dataset
+from datasets import EyeScans, EyeScansV2, OpthalAnonymizedDataset, get_csv_dataset
 from denoising_diffusion_pytorch import Unet
 from generate_samples import generate_samples as generate
 from lightning.pytorch.callbacks import EarlyStopping, TQDMProgressBar
 from lightning.pytorch.loggers import WandbLogger
+from models import GaussianDiffusion, ResNetClassifier
 from pipeline.parser import parse_config, read_config_file
 from torchvision import transforms as T
+from trackers import ImagePredictionLogger
 from trainers import Trainer
 from utils import copy_results_directory
 from utils.checkpointer import SpotCheckpointer
 from utils.transforms import HorizontalCenterCrop
 
-from models import GaussianDiffusion, ResNetClassifier
-from trackers import ImagePredictionLogger
+import wandb
 
 
 class PipelineBlocks(Enum):
@@ -261,6 +261,8 @@ class Pipeline:
         """
         if config.classification:
             self.__run_classification_experiment(config.classification, models_config)
+        elif config.classificationV2:
+            self.__run_classification_experiment_v2(config.classificationV2, models_config)
 
     def run(self, verbose: bool = False, step_job_id: int | None = None) -> None:
         """
@@ -315,13 +317,69 @@ class Pipeline:
         test_dataset_dir = config.test_dataset_dir
 
         data_module = EyeScans(
-            num_workers=config.num_workers,
             batch_size=config.batch_size,
             ratio=config.ratio,
             real_word_data=is_real_train_data,
             train_data_dir=train_dataset_dir,
             val_data_dir=val_dataset_dir,
             test_dataset_dir=test_dataset_dir,
+            num_workers=config.num_workers,
+        )
+
+        data_module.setup()
+        logging.info("Data module setup completed successfully.")
+        model = self.__get_classifier_model(config, classifier_config)
+        wandb_logger = WandbLogger(
+            project=cfg.WANDB_PRJ_NAME_CLASSIFICATION,
+            id=config.logger_experiment_name,
+            offline=config.offline,
+            save_dir=Path(config.results_dir) / "classification-wandb",
+            job_type="train",
+            tags=config.logger_tags,
+            group=config.logger_group,
+        )
+
+        early_stop_callback = EarlyStopping(monitor="val_loss")
+        progressbar_callback = TQDMProgressBar()
+
+        val_samples = next(iter(data_module.val_dataloader()))
+
+        trainer = pl.Trainer(
+            min_epochs=config.min_epochs,
+            max_epochs=config.epochs,
+            logger=wandb_logger,
+            callbacks=[early_stop_callback, ImagePredictionLogger(val_samples), progressbar_callback],
+            enable_checkpointing=True,
+            enable_progress_bar=True,
+            log_every_n_steps=config.log_every_n_steps,
+        )
+        trainer.fit(model, data_module)
+        trainer.test(model, data_module)
+
+        wandb.finish()
+        logging.info("Classification process completed successfully.")
+
+    def __run_classification_experiment_v2(
+        self, config: pipeline_blocks.ClassificationV2DTO, models_config: dict
+    ) -> None:
+        """
+        Run the classification experiment.
+
+        Args:
+            config (pipeline_blocks.ClassificationDTO): The configuration for the classification experiment.
+            models_config (dict): The configuration for the models.
+
+        Returns:
+            None
+        """
+        logging.info("Using classifier v2")
+        classifier_config = models_config.classifier
+
+        data_module = EyeScansV2(
+            batch_size=config.batch_size,
+            dataset_csv_file=config.dataset_csv_file,
+            test_dataset_csv_file=config.test_dataset_csv_file,
+            num_workers=config.num_workers,
         )
 
         data_module.setup()

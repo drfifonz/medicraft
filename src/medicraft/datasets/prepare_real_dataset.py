@@ -37,7 +37,14 @@ if __name__ == "__main__":
         real_dataset_csv_path=REAL_DATASET_CSV_FILE,
         images_dir=REAL_DATASET_CSV_FILE.parent / "images",
     )
+    min_count = df["diagnosis"].value_counts().min()
+    df_balanced = df.groupby("diagnosis", group_keys=False).apply(lambda x: x.sample(min_count, random_state=42))
+    df_balanced = df_balanced.reset_index(drop=True)
+
     df = add_split_type_column(df)
-    df.to_csv(SAVE_PATH, index=False)
-    print("Saved to", SAVE_PATH)
+    df_balanced = add_split_type_column(df_balanced)
+
+    df.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}_all{SAVE_PATH.suffix}", index=False)
+    df_balanced.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}_trimmed{SAVE_PATH.suffix}", index=False)
+    print("Saved stratified and non stratified versions to", SAVE_PATH.parent)
     print("done")

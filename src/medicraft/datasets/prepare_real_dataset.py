@@ -44,7 +44,7 @@ if __name__ == "__main__":
     df = add_split_type_column(df)
     df_balanced = add_split_type_column(df_balanced)
 
-    df.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}_all{SAVE_PATH.suffix}", index=False)
-    df_balanced.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}_trimmed{SAVE_PATH.suffix}", index=False)
+    df.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}{SAVE_PATH.suffix}", index=False)
+    df_balanced.to_csv(SAVE_PATH.parent / f"{SAVE_PATH.stem}_stratified{SAVE_PATH.suffix}", index=False)
     print("Saved stratified and non stratified versions to", SAVE_PATH.parent)
     print("done")

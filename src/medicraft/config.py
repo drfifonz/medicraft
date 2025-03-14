@@ -23,7 +23,7 @@ DEV_DEBUG = True
 DEVICE = device("cuda" if cuda.is_available() else "cpu")
 
 WANDB_PRJ_NAME_GENERATE_SAMPLES = "phd-test-medicraft-generation-diffusion"
-WANDB_PRJ_NAME_CLASSIFICATION = "medicraft-classification-tests"
+WANDB_PRJ_NAME_CLASSIFICATION = "phd-medicraft-classification"
 WANDB_PRJ_NAME_TRAIN_GENERATOR = "phd-test-medicraft"
 
 SPOT_CHECKPOINT_DIR = Path(".spot_checkpoint")

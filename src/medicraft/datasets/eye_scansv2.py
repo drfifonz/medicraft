@@ -4,7 +4,8 @@ from pathlib import Path
 import lightning as pl
 import torch
 import torchvision.transforms as T
-from datasets.generated_dataset import GeneratedOCTDataset
+
+from .generated_dataset import GeneratedOCTDataset
 
 
 class EyeScansV2(pl.LightningDataModule):

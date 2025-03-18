@@ -106,12 +106,12 @@ def generate_smote_images(
 
 
 if __name__ == "__main__":
-    SAVE_DATASET_DIR = Path("data/datasets/ophthal_anonym/v2/smote_test")
-    SAVE_CSV_PATH = Path("data/datasets/ophthal_anonym/v2/smote_test.csv")
+    SAVE_DATASET_DIR = Path(".results/datasets/phd/smote_0000")
+    SAVE_CSV_PATH = Path("data/datasets/ophthal_anonym/v2/smote_dataset.csv")
 
     REAL_DATASET_PATH = Path("data/datasets/ophthal_anonym/v2/real_dataset.csv")
 
-    parser = argparse.ArgumentParser(description="Calculate FID between two image datasets")
+    parser = argparse.ArgumentParser(description="Generate SMOTE images for class balancing")
     parser.add_argument("--real_dataset", "-r", type=str, default=REAL_DATASET_PATH)
     parser.add_argument("--batch_size", "-b", type=int, default=32)
     parser.add_argument("--num_workers", "-w", type=int, default=4)

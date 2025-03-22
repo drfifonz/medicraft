@@ -110,7 +110,7 @@ class Pipeline:
         else:
             results_folder = Path(config.results_dir) / config.diagnosis
         results_folder.mkdir(parents=True, exist_ok=True)
-
+        tracker_experiment_name = f"{config.diagnosis}-{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}"
         trainer = Trainer(  # noqa : F841
             diffusion_model=diffusion,
             folder=self.images_directory,
@@ -130,6 +130,7 @@ class Pipeline:
             calculate_fid=config.calculate_fid,
             num_fid_samples=config.num_fid_samples,
             tracker="wandb",
+            tracker_experiment_name=tracker_experiment_name,
             tracker_kwargs={
                 "tags": [config.diagnosis, "opthal_anonymized"],
                 "project_name": cfg.WANDB_PRJ_NAME_TRAIN_GENERATOR,

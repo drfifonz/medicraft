@@ -90,7 +90,6 @@ class Trainer(DiffusionTrainer):
             tracker_kwargs (dict | None, optional): Additional keyword arguments for the tracker. Defaults to None.
         """
         self.spot_save_every = spot_save_every
-
         self.tracker = None  # TODO try if is it necessary then remove this line
         self.tracker_experiment_name = tracker_experiment_name
         self.checkpoint_path = checkpoint_path

@@ -31,6 +31,9 @@ class TrainGeneratorDTO(LoopObjectDTO):
     results_dir: str
     gradient_accumulate_every: int = 4
 
+    calculate_fid: bool = False
+    num_fid_samples: int = 1000
+
     num_workers: Optional[int] = None
     spot_save_every: Optional[int] = None
     experiment_id: Optional[str] = None

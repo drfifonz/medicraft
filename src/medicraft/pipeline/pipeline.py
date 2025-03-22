@@ -107,6 +107,9 @@ class Pipeline:
         else:
             results_folder = Path(config.results_dir) / config.diagnosis
 
+        print(f"{config.calculate_fid=}")
+        print(f"{config.num_fid_samples=}")
+
         trainer = Trainer(  # noqa : F841
             diffusion_model=diffusion,
             folder=self.images_directory,
@@ -123,7 +126,8 @@ class Pipeline:
             ema_decay=0.995,  # exponential moving average decay
             amp=True,  # turn on mixed precision
             num_samples=9,  # number of samples to save
-            calculate_fid=False,  # calculate FID during sampling
+            calculate_fid=config.calculate_fid,
+            num_fid_samples=config.num_fid_samples,
             tracker="wandb",
             tracker_kwargs={
                 "tags": [config.diagnosis, "opthal_anonymized"],

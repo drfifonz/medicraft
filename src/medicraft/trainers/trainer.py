@@ -329,6 +329,7 @@ class Trainer(DiffusionTrainer):
                         if self.calculate_fid:
                             fid_score = self.fid_scorer.fid_score()
                             accelerator.print(f"fid_score: {fid_score}")
+                            self.tracker.log({"fid_score": fid_score})
                         if self.save_best_and_latest_only:
                             if self.best_fid > fid_score:
                                 self.best_fid = fid_score
@@ -347,6 +348,3 @@ class Trainer(DiffusionTrainer):
 
     def __calculate_fid(self):
         pass
-
-
-s

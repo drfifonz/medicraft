@@ -1,3 +1,4 @@
-__all__ = ["Embeddings"]
+__all__ = ["Embeddings", "FIDCalculator"]
 
 from .embeddings import Embeddings
+from .fid_calculator import FIDCalculator

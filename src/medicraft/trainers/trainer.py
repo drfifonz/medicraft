@@ -344,3 +344,9 @@ class Trainer(DiffusionTrainer):
                     self.tracker.update_step()
 
         accelerator.print("training complete")
+
+    def __calculate_fid(self):
+        pass
+
+
+s

@@ -57,6 +57,7 @@ class Pipeline:
     images_directory: str
     __df: pd.DataFrame
     __image_size: list[int]
+    __experiment_id: str
 
     runned_steps: int = 0
     train_dataset: torch.utils.data.Dataset
@@ -86,7 +87,9 @@ class Pipeline:
         :param image_size: Size of the input images
         :type image_size: list[int]
         """
-        spot_checkpoint_path = SPOT_CHECKPOINT_DIR / config.diagnosis
+        spot_checkpoint_path = SPOT_CHECKPOINT_DIR / self.__experiment_id / config.diagnosis
+        spot_checkpoint_path.mkdir(parents=True, exist_ok=True)
+
         unet_config = models_config.unet
         diffusion_config = models_config.diffusion
 
@@ -102,13 +105,11 @@ class Pipeline:
             convert_image_to="L",
         )
 
-        if config.experiment_id:
-            results_folder = Path(config.results_dir) / config.experiment_id / config.diagnosis
+        if self.__experiment_id:
+            results_folder = Path(config.results_dir) / self.__experiment_id / config.diagnosis
         else:
             results_folder = Path(config.results_dir) / config.diagnosis
-
-        print(f"{config.calculate_fid=}")
-        print(f"{config.num_fid_samples=}")
+        results_folder.mkdir(parents=True, exist_ok=True)
 
         trainer = Trainer(  # noqa : F841
             diffusion_model=diffusion,
@@ -430,6 +431,7 @@ class Pipeline:
         config = read_config_file(config_file)
         self.config = parse_config(config)
         self.__image_size = self.config.get(PipelineBlocks.general.name).image_size
+        self.__experiment_id = self.config.get(PipelineBlocks.general.name).experiment_id
         logging.info("Configuration parsed successfully.")
 
     def __remove_checkpoints(self, path: str | Path = SPOT_CHECKPOINT_DIR) -> None:

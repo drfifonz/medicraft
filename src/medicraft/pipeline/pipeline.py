@@ -392,8 +392,7 @@ class Pipeline:
         data_module.setup()
         logging.info("Data module setup completed successfully.")
         model = self.__get_classifier_model(config, classifier_config)
-        print(f"{self.__wandb_prj_name=}")
-        raise
+
         wandb_logger = WandbLogger(
             project=self.__wandb_prj_name if self.__wandb_prj_name else cfg.WANDB_PRJ_NAME_CLASSIFICATION,
             id=config.logger_experiment_name,

@@ -58,6 +58,7 @@ class Pipeline:
     __df: pd.DataFrame
     __image_size: list[int]
     __experiment_id: str
+    __wandb_prj_name: str | None = None
 
     runned_steps: int = 0
     train_dataset: torch.utils.data.Dataset
@@ -336,7 +337,7 @@ class Pipeline:
         logging.info("Data module setup completed successfully.")
         model = self.__get_classifier_model(config, classifier_config)
         wandb_logger = WandbLogger(
-            project=cfg.WANDB_PRJ_NAME_CLASSIFICATION,
+            project=self.__wandb_prj_name if self.__wandb_prj_name else cfg.WANDB_PRJ_NAME_CLASSIFICATION,
             id=config.logger_experiment_name,
             offline=config.offline,
             save_dir=Path(config.results_dir) / "classification-wandb",
@@ -391,8 +392,10 @@ class Pipeline:
         data_module.setup()
         logging.info("Data module setup completed successfully.")
         model = self.__get_classifier_model(config, classifier_config)
+        print(f"{self.__wandb_prj_name=}")
+        raise
         wandb_logger = WandbLogger(
-            project=cfg.WANDB_PRJ_NAME_CLASSIFICATION,
+            project=self.__wandb_prj_name if self.__wandb_prj_name else cfg.WANDB_PRJ_NAME_CLASSIFICATION,
             id=config.logger_experiment_name,
             offline=config.offline,
             save_dir=Path(config.results_dir) / "classification-wandb",
@@ -433,6 +436,7 @@ class Pipeline:
         self.config = parse_config(config)
         self.__image_size = self.config.get(PipelineBlocks.general.name).image_size
         self.__experiment_id = self.config.get(PipelineBlocks.general.name).experiment_id
+        self.__wandb_prj_name = self.config.get(PipelineBlocks.general.name).wandb_prj_name
         logging.info("Configuration parsed successfully.")
 
     def __remove_checkpoints(self, path: str | Path = SPOT_CHECKPOINT_DIR) -> None:

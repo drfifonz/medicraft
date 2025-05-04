@@ -8,6 +8,7 @@ class GeneralDTO(BaseModel):
     total_steps: int = 0
     image_size: list[int]
     experiment_id: Optional[str] = None
+    wandb_prj_name: Optional[str] = None
 
     spot_checkpointing: bool = False
     models: ModelsDTO

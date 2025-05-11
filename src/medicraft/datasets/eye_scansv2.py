@@ -17,7 +17,6 @@ class EyeScansV2(pl.LightningDataModule):
         num_workers: int = 4,
         transforms: T.Compose = None,
     ) -> None:
-
         super().__init__()
 
         self.train_dataset = None
@@ -77,7 +76,7 @@ class EyeScansV2(pl.LightningDataModule):
         val_dataset = GeneratedOCTDataset(
             csv_file=self.dataset_csv_file,
             transforms=self.transforms,
-            split_type="train",
+            split_type="val",
         )
         test_dataset = GeneratedOCTDataset(
             csv_file=(self.test_dataset_csv_file if self.test_dataset_csv_file else self.dataset_csv_file),

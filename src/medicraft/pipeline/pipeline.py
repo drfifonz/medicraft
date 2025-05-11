@@ -401,6 +401,7 @@ class Pipeline:
             job_type="train",
             tags=config.logger_tags,
             group=config.logger_group,
+            log_model=False,
         )
 
         early_stop_callback = EarlyStopping(monitor="val_loss")

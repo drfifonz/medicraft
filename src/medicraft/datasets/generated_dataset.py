@@ -12,16 +12,14 @@ from torchvision import transforms
 
 
 class GeneratedOCTDataset(Dataset):
-
     def __init__(
         self,
         csv_file: str | Path,
         transforms=None,
         split_type: Literal["train", "val", "test"] | None = None,
     ):
-
         df = pd.read_csv(csv_file)
-        self.df = df[df["split_type"] == "train"] if split_type else pd.read_csv(csv_file)
+        self.df = df[df["split_type"] == split_type] if split_type else pd.read_csv(csv_file)
 
         self.transforms = transforms
 
@@ -42,7 +40,6 @@ class GeneratedOCTDataset(Dataset):
         logging.info(f"Dataset {split_type+' '}loaded")
 
     def __getitem__(self, idx):
-
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
